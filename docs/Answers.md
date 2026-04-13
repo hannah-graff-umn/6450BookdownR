@@ -1,0 +1,664 @@
+# R Answer Key {-}
+
+## Software Lesson 1 Guided Questions {#answers-1}
+
+::: {.yellowbox}
+
+Return to Chapter 1:
+
+- Guided Questions 1-3 (\@ref(g11))
+- Guided Questions 4-6 (\@ref(g12))
+- Guided Questions 7-8 (\@ref(g13))
+- Guided Questions 9-10 (\@ref(g14))
+- Challenge Questions (\@ref(ch1))
+
+:::
+<br>
+
+1. 44 years old
+2. Race is given as an integer <br>
+Aclinic is given as a character <br>
+BMI is given as a number <br>
+3. The data types match for ACLINIC and BMI, as the clinic is a factor variable and bmi should be a number.  However, race should be a character variable, not an integer. Since the different races are categorized by the numbers 1-5, R reads them as integers, not classifications.
+4. Min = 2 <br> Q1 = 20 <br> Med = 30 <br> Q3 = 40 <br> Max = 120 <br> Mean = 31.27
+5. Weight change (wgtchg02) and Salivary cotinine (COT4) have missing values.
+6. No, because the races are categories, not numbers.
+7. The category 1 represents those who have never been married, and there are 288 such participants.
+8. Married, Divorced, Never Been Married, Widowed, Single
+9. Mean: 48.47 years <br> Median: 49 years <br> Std. Dev: 6.83 years <br> Min: 34 years <br> Max: 67 years
+10. Around 150 participants
+
+#### Challenge Questions 1 {#answers-chal-1}
+
+11. `prop.table(counts)`
+12. 
+
+
+``` r
+barplot(counts, main="Barplot of LHS Marital Status", ylab = "Number",
+        names.arg=c("Never","M","W","S","D"), col = "blue")
+```
+
+13. One possible answer for this is:
+
+
+``` r
+hist(lhs$age, main="Histogram of LHS Ages",
+     xlab="Ages", breaks = 10, col = "orange")
+```
+
+
+
+
+
+
+## Software Lesson 2 Guided Questions {#answers-2}
+
+::: {.yellowbox}
+
+Return to Chapter 2:
+
+- Guided Questions 1-2 (\@ref(g21))
+- Guided Questions 3-5 (\@ref(g22))
+- Challenge Questions (\@ref(ch2))
+
+:::
+<br>
+
+1. 0.045
+2. 0.744
+3. 0.022
+4. 0.030
+5. Because we want to subtract those less than 1, not including 1
+
+#### Challenge Questions 2 {#answers-chal-2}
+
+6. Two ways to find this are:
+
+``` r
+1 - pnorm(45, mean = 50, sd = 10)
+1 - pnorm(-0.5)
+```
+
+7. 0.745
+8. 0.9999693
+9. 0.9999969
+
+
+
+
+
+
+## Software Lesson 3 Guided Questions {#answers-3}
+
+::: {.yellowbox}
+
+Return to Chapter 3:
+
+- Guided Questions 1-3 (\@ref(g31))
+- Challenge Questions (\@ref(ch3))
+
+:::
+<br>
+
+1. 0.01054
+2. 1.959964
+3. Manual calculation result (Wald method): (0.00787, 0.01322)
+
+`prop.test()` function result (Wilson method): (0.00810, 0.01367)
+
+#### Challenge Questions 3 {#answers-chal-3}
+
+4. Manual calculation result (Wald method): (0.15806, 0.17766)
+
+`prop.test()` function result (Wilson method): (0.15820, 0.17798)
+
+
+
+
+
+
+## Software Lesson 4 Guided Questions {#answers-4}
+
+::: {.yellowbox}
+
+Return to Chapter 4:
+
+- Guided Questions 1-3 (\@ref(g41))
+- Challenge Questions (\@ref(ch4))
+
+:::
+<br>
+
+1. The average weight change is 3.71064 kg, with a standard error of 0.09035.
+2. 5468 degrees of freedom
+3. (3.53, 3.89)
+
+#### Challenge Questions 4 {#answers-chal-4}
+
+4. (13.54004, 14.31612)
+
+
+
+
+
+
+
+## Software Lesson 5 Guided Questions {#answers-5}
+
+::: {.yellowbox}
+
+Return to Chapter 5:
+
+- Guided Questions 1-3 (\@ref(g51))
+- Guided Questions 4-8 (\@ref(g52))
+- Guided Questions 9-11 (\@ref(g53))
+- Challenge Questions (\@ref(ch5))
+
+:::
+<br>
+
+1. 3.7106 kg
+2. The test statistic is $t = 41.068$ with 5468 degrees of freedom.
+3. $2.2 \times 10^{-16},$ which is the smallest value R will show.
+4. The mean difference is 212.97. Since the result was negative, the salivary cotinine level was higher at baseline on average.
+5. No they do not.  They are the default arguments in R.
+6. (202.19, 223.76)
+7. The test statistic is $t = -38.73$, with 2545 degrees of freedom and a *p*-value of $p < 2.2 \times 10^{-16}$. 
+8. We have already taken the differences between the two visits, so they have already been paired, and now we only have one measurement.
+9. There are quotes placed around the labels because they are characters.
+10. You would need six breaks for five categories.
+11. "pipe1"
+
+#### Challenge Questions 5 {#answers-chal-5}
+
+12. Using a one-sided t-test, we have  a test statistic of $t= 32.854$, with a *p*-value of  $p = 2.2\times 10^{-16}$.
+13. One way to code this is 
+
+``` r
+lhs$wgt.fxn<-cut(lhs$wgtchg01,
+       breaks=c(-30, -.0001, .0001, 35),
+      labels=c("lost wt","no change", "gained wt"))
+```
+
+
+
+
+
+
+## Software Lesson 6 Guided Questions {#answers-6}
+
+::: {.yellowbox}
+
+Return to Chapter 6:
+
+- Guided Questions 1-3 (\@ref(g61))
+- Guided Question 4 (\@ref(g62))
+- Guided Questions 5-6 (\@ref(g63))
+- Guided Question 7 (\@ref(g64))
+- Challenge Questions (\@ref(ch6))
+
+:::
+<br>
+
+1. The difference in mean CO values at baseline is 3.64, where males had the higher baseline mean.
+2. (-5.24, -2.04)
+3. The test statistic is $t = -4.4595$ with  847.97 degrees of freedom and a *p*-value of $p = 9.32\times 10^{-6}$.
+4. The test statistic is $W = 717030$ with a *p*-value of $p= 0.08908$.
+5. The median age is 49 in each group.  The means are 48.41 in the SI-A group, 48.56 in the SI-P group, and 48.44 in the UC group.  The SDs are 6.84 in the SI-A group, 6.83 in the SI-P group, and 6.8 in the UC group.
+6. Based on the statistics and boxplots, the groups have almost the same mean and shape, but the UC group has a smaller maximum. The histograms look almost the same for all three groups.
+7. The value in the first row is 2.3026.
+
+#### Challenge Questions 6 {#answers-chal-6}
+
+8. One way of coding this is
+
+``` r
+lhs$cigdiff <- lhs$AV5CIGS - lhs$f10cigs
+```
+
+9. One way of computing these statistics is
+
+``` r
+describeBy(lhs$cigdiff, lhs$AGENDER)
+```
+
+10. A histogram can be created using the following code:
+
+``` r
+histogram(~lhs$cigdiff | lhs$AGENDER,
+          xlab="Cigarette Difference", main="Histograms of Cig Difference by \n Sex")
+```
+
+A boxplot can be created using the following code:
+
+``` r
+boxplot(lhs$cigdiff~lhs$AGENDER, main="Boxplot of Cig Differences by \n Sex", xlab = "Sex", ylab = "Cigarette Differences")
+```
+
+11. The appropriate method here is a two-sample t-test, which can be found using the following:
+
+``` r
+t.test(lhs$cigdiff~lhs$AGENDER, conf.level=0.95,
+       mu=0, alternative="two.sided")
+```
+
+
+
+
+
+
+## Software Lesson 7 Guided Questions {#answers-7}
+
+::: {.yellowbox}
+
+Return to Chapter 7:
+
+- Guided Question 1 (\@ref(g71))
+- Guided Questions 2-3 (\@ref(g72))
+- Challenge Questions (\@ref(ch7))
+
+:::
+<br>
+
+1. The sample size is $n = 100$ individuals per group.
+2. The power is 0.692.
+3. The power is 0.364.
+
+#### Challenge Questions 7 {#answers-chal-7}
+
+4. Three choices of effect sizes and their corresponding sample sizes are: 
+<br>1. $d = 0.1, N = 1571$ 
+<br>2. $d = 0.6, N = 45$
+<br>3. $d = 1.2, N = 12$
+5. Three choices of power and their corresponding sample sizes are: 
+<br>1. $pwr = 0.7, N = 79$ 
+<br>2. $pwr = 0.85, N = 114$
+<br>3. $pwr = 0.95, N = 164$
+6. Three choices of significance levels and their corresponding sample sizes are: 
+<br>1. $\alpha = 0.1, N = 78$ 
+<br>2. $\alpha = 0.05, N = 100$
+<br>3. $\alpha = 0.01, N = 148$
+7. Three choices of sample sizes and their corresponding powers are: 
+<br>1. $N = 10$ has a power of 0.135 
+<br>2. $N = 50$ has a power of 0.508
+<br>3. $N = 134$ has a power of 0.904
+8. Three choices of effect sizes and their corresponding powers are: 
+<br>1. $d = 0.1$ has a power of 0.073 
+<br>2. $d = 0.6$ has a power of 0.755
+<br>3. $d = 1.2$ has a power of 1
+9. Three choices of significance level and their corresponding powers are: 
+<br>1. $\alpha = 0.1$ has a power of 0.55 
+<br>2. $\alpha = 0.05$ has a power of 0.424
+<br>3. $\alpha = 0.01$ has a power of 0.205
+
+
+
+
+## Software Lesson 8 Guided Questions {#answers-8}
+
+
+
+## Software Lesson 9 Guided Questions {#answers-9}
+
+::: {.yellowbox}
+
+Return to Chapter 9:
+
+- Guided Question 1 (\@ref(g91))
+- Guided Questions 2-4 (\@ref(g92))
+- Challenge Questions (\@ref(ch9))
+
+:::
+<br>
+
+1. The *F*-statistic is $F = 32.94$ with 2 and 5466 degrees of freedom and a *p*-value of $p = 6.02 \times 10^{-15}$.
+2. The difference is -1.5378 (UC - SI-A), where SI-A has the higher average weight change than UC.
+3. The confidence interval is (-2.054, -1.022) with a *p*- value of 0.0000000 (Note: *p*-values can't be 0, so seeing a value like this just means it's a **really** small value.)
+4. The *p*-value is $p = 4.8 \times 10^{-12}$.
+
+#### Challenge Questions 9 {#answers-chal-9}
+
+5. One way of coding this is
+
+``` r
+lhs$cigdiff <- lhs$AV5CIGS - lhs$f10cigs
+```
+
+6. One way of computing these statistics is
+
+``` r
+library(psych)
+describeBy(lhs$cigdiff, lhs$alphagroup)
+```
+
+7. A histogram can be created using the following code:
+
+``` r
+histogram(~lhs$cigdiff | lhs$alphagroup,
+          xlab="Cigarette Difference", main="Histograms of Cig Difference by \n Treatment Group")
+```
+
+A boxplot can be created using the following code:
+
+``` r
+boxplot(lhs$cigdiff~lhs$alphagroup, main="Boxplot of LHS Cig Differences by \n Treatment Group", xlab = "Group", ylab = "Cigarette Differences")
+```
+
+8. We would use an ANOVA to answer this research question:
+
+``` r
+diff.ANOVA<-aov(lhs$cigdiff~lhs$alphagroup)
+summary(diff.ANOVA)
+```
+Post-hoc analysis can be done using one of the following methods:
+
+``` r
+TukeyHSD(diff.ANOVA)
+pairwise.t.test(lhs$cigdiff, lhs$alphagroup, p.adj = "bonferroni")
+```
+
+
+
+
+
+
+## Software Lesson 10 Guided Questions {#answers-10}
+
+::: {.yellowbox}
+
+Return to Chapter 10:
+
+- Guided Questions 1-3 (\@ref(g101))
+- Guided Questions 4-6 (\@ref(g102))
+- Challenge Questions (\@ref(ch10))
+
+:::
+<br>
+
+1. The risk difference is 0.027, with a confidence interval of (0.006, 0.048).
+2. The relative risk is 1.171, with a confidence interval of (1.041, 1.318).
+3. The odds ratio is 1.21, with a confidence interval of (1.049, 1.396).
+4. We have 7 Asian participants in this group, which is 0.0012 of the total.
+5. 0.0388 of the SI-A group were Black.
+6. 0.7143 of Native Americans were in the UC group.
+
+#### Challenge Questions 10 {#answers-chal-10}
+
+7. The new variable can be created using the following:
+
+``` r
+lhs$wgt5.c<-cut(lhs$wgtchg05,
+                 breaks=c(-100, -.0001, 100),
+                 labels=c("lost wt","gained wt"))
+```
+
+Now we can look at the values in a table, and then put them in the proper order using the following:
+
+``` r
+table(lhs$AGENDER, lhs$wgt5.c)
+
+mytable1<-matrix(
+  c(518,1530,995,2426),
+  nrow=2, 
+  ncol=2, 
+  byrow=TRUE, 
+  dimnames=list(c("Female", "Male"),
+                c("Lost Weight", "Gained Weight")))
+```
+
+One possible graphical summary is given by
+
+
+``` r
+barplot(mytable1, main="Barplot of Weight Change by Gender",
+        xlab="Weight Change Group",
+        col=c("darkblue","green"))
+
+legend(x=0.2,y=3000,legend=rownames(mytable1),
+      fill=c("darkblue","green"), 
+      cex=0.5)
+```
+
+Then we can find estimates for RR, RD, and OR using
+
+``` r
+summary(epi2x2(mytable1))
+```
+
+8. First we need to create the table, then calculate the statistics:
+
+``` r
+mytable2<-matrix(
+  c(111,2110,189,2034), 
+  nrow=2, 
+  ncol=2, 
+  byrow=TRUE, 
+  dimnames=list(c("Trt", "Placebo"),
+                c("Fatal HA", "No Fatal HA")))
+
+summary(epi2x2(mytable2))
+```
+
+
+
+
+## Software Lesson 11 Guided Questions {#answers-11}
+
+::: {.yellowbox}
+
+Return to Chapter 11:
+
+- Guided Questions 1-4 (\@ref(g111))
+- Guided Question 5 (\@ref(g112))
+- Challenge Questions (\@ref(ch11))
+
+:::
+<br>
+
+1. 387 females
+2. The test statistic is $\chi^2 = 6.8252$, with one degree of freedom, and a *p*-value of $p = 0.008988$.
+3. 351.6661 females
+4. $p = 0.00964$
+5. The test statistic is $\chi^2 = 6.5455$ with one degree of freedom and a *p*-value of $p = 0.0105$.
+
+#### Challenge Questions 11 {#answers-chal-11}
+
+6. First, we can create our table with the following:
+
+``` r
+newtable <- table(lhs$f31pipe, lhs$alphagroup)
+rownames(newtable) <- c("Pipe Smoker", "Not Pipe Smoker")
+```
+
+Now, we create a plot:
+
+``` r
+barplot(newtable, beside=TRUE,
+        main="Barplot of Pipe Smoking at Baseline by Intervention Group",
+        xlab="Intervention Group",
+        col=c("darkblue","red"))
+legend(x=6.25,y=1500,legend=rownames(newtable),
+       fill=c("darkblue","red"),
+       cex=0.5)
+```
+
+One possibility here is to use the chi-squared test:
+
+``` r
+newchi.test<-chisq.test(newtable, correct=FALSE)
+newchi.test
+```
+
+7. First, we can view our variables and then create  with the following:
+
+``` r
+table(lhs$A5CIGAR, lhs$BLCIGAR)
+
+mytable<-matrix(
+  c(43,69, 214,5228), 
+  nrow=2, 
+  ncol=2,
+  byrow=TRUE, 
+  dimnames=list(c("Smoked Cigar 5th", "No Cigar 5th"),
+                c("Cigar at BL", "No Cigar at BL")))
+```
+
+Then we can run a McNemar's test:
+
+
+``` r
+mcnemar.test(mytable)
+```
+
+
+
+
+
+
+## Software Lesson 12 Guided Questions {#answers-12}
+
+::: {.yellowbox}
+
+Return to Chapter 12:
+
+- Guided Question 1 (\@ref(g121))
+- Guided Questions 2-3 (\@ref(g122))
+- Challenge Questions (\@ref(ch12))
+
+:::
+<br>
+
+1. $r = -0.0378$
+2. The intercept is 65.5043, and the slope is -0.0180.
+3. The $R^2$ value is 0.001432.
+
+#### Challenge Questions 12 {#answers-chal-12}
+
+4. The following can be used to find the correlation, create the model, and create a scatterplot for the model:
+
+
+``` r
+cor(lhs$DRINKSBL,lhs$f10cigs, use = "complete.obs")
+
+model3 <- lm(lhs$f10cigs~lhs$DRINKSBL)
+summary(model3)
+
+plot(lhs$DRINKSBL, lhs$f10cigs, 
+     xlab="Drinks at Baseline", 
+     ylab="Cigarettes per day", 
+     main= "Cigarettes at Baseline vs Drinks at Baseline")
+abline(model3)
+```
+
+5. The following can be used to find the correlation, create the model, and create a scatterplot for the model:
+
+
+``` r
+cor(lhs.f1$FEVFVC02,lhs.f1$f10cigs, use = "complete.obs")
+
+model2 <- lm(lhs.f1$FEVFVC02~lhs.f1$f10cigs)
+summary(model2)
+
+plot(lhs.f1$f10cigs, lhs.f1$FEVFVC02, 
+     xlab="Cigarettes per day", 
+     ylab="FEV/FVC%", 
+     main= "FEV/FVC% vs. Cigarettes at Baseline for Females")
+abline(model2)
+```
+
+6. The following will create a scatter plot using purple triangle shapes, and fits a regression line:
+
+
+``` r
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(lhs, aes(x=f10cigs, y=FEVFVC02)) + 
+    geom_point(size = 4, shape = 6, color = "purple") + geom_smooth(method=lm)
+```
+
+
+
+
+
+
+
+## Software Lesson 13 Guided Questions {#answers-13}
+
+::: {.yellowbox}
+
+Return to Chapter 13:
+
+- Guided Questions 1-2 (\@ref(g131))
+- Challenge Questions (\@ref(ch13))
+
+:::
+<br>
+
+1. The test statistic is $t = -2.905$, with a *p*-value of $p = 0.00369$.
+2. (-0.0301, -0.0058)
+
+#### Challenge Questions 13 {#answers-chal-13}
+
+3. The following will give estimates and confidence intervals for the model coefficients, as well as diagnostic plots: 
+
+
+``` r
+model2 <- lm(lhs$f10cigs~lhs$DRINKSBL)
+summary(model2)
+confint(model2, level=0.95)
+autoplot(model2)
+```
+
+
+
+
+
+## Software Lesson 14 Guided Questions {#answers-14}
+
+::: {.yellowbox}
+
+Return to Chapter 14:
+
+- Guided Questions 1-3 (\@ref(g141))
+- Guided Questions 4-6 (\@ref(g142))
+- Challenge Questions (\@ref(ch14))
+
+:::
+<br>
+
+1. Red and black.
+2. A filled-in circle.
+3. Males have the highest number of cigarettes, as more of the blue dots are on the right side of the graph.  They also have the lowest FEV1/FVC$\%$ at baseline.
+4. The intercept is 65.83078, the coefficient for f10cigs is -0.01388, the coefficient for AGENDERM is -0.84248, and the coefficient for DRINKSBL is 0.01740.
+5. The test statistic is $t = -2.225$, with a *p*-value of $p = 0.0261$.
+6. (-1.1699, -.5151)
+
+#### Challenge Questions 14 {#answers-chal-14}
+
+7. One way this can be done is with the following:
+
+``` r
+lhs$trtgroup <- ifelse(lhs$alphagroup == "UC", "control", "intervention")
+```
+
+8. This can be done using the following:
+
+
+``` r
+plot(x=lhs$AGESTART, y=lhs$AV2CIGS,
+     col=c("darkorange", "mediumturquoise")[factor(lhs$trtgroup)],
+     pch=16,
+     ylab="Number of cigarettes at 2nd Visit (per day)",
+     xlab="Age started smoking")
+
+legend("bottomright", legend=levels(factor(lhs$trtgroup)), fill=c("darkorange", "mediumturquoise"), title = "Treatment")
+```
+
+9. This can be done using the following:
+
+``` r
+model3<-lm(AV2CIGS ~  factor(trtgroup) + AGESTART, data=lhs)
+summary(model3)
+confint(model3, level=0.95)
+```

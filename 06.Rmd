@@ -1,0 +1,326 @@
+# Inferential Methods for Comparing Means &  More Summarizing Numerical Data in R
+
+## Goal of Software Lesson 6
+
+::: {.graybox}
+
+The goal of this software lesson is to learn how to
+
+* obtain inferential results (e.g., CIs and <i>p</i>-values) for comparing two means: two-sample <i>t</i>-test and Mann-Whitney test/Wilcoxon rank-sum test.
+* summarize a numerical variable by group (descriptively and graphically), and
+* transform a numerical variable in a data set.
+
+:::
+<br>
+
+Let's use the Lung Health Study (LHS) data set again. 
+
+Recall that the data set and a description of data can be found on Canvas, titled *lhs.csv* and *lhsdoc.docx*, respectively.
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs<-read.csv(file = file.choose(), header = TRUE)
+```
+
+## Two-sample *t*-test
+
+Suppose that the LHS researchers wanted to investigate whether there was a difference in expired carbon monoxide (CO) level at baseline (`CO0`) between the male and female smokers (`AGENDER`). Because there are two separate, independent groups and you want to compare them on a numerical variable, this would be a situation for carrying out a two-sample *t*-test.
+
+The following would be their research question: 
+
+<center>
+<i>Is there a difference in the population mean CO level at baseline between the male and female smokers?</i>
+</center>
+<br>
+
+
+To answer the research question, you would compute a confidence interval to estimate the difference in the population means between males and females and also carry out a hypothesis test for a difference in two population means. Both of these can be calculated by using the `t.test()` function (provided that the assumptions for the two-sample <i>t</i>-test are valid for the situation). 
+
+- To carry out a hypothesis test for comparing two means (two independent groups), use the `t.test()` function, specifying the numerical variable first, followed by the `~` symbol (NOT the `,` symbol), and then the grouping variable, as well as all of the other potential arguments of the function, as deemed necessary (e.g., `conf.level=`, `mu=`, `alternative=`, `var.equal=FALSE` for unequal variance):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+t.test(lhs$CO0~lhs$AGENDER, conf.level=0.95, 
+       mu=0, alternative="two.sided", var.equal=FALSE)
+```
+
+The output for the two-sample *t*-test will look very similar to the output when you used `t.test()` to obtain inferential results for a single mean or mean difference.
+
+Also notice that all of the usual arguments that you learned in a previous lesson also apply here (e.g., `conf.level=`, `mu=`, `alternative=`). The new argument, `var.equal=`, is, by default, set as `var.equal=FALSE`, or unequal variance assumption. 
+
+<br>
+
+::: {.bluebox}
+**TWO-SAMPLE T-TEST**
+
+<b>Purpose:</b> To make an inference (CI or hypothesis testing) about the difference in population means between two groups.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on carrying out a hypothesis test for comparing two means, see: 
+
+* <a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual12.html#headingtaglink_4">The Independent Samples T-Test to Compare Two Means [BU-SPH].</a>
+* <a href="https://www.youtube.com/watch?v=RlhnNbPZC0A">Two-Sample T-Test in R: Independent Groups [MarinStatsLectures (youtube video)].</a>
+* <a href="http://www.sthda.com/english/wiki/unpaired-two-samples-t-test-in-r">Unpaired Two-Samples T-Test in R [STHDA].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g61}
+
+##### Question 1
+What is the difference in the two mean CO values at baseline between male and female smokers? Which group had the higher CO baseline mean?
+
+##### Question 2
+What is the $95\%$ confidence interval for the difference in the two population mean CO values at baseline between male and female smokers?
+
+##### Question 3
+What is the test statistic and the degrees of freedom from the two-sample *t*-test? What is the resulting *p*-value from that test?
+
+::: {.graybox}
+
+See \@ref(answers-6) for answers
+
+:::
+
+## Mann-Whitney test (aka Wilcoxon Rank-Sum test)
+
+Now suppose that the normality assumption was not met for carrying out a two-sample *t*-test. When this happens, you can use a nonparametric method that doesn't assume normality: the Mann-Whitney test, also known as the Wilcoxon Rank-Sum test. 
+
+For the LHS study, suppose that the researchers were interested in whether there was a difference in salivary cotinine level at the 4th annual visit (`COT4`) between the male and female smokers (`AGENDER`). Also suppose that the conditions were not met to carry out a two-sample *t*-test. The Mann-Whitney test could be to used as an alternative approach for this situation.
+
+Using the Mann-Whitney test, the following would be their research question: 
+<center>
+<i>Is there a difference in the median salivary cotinine levels at the 4th annual visit between the males and females?</i>
+</center>
+<br>
+
+Note: For this situation, the sample size is large enough that you don't have to be concerned about the normality assumption (i.e., the CLT will hold because n is "large enough"). But let's pretend that the normality assumption was an issue and another method was necessary. 
+
+- To carry out Mann-Whitney test for comparing two medians (two independent groups), use the `wilcox.test()` function, specifying the numerical variable first, followed by the `~` symbol (NOT the `,` symbol), and then the grouping variable, as well as all of the other potential arguments of the function, as deemed necessary (e.g., `conf.int=`, `conf.level=`, `mu=`, `alternative=`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+wilcox.test(lhs$COT4~lhs$AGENDER, conf.int=TRUE, conf.level=0.95, alternative="two.sided", mu=0)
+```
+
+The output provides a test statistic and a *p*-value from the test results.
+
+<br>
+
+::: {.bluebox}
+**MANN-WHITNEY TEST**
+
+<b>Purpose:</b> To make an inference (hypothesis testing) about the difference in population medians between two groups. This is the nonparametric version to the two-sample <i>t</i>-test, if the normality condition wasn't met.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on carrying out a Mann-Whitney test, see: 
+
+* <a href="http://www.r-tutor.com/elementary-statistics/non-parametric-methods/mann-whitney-wilcoxon-test">Mann-Whitney-Wilcoxon Test [R Tutorial].</a>
+* <a href="http://www.sthda.com/english/wiki/unpaired-two-samples-wilcoxon-test-in-r">Unpaired Two-Samples Wilcoxon Test in R [STHDA].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g62}
+
+##### Question 4
+What is the test statistic from the Mann-Whitney test? What is the resulting *p*-value from that test?
+
+::: {.graybox}
+
+See \@ref(answers-6) for answers
+
+:::
+
+## Summarizing numerical variables by group
+
+In a previous lab, you learned how to create a graphical displays (e.g., boxplot, histogram) and calculate summary measures (e.g., mean, median, sd) for a *single* numerical variable. However, it may be of interest to compare groups on the numerical variable. This can be done with functions that summarize a variable by group or by multivariate plots (e.g., histograms by group, side-by-side boxplots). 
+
+The two LHS variables that will be the focus in this section are the age variable, `age`, and the intervention group variable, `alphagroup`.
+
+### Summary measures of numerical variable by group
+
+There are two ways to calculate summary measures of a numerical variable by group. The first option is to use the `tapply()` function, which allows you to calculate single measures at a time, and the second option is to use the `describeBy()` function, which calculates multiple summary measures at once.
+
+**Option #1**
+
+- To compute summary measures of a numerical variable by group, use the `tapply()` function, specifying the numerical variable in the first argument (e.g., `lhs$age`), followed by the grouping variable (e.g., `lhs$alphagroup`), and then adding the function of the summary measure that you want computed (e.g., `median`) in the last argument:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+tapply(lhs$age, lhs$alphagroup, median)
+```
+
+Other summary measure functions that may be applied in the last argument of the `tapply()` function include `mean`,`sd`, `IQR`, `max`, and `min`.
+
+::: {.redbox}
+**R TIP**
+
+Recall that the summary measure functions above will return $NA$ for any variable that has missing values. In those situations, you will need to include a <bdi style = "font-family: 'Courier New'"> na.rm=TRUE</bdi> as the last argument in the function (e.g., <bdi style = "font-family: 'Courier New'"> tapply(object\$num.var, object\$grp.var, function, na.rm=TRUE)</bdi>). 
+<br>
+
+For example, the LHS variable for salivary cotinine at 4th annual visit (<bdi style = "font-family: 'Courier New'"> COT4</bdi>) has missing values. To compute the mean for this variable by intervention group, you would type the following code: <bdi style = "font-family: 'Courier New'"> tapply(lhs\$COT4, lhs\$alphagroup, mean, na.rm=TRUE)</bdi>.
+
+:::
+<br>
+
+**Option #2**
+
+- To compute summary measures of a numerical variable by group, use the `describeBy()` function from the `{psych}` package, specifying the numerical variable in the first argument (e.g., `lhs$age`), followed by the grouping variable (e.g., `lhs$alphagroup`) in the last argument [Note: You can also compute IQR and quantiles (e.g., Q1 and Q3) by adding additional (optional) arguments, `IQR=TRUE` and `quant=c(0.25, 0.75)`]:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+###Access the package using the library() function
+library(psych)
+
+###Calculate multiple summary statistics by group using the describeBy() function
+describeBy(lhs$age,lhs$alphagroup, IQR=TRUE, quant=c(.25,.75))
+```
+
+The `describeBy()` function is related to the `describe()` function you learned in a previous lab. It outputs the 12 summary statistics that `describe()` does, plus the three additional ones (`IQR`, Q1 (`Q0.25`), and Q3 (`Q0.75`)), but computes them by group.  
+
+### Graphical displays of numerical variable by group
+
+The two useful graphical displays that are used to compare the distributions of a numerical variable by group are the side-by-side boxplot and multiple histograms by group.
+
+**Side-by-side boxplot**
+
+- To create a side-by-side boxplot of a numerical variable by group, use the `boxplot()` function, specifying the numerical variable first, followed by the `~` sign (NOT the `,` symbol), and then the grouping variable next, and other arguments if you wish to customize the bar plot (e.g., `main=` for the plot title):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+boxplot(lhs$age~lhs$alphagroup, main="Boxplot of LHS Ages by \n Intervention Group")
+```
+
+**Multiple histograms**
+
+- To create histograms of a numerical variable by group, use the `histogram()` function from the `{lattice}` package, specifying the the `~` sign first, followed by the numerical variable and the `|` symbol, and then the grouping variable, and other arguments if you wish to customize the bar plot (e.g., `xlab=` for the x-axis label, `main=` for the plot title):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+#############
+# Run the install.packages() function only once per package
+#############
+install.packages("lattice")
+
+###Access the package using the library() function
+library(lattice)
+
+###Create multiple histograms using the histogram() function
+histogram(~lhs$age | lhs$alphagroup, 
+          xlab="Age", main="Histograms of Age by \n Intervention Group")
+```
+
+::: {.bluebox}
+**SUMMARIZING A NUMERICAL VARIABLE BY GROUP*
+
+<b>Purpose:</b> To compare groups on their distributions of a numerical variable using summary measures and graphical representations.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on summarizing a numerical variable by group, see: 
+
+* <a href="https://www.r-bloggers.com/r-function-of-the-day-tapply-2/">R Function of the Day: tapply [R-bloggers].</a>
+* <a href="http://ducklabs.org/distro_describe.html">Descriptive Stats with describe() and describeBy() [DuckLabs].</a>
+* <a href="http://www.sthda.com/english/wiki/box-plots-r-base-graphs">Box Plots - R Base Graphs[STHDA].</a>
+* <a href="https://www.datamentor.io/r-programming/box-plot/">R Box Plot [Data Mentor].</a>
+* <a href="https://homerhanumat.github.io/tigerstats/histogram.html">Using lattice’s histogram() [tigerstats].</a>
+* <a href="https://www.tutorialgateway.org/lattice-histogram-in-r/">Lattice Histogram in R [Tutorial Getaway].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g63}
+
+##### Question 5
+What are the median ages for the three intervention groups? What about the mean ages? The SD of the ages?
+
+##### Question 6
+Compare and contrast the three distributions of age by intervention group status (e.g., shape, center, spread). Informally, based on your comparison, does it appear that the groups are different from each other? Explain. 
+
+::: {.graybox}
+
+See \@ref(answers-6) for answers
+
+:::
+
+## Transforming a numerical variable
+
+In a previous lab, you created a new variable in a data set of the difference between two variables for each observation. Recall that do this, the beginning of the code looked like `dataset$newvariablename<-`. 
+
+Now, you are going to learn how to transform an existing numerical variable into a new one, using the log-transformation. 
+
+For example, suppose you want to log-transform a skewed variable, such as the LHS variable of average number of cigarettes per day at 5th annual visit (`AV5CIGS`).
+
+- To log-transform a numerical variable in the data set, create a **new** variable in the data set (e.g., `lhs$logAvgCigs.5`), followed by the assignment operator (`<-`), and then use the `log()` function, specifying the variable that you want to take a log of (e.g., `lhs$AV5CIGS`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs$logAvgCigs.5<-log(lhs$AV5CIGS)
+```
+
+Now, when the `head()` function is called, you will see that R attached a new column at the end of the data set (i.e., `logAvgCigs.5`). You can now apply any of the functions you have learned on this new numerical variable (e.g., `summary(lhs$logAvgCigs.5)`, `hist(lhs$logAvgCigs.5)`). 
+
+::: {.redbox}
+**R TIP**
+
+When naming new objects or variables in R, don't use underscores ($\_$) or hyphens ($-$). Also, don't start the names with a number. The preferred format is all lower case letters and words separated with dots (`variable.name`), but `variableName` is also acceptable, as are title case (`VariableName`).
+
+:::
+<br>
+
+
+::: {.bluebox}
+**TRANSFORMING A NUMERICAL VARIABLE*
+
+<b>Purpose:</b> To transform an existing numerical variable into a new one, using the log-transformation.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on transforming a numerical variable in a data set, see: 
+
+* <a href="https://www.statmethods.net/management/variables.html">Creating New Variables [Quick-R].</a>
+* <a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual4.html">Creating New Variables in R [BU].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g64}
+
+##### Question 7
+Use the `head()` function on the `lhs` data set. What is the value in the first row of the log-transformed `AV5CIGS` variable (`logAvgCigs.5`)? 
+
+::: {.graybox}
+
+See \@ref(answers-6) for answers
+
+:::
+
+
+## CHALLENGES {#ch6}
+
+The Challenge this week will force you to review everything you have learned thus far in the software lesson documents. 
+
+Suppose you were interested in whether there was a difference between males and females on change in cigarette use from beginning to end of the study. The following would be your research question: 
+<center>
+<b>Is the a difference in the population mean change in cigarette use (pre to post) between males and females?</b> 
+</center>
+<br>
+
+To start, you will need to create one new variable for the numerical outcome. And then you can use that newly created variable to carry out the appropriate analyses.
+
+##### Question 8
+Create a new variable in the data set that computes the difference between the "pre" cigarette use (`f10cigs`) and "post" cigarette use (`AV5CIGS`). Name this new variable `cigdiff`.
+
+##### Question 9
+Compute summary statistics for the difference in cigarette use (`cigdiff`) by sex (`AGENDER`).
+
+##### Question 10
+Create a histogram for the difference in cigarette use (`cigdiff`) by sex (`AGENDER`). Also create a side-by-side boxplot for the difference in cigarette use (`cigdiff`) by sex (`AGENDER`).
+
+##### Question 11
+Carry out the appropriate inferential method for answering the research question. 
+
+::: {.graybox}
+
+See \@ref(answers-chal-6) for answers
+
+:::

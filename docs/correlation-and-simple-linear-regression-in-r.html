@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Software Lesson 12 Correlation and Simple Linear Regression in R | 6450 Answer Keys - R</title>
+  <meta name="description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Software Lesson 12 Correlation and Simple Linear Regression in R | 6450 Answer Keys - R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="github-repo" content="hannah-graff-umn/6450BookdownR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Software Lesson 12 Correlation and Simple Linear Regression in R | 6450 Answer Keys - R" />
+  
+  <meta name="twitter:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  
+
+
+
+<meta name="date" content="2026-04-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"/>
+<link rel="next" href="correlation-and-simple-linear-regression-in-r-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pubh 6450 Answer Keys - R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Importing &amp; Summarizing Data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1"><i class="fa fa-check"></i><b>1.1</b> Goal of Software Lesson 1</a></li>
+<li class="chapter" data-level="1.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#dataset"><i class="fa fa-check"></i><b>1.2</b> Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#importing-data"><i class="fa fa-check"></i><b>1.3</b> Importing data</a></li>
+<li class="chapter" data-level="1.4" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#examine-the-data"><i class="fa fa-check"></i><b>1.4</b> Examine the data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-the-dataset"><i class="fa fa-check"></i><b>1.4.1</b> View the dataset</a></li>
+<li class="chapter" data-level="1.4.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables"><i class="fa fa-check"></i><b>1.4.2</b> View data types of the variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-names-of-the-variables"><i class="fa fa-check"></i><b>1.4.3</b> View names of the variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g11"><i class="fa fa-check"></i><b>1.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.6" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarizing-the-data"><i class="fa fa-check"></i><b>1.6</b> Summarizing the data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once"><i class="fa fa-check"></i><b>1.6.1</b> Summarize all variables at once</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g12"><i class="fa fa-check"></i><b>1.7</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable"><i class="fa fa-check"></i><b>1.7.1</b> Summarize single categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g13"><i class="fa fa-check"></i><b>1.8</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable"><i class="fa fa-check"></i><b>1.8.1</b> Summarize single continuous variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g14"><i class="fa fa-check"></i><b>1.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.10" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#ch1"><i class="fa fa-check"></i><b>1.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html"><i class="fa fa-check"></i><b>2</b> Normal Binomial in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#goal-of-software-lesson-2"><i class="fa fa-check"></i><b>2.1</b> Goal of Software Lesson 2</a></li>
+<li class="chapter" data-level="2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution"><i class="fa fa-check"></i><b>2.2</b> Computing probabilities using the Normal distribution</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Computing “less than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Computing “greater than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Computing “between” probabilities in a Normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g21"><i class="fa fa-check"></i><b>2.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution"><i class="fa fa-check"></i><b>2.4</b> Computing probabilities using the Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.1</b> Computing “equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Computing “less than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.3</b> Computing “greater than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.4</b> Computing “between” probabilities in a Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g22"><i class="fa fa-check"></i><b>2.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.6" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#ch2"><i class="fa fa-check"></i><b>2.6</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html"><i class="fa fa-check"></i><b>3</b> Confidence Intervals for a Proportion in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#goal-of-software-lesson-3"><i class="fa fa-check"></i><b>3.1</b> Goal of Software Lesson 3</a></li>
+<li class="chapter" data-level="3.2" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#confidence-interval-for-a-proportion"><i class="fa fa-check"></i><b>3.2</b> Confidence interval for a proportion</a></li>
+<li class="chapter" data-level="3.3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#g31"><i class="fa fa-check"></i><b>3.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="3.4" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#ch3"><i class="fa fa-check"></i><b>3.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>4</b> Confidence Intervals for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#goal-of-software-lesson-4"><i class="fa fa-check"></i><b>4.1</b> Goal of Software Lesson 4</a></li>
+<li class="chapter" data-level="4.2" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#confidence-interval-for-a-mean"><i class="fa fa-check"></i><b>4.2</b> Confidence interval for a mean</a></li>
+<li class="chapter" data-level="4.3" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#g41"><i class="fa fa-check"></i><b>4.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="4.4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#ch4"><i class="fa fa-check"></i><b>4.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Test for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5"><i class="fa fa-check"></i><b>5.1</b> Goal of Software Lesson 5</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean"><i class="fa fa-check"></i><b>5.2</b> Hypothesis test for a mean</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g51"><i class="fa fa-check"></i><b>5.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>5.4</b> Paired <em>t</em>-test</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g52"><i class="fa fa-check"></i><b>5.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.6" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable"><i class="fa fa-check"></i><b>5.6</b> Reclassify a variable</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable"><i class="fa fa-check"></i><b>5.6.1</b> Reclassify numerical variable as categorical variable</a></li>
+<li class="chapter" data-level="5.6.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable"><i class="fa fa-check"></i><b>5.6.2</b> Recode categories in a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g53"><i class="fa fa-check"></i><b>5.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.8" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#ch5"><i class="fa fa-check"></i><b>5.8</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Inferential Methods for Comparing Means &amp; More Summarizing Numerical Data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#goal-of-software-lesson-6"><i class="fa fa-check"></i><b>6.1</b> Goal of Software Lesson 6</a></li>
+<li class="chapter" data-level="6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#two-sample-t-test"><i class="fa fa-check"></i><b>6.2</b> Two-sample <em>t</em>-test</a></li>
+<li class="chapter" data-level="6.3" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61"><i class="fa fa-check"></i><b>6.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.4" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#mann-whitney-test-aka-wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>6.4</b> Mann-Whitney test (aka Wilcoxon Rank-Sum test)</a></li>
+<li class="chapter" data-level="6.5" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62"><i class="fa fa-check"></i><b>6.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summarizing-numerical-variables-by-group"><i class="fa fa-check"></i><b>6.6</b> Summarizing numerical variables by group</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summary-measures-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.1</b> Summary measures of numerical variable by group</a></li>
+<li class="chapter" data-level="6.6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#graphical-displays-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.2</b> Graphical displays of numerical variable by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63"><i class="fa fa-check"></i><b>6.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.8" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#transforming-a-numerical-variable"><i class="fa fa-check"></i><b>6.8</b> Transforming a numerical variable</a></li>
+<li class="chapter" data-level="6.9" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64"><i class="fa fa-check"></i><b>6.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.10" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6"><i class="fa fa-check"></i><b>6.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html"><i class="fa fa-check"></i><b>7</b> Power &amp; Sample Size Estimation in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#goal-of-software-lesson-7"><i class="fa fa-check"></i><b>7.1</b> Goal of Software Lesson 7</a></li>
+<li class="chapter" data-level="7.2" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-and-sample-size-calculations"><i class="fa fa-check"></i><b>7.2</b> Power and Sample Size Calculations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#sample-size-estimation"><i class="fa fa-check"></i><b>7.2.1</b> Sample size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g71"><i class="fa fa-check"></i><b>7.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g72"><i class="fa fa-check"></i><b>7.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="7.5" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#ch7"><i class="fa fa-check"></i><b>7.5</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="project-1-in-r.html"><a href="project-1-in-r.html"><i class="fa fa-check"></i><b>8</b> Project 1 in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="project-1-in-r.html"><a href="project-1-in-r.html#goal-of-software-lesson-8"><i class="fa fa-check"></i><b>8.1</b> Goal of Software Lesson 8</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova-in-r.html"><a href="anova-in-r.html"><i class="fa fa-check"></i><b>9</b> ANOVA in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova-in-r.html"><a href="anova-in-r.html#goal-of-software-lesson-9"><i class="fa fa-check"></i><b>9.1</b> Goal of Software Lesson 9</a></li>
+<li class="chapter" data-level="9.2" data-path="anova-in-r.html"><a href="anova-in-r.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9.3" data-path="anova-in-r.html"><a href="anova-in-r.html#g91"><i class="fa fa-check"></i><b>9.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.4" data-path="anova-in-r.html"><a href="anova-in-r.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova-in-r.html"><a href="anova-in-r.html#bonferroni"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova-in-r.html"><a href="anova-in-r.html#g92"><i class="fa fa-check"></i><b>9.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-in-r.html"><a href="anova-in-r.html#ch9"><i class="fa fa-check"></i><b>9.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10"><i class="fa fa-check"></i><b>10.1</b> Goal of Software Lesson 10</a></li>
+<li class="chapter" data-level="10.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables"><i class="fa fa-check"></i><b>10.2</b> Comparing two categorical variables</a></li>
+<li class="chapter" data-level="10.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables"><i class="fa fa-check"></i><b>10.3</b> Summarizing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables"><i class="fa fa-check"></i><b>10.3.1</b> 2x2 tables</a></li>
+<li class="chapter" data-level="10.3.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group"><i class="fa fa-check"></i><b>10.3.2</b> Graphical displays of a categorical variable by group</a></li>
+<li class="chapter" data-level="10.3.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio"><i class="fa fa-check"></i><b>10.3.3</b> Risk difference, relative risk, and odds ratio</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101"><i class="fa fa-check"></i><b>10.4</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels"><i class="fa fa-check"></i><b>10.4.1</b> Modifying categorical labels</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102"><i class="fa fa-check"></i><b>10.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="10.6" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10"><i class="fa fa-check"></i><b>10.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><i class="fa fa-check"></i><b>11</b> Chi-Square Test, Fisher’s Exact Test, and McNemar’s Test in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#goal-of-software-lesson-11"><i class="fa fa-check"></i><b>11.1</b> Goal of Software Lesson 11</a></li>
+<li class="chapter" data-level="11.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#hypothesis-test-comparing-two-categorical-variables"><i class="fa fa-check"></i><b>11.2</b> Hypothesis test comparing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#chi-square-test"><i class="fa fa-check"></i><b>11.2.1</b> Chi-square test</a></li>
+<li class="chapter" data-level="11.2.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#fishers-exact-test"><i class="fa fa-check"></i><b>11.2.2</b> Fisher’s exact test</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111"><i class="fa fa-check"></i><b>11.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.4" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#mcnemars-test-for-paired-data"><i class="fa fa-check"></i><b>11.4</b> McNemar’s test for paired data</a></li>
+<li class="chapter" data-level="11.5" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112"><i class="fa fa-check"></i><b>11.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.6" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11"><i class="fa fa-check"></i><b>11.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>12</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12"><i class="fa fa-check"></i><b>12.1</b> Goal of Software Lesson 12</a></li>
+<li class="chapter" data-level="12.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables"><i class="fa fa-check"></i><b>12.2</b> Relationship between two numerical variables</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#scatterplot"><i class="fa fa-check"></i><b>12.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="12.2.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#correlation"><i class="fa fa-check"></i><b>12.2.2</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g121"><i class="fa fa-check"></i><b>12.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.3.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="12.3.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit"><i class="fa fa-check"></i><b>12.3.2</b> Draw line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g122"><i class="fa fa-check"></i><b>12.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="12.5" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set"><i class="fa fa-check"></i><b>12.5</b> Subsetting a data set</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-1"><i class="fa fa-check"></i><b>12.5.1</b> Option #1</a></li>
+<li class="chapter" data-level="12.5.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-2"><i class="fa fa-check"></i><b>12.5.2</b> Option #2</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#ch12"><i class="fa fa-check"></i><b>12.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html"><i class="fa fa-check"></i><b>13</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#goal-of-software-lesson-13"><i class="fa fa-check"></i><b>13.1</b> Goal of Software Lesson 13</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#inference-for-simple-linear-regression"><i class="fa fa-check"></i><b>13.1.1</b> Inference for Simple Linear Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#p-values-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.2</b> <em>p</em>-values for regression coefficients</a></li>
+<li class="chapter" data-level="13.1.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#confidence-intervals-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.3</b> Confidence intervals for regression coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#g131"><i class="fa fa-check"></i><b>13.2</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="13.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#model-diagnostics"><i class="fa fa-check"></i><b>13.3</b> Model diagnostics</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#diagnostic-plots"><i class="fa fa-check"></i><b>13.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#ch13"><i class="fa fa-check"></i><b>13.4</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>14</b> Multiple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#goal-of-software-lesson-14"><i class="fa fa-check"></i><b>14.1</b> Goal of Software Lesson 14</a></li>
+<li class="chapter" data-level="14.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>14.2</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.1</b> Scatterplot with a categorical variable</a></li>
+<li class="chapter" data-level="14.2.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#add-best-fit-lines-to-scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.2</b> Add best-fit lines to scatterplot with a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g141"><i class="fa fa-check"></i><b>14.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.4" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression-model"><i class="fa fa-check"></i><b>14.4</b> Multiple linear regression model</a></li>
+<li class="chapter" data-level="14.5" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g142"><i class="fa fa-check"></i><b>14.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.6" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>14.6</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="14.7" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#ch14"><i class="fa fa-check"></i><b>14.7</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-answer-key.html"><a href="r-answer-key.html"><i class="fa fa-check"></i>R Answer Key</a>
+<ul>
+<li class="chapter" data-level="14.8" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-1"><i class="fa fa-check"></i><b>14.8</b> Software Lesson 1 Guided Questions</a></li>
+<li class="chapter" data-level="14.9" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-2"><i class="fa fa-check"></i><b>14.9</b> Software Lesson 2 Guided Questions</a></li>
+<li class="chapter" data-level="14.10" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-3"><i class="fa fa-check"></i><b>14.10</b> Software Lesson 3 Guided Questions</a></li>
+<li class="chapter" data-level="14.11" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-4"><i class="fa fa-check"></i><b>14.11</b> Software Lesson 4 Guided Questions</a></li>
+<li class="chapter" data-level="14.12" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-5"><i class="fa fa-check"></i><b>14.12</b> Software Lesson 5 Guided Questions</a></li>
+<li class="chapter" data-level="14.13" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-6"><i class="fa fa-check"></i><b>14.13</b> Software Lesson 6 Guided Questions</a></li>
+<li class="chapter" data-level="14.14" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-7"><i class="fa fa-check"></i><b>14.14</b> Software Lesson 7 Guided Questions</a></li>
+<li class="chapter" data-level="14.15" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-8"><i class="fa fa-check"></i><b>14.15</b> Software Lesson 8 Guided Questions</a></li>
+<li class="chapter" data-level="14.16" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-9"><i class="fa fa-check"></i><b>14.16</b> Software Lesson 9 Guided Questions</a></li>
+<li class="chapter" data-level="14.17" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-10"><i class="fa fa-check"></i><b>14.17</b> Software Lesson 10 Guided Questions</a></li>
+<li class="chapter" data-level="14.18" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-11"><i class="fa fa-check"></i><b>14.18</b> Software Lesson 11 Guided Questions</a></li>
+<li class="chapter" data-level="14.19" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-12"><i class="fa fa-check"></i><b>14.19</b> Software Lesson 12 Guided Questions</a></li>
+<li class="chapter" data-level="14.20" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-13"><i class="fa fa-check"></i><b>14.20</b> Software Lesson 13 Guided Questions</a></li>
+<li class="chapter" data-level="14.21" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-14"><i class="fa fa-check"></i><b>14.21</b> Software Lesson 14 Guided Questions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">6450 Answer Keys - R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="correlation-and-simple-linear-regression-in-r" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Software Lesson 12</span> Correlation and Simple Linear Regression in R<a href="correlation-and-simple-linear-regression-in-r.html#correlation-and-simple-linear-regression-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goal-of-software-lesson-12" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Goal of Software Lesson 12<a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="graybox">
+<p>The goal of this software lesson is to learn how to</p>
+<ul>
+<li>create a scatterplot,</li>
+<li>obtain a correlation coefficient,</li>
+<li>obtain regression coefficients (i.e., intercept and slope) and <span class="math inline">\(R^2\)</span> for a simple linear regression model, and</li>
+<li>subset the data.</li>
+</ul>
+</div>
+<p><br></p>
+<p>Let’s use the Lung Health Study (LHS) data set again.</p>
+<p>Recall that the data set and a description of data can be found on Canvas, titled <em>lhs.csv</em> and <em>lhsdoc.docx</em>, respectively.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb87-1" tabindex="-1"></a>lhs<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="at">file =</span> <span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="relationship-between-two-numerical-variables" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Relationship between two numerical variables<a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Thus far, you have examined the relationship between a numerical variable and a categorical variable (e.g., two-sample <em>t</em>-test, ANOVA) and also between two categorical variables (e.g., Chi-square test, Fisher’s exact test, McNemar’s test). Now you are going to investigate the relationship between two numerical variables (e.g., scatterplot, correlation, simple linear regression).</p>
+<p>In the LHS study, suppose the researchers wanted to examine the relationship between the number of cigarettes smoked per day at baseline (<code>f10cigs</code>) and FEV1/FVC<span class="math inline">\(\%\)</span> at baseline (<code>FEVFVC02</code>). This will be the scenario used throughout this section of the lesson.</p>
+<div id="scatterplot" class="section level3 hasAnchor" number="12.2.1">
+<h3><span class="header-section-number">12.2.1</span> Scatterplot<a href="correlation-and-simple-linear-regression-in-r.html#scatterplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first step when examining the relationship between two numerical variables is to make a graphical display called a scatterplot.</p>
+<ul>
+<li>To make a scatterplot, use the <code>plot()</code> function, specifying the x-variable first and then the y-variable second, separated by a <code>,</code> (e.g., <code>plot(x, y)</code>), and other arguments if you wish to customize the scatterplot (e.g., <code>xlab=</code> to specify the x-axis label, <code>ylab=</code> to specify the y-axis label, <code>main=</code> to specify the plot title):</li>
+</ul>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb88-1" tabindex="-1"></a><span class="fu">plot</span>(lhs<span class="sc">$</span>f10cigs, lhs<span class="sc">$</span>FEVFVC02, </span>
+<span id="cb88-2"><a href="correlation-and-simple-linear-regression-in-r.html#cb88-2" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Cigarettes per day&quot;</span>, </span>
+<span id="cb88-3"><a href="correlation-and-simple-linear-regression-in-r.html#cb88-3" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;FEV/FVC%&quot;</span>, </span>
+<span id="cb88-4"><a href="correlation-and-simple-linear-regression-in-r.html#cb88-4" tabindex="-1"></a>     <span class="at">main=</span> <span class="st">&quot;FEV/FVC% vs. Cigarettes at Baseline&quot;</span>)</span></code></pre></div>
+<div class="bluebox">
+<p><strong>SCATTERPLOT</strong></p>
+<b>Purpose:</b> To graphically display the relationship between two numerical variables.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on scatterplots, see:</p>
+<ul>
+<li>&lt;a href”<a href="https://www.statmethods.net/graphs/scatterplot.html" class="uri">https://www.statmethods.net/graphs/scatterplot.html</a>“&gt;Scatterplots [Quick-R].</a></li>
+<li><a href="http://www.sthda.com/english/wiki/scatter-plots-r-base-graphs">Scatterplots - R Base Graphs [STHDA].</a></li>
+<li><a href="http://www.sthda.com/english/wiki/wiki.php?title=ggplot2-scatterplot-easy-scatter-plot-using-ggplot2-and-r-statistical-software">Easy scatterplot using ggplot2 [STHDA]</a> [Note. The {ggplot2} package is a very useful package for creating elegant and aesthetically pleasing visualizations].</li>
+</ul>
+</div>
+<p><br></p>
+</div>
+<div id="correlation" class="section level3 hasAnchor" number="12.2.2">
+<h3><span class="header-section-number">12.2.2</span> Correlation<a href="correlation-and-simple-linear-regression-in-r.html#correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If the relationship between the two numerical variables looks approximately linear, you can quantify the relationship by computing a correlation coefficient, <em>r</em>.</p>
+<ul>
+<li>To compute the correlation coefficient, use the <code>cor()</code> function, specifying the x- and y-variables, separated by a <code>,</code>, and the argument to delete cases that have a mission value in either of the two variables (<code>use="complete.obs"</code>):</li>
+</ul>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb89-1" tabindex="-1"></a><span class="fu">cor</span>(lhs<span class="sc">$</span>f10cigs, lhs<span class="sc">$</span>FEVFVC02, <span class="at">use=</span><span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<p>The <code>use="complete.obs"</code> argument is required in the <code>cor()</code> function if there are missing values in either of the two variables. Without it, R would output <code>NA</code> for the correlation, which you know isn’t true. If there are not missing values in either of those two variables, then you can leave this argument out of the function.</p>
+<div class="bluebox">
+<p><strong>CORRELATION</strong></p>
+<b>Purpose:</b> To quantify the relationship (strength and direction) between two numerical variables.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on correlation, see:</p>
+<ul>
+<li><a href="http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r">Correlation Test Between Two Variables in R [STHDA].</a></li>
+<li><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual18.html#headingtaglink_5">Correlation [BU SPH].</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="g121" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> GUIDED QUESTIONS<a href="correlation-and-simple-linear-regression-in-r.html#g121" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-1-10" class="section level5 hasAnchor" number="12.3.0.0.1">
+<h5><span class="header-section-number">12.3.0.0.1</span> Question 1<a href="correlation-and-simple-linear-regression-in-r.html#question-1-10" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the value of the correlation between the number of cigarettes smoked per day at baseline and FEV/FVC<span class="math inline">\(\%\)</span>?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-12">14.19</a> for answers</p>
+</div>
+</div>
+<div id="simple-linear-regression" class="section level3 hasAnchor" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Simple linear regression<a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Besides correlation, another way to describe the relationship between two numerical variables is through simple linear regression (SLR) if the relationship looks approximately linear. In SLR, you obtain regression coefficients (i.e., intercept and slope) from the SLR model to predict Y from X. For example, you can create a SLR model to predict FEV1/FVC<span class="math inline">\(\%\)</span> at baseline (Y) from the number of cigarettes smoked per day at baseline (X).</p>
+<ul>
+<li>To fit a simple linear regression model, first, use the <code>lm()</code> function, specifying the y-variable and the x-variable, separated by <code>~</code> (e.g., <code>lm(y~x)</code>) and saving the information under an object name (e.g., <code>model1</code>). Then use the <code>summary()</code> function on the saved <code>lm</code> object (<code>model1</code>) to obtain the regression coefficient values:</li>
+</ul>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb90-1" tabindex="-1"></a><span class="co"># fitting a SLR line</span></span>
+<span id="cb90-2"><a href="correlation-and-simple-linear-regression-in-r.html#cb90-2" tabindex="-1"></a>model1<span class="ot">&lt;-</span><span class="fu">lm</span>(lhs<span class="sc">$</span>FEVFVC02<span class="sc">~</span>lhs<span class="sc">$</span>f10cigs)</span>
+<span id="cb90-3"><a href="correlation-and-simple-linear-regression-in-r.html#cb90-3" tabindex="-1"></a></span>
+<span id="cb90-4"><a href="correlation-and-simple-linear-regression-in-r.html#cb90-4" tabindex="-1"></a><span class="co"># obtaining results in SLR object, model1</span></span>
+<span id="cb90-5"><a href="correlation-and-simple-linear-regression-in-r.html#cb90-5" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<p>The main information of interest is in the table under the header <code>Coefficients:</code>.</p>
+<p>The regression coefficient values are under the column <code>Estimate</code>, with the intercept denoted in the first row (<code>(Intercept)</code>) and the slope denoted in the second row. The information in this column is of most interest this week.</p>
+<p>The standard errors for each of the regression coefficients are under the column <code>Std. Error</code>. This value is used to create confidence intervals and <em>t</em>-test statistics for the coefficients.</p>
+<p>In the third column, <code>t value</code> represents the <em>t</em>-test statistics for testing the regression coefficients.</p>
+<p>And lastly, the <em>p</em>-values for testing the regression coefficients are presented in the column <code>Pr(&gt;|t|)</code>. These last three pieces of information will be discussed next week.</p>
+<p>Additional model statistics that may be of interest include <span class="math inline">\(R^2\)</span>, which is denoted next to <code>Multiple R-squared</code>, and <span class="math inline">\(\hat{\sigma}\)</span>, which is denoted next to <code>Residual standard error</code>. <span class="math inline">\(R^2\)</span> is a measure of how well the model fits the data and the residual standard error, <span class="math inline">\(\hat{\sigma}\)</span>, is the standard deviation of the residual values.</p>
+</div>
+<div id="draw-line-of-best-fit" class="section level3 hasAnchor" number="12.3.2">
+<h3><span class="header-section-number">12.3.2</span> Draw line of best fit<a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The saved <code>lm</code> object can also be used to draw a line of best fit in a scatterplot.</p>
+<ul>
+<li>To add the line of best fit to a scatterplot, first, use the <code>plot()</code> function, specifying the x- and y-variables and other arguments if you wish to customize the scatterplot, and then use the <code>abline()</code> function on the saved <code>lm</code> object:</li>
+</ul>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb91-1" tabindex="-1"></a><span class="fu">plot</span>(lhs<span class="sc">$</span>f10cigs, lhs<span class="sc">$</span>FEVFVC02, </span>
+<span id="cb91-2"><a href="correlation-and-simple-linear-regression-in-r.html#cb91-2" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Cigarettes per day&quot;</span>, </span>
+<span id="cb91-3"><a href="correlation-and-simple-linear-regression-in-r.html#cb91-3" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;FEV/FVC%&quot;</span>, </span>
+<span id="cb91-4"><a href="correlation-and-simple-linear-regression-in-r.html#cb91-4" tabindex="-1"></a>     <span class="at">main=</span> <span class="st">&quot;FEV/FVC% vs. Cigarettes at Baseline&quot;</span>)</span>
+<span id="cb91-5"><a href="correlation-and-simple-linear-regression-in-r.html#cb91-5" tabindex="-1"></a><span class="fu">abline</span>(model1)</span></code></pre></div>
+<div class="bluebox">
+<p><strong>SIMPLE LINEAR REGRESSION</strong></p>
+<b>Purpose:</b> To estimate regression coefficients to examine (and predict) the relationship between two numerical variables: a response variable, Y, and an explanatory variable, X.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on simple linear regression, see:</p>
+<ul>
+<li><a href="https://www.r-bloggers.com/simple-linear-regression-2/">Simple Linear Regression [R Bloggers].</a></li>
+<li><a href="https://www.ocf.berkeley.edu/~janastas/simple-linear-regression-r.html">Doing and Interpreting Simple Linear Regression in R [Berkeley].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="g122" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> GUIDED QUESTIONS<a href="correlation-and-simple-linear-regression-in-r.html#g122" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-2-10" class="section level5 hasAnchor" number="12.4.0.0.1">
+<h5><span class="header-section-number">12.4.0.0.1</span> Question 2<a href="correlation-and-simple-linear-regression-in-r.html#question-2-10" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the value of the intercept in the model of <code>FEVFVC02</code> vs. <code>f10cigs</code>? What is the value of the slope?</p>
+</div>
+<div id="question-3-10" class="section level5 hasAnchor" number="12.4.0.0.2">
+<h5><span class="header-section-number">12.4.0.0.2</span> Question 3<a href="correlation-and-simple-linear-regression-in-r.html#question-3-10" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the <span class="math inline">\(R^2\)</span> value for the model?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-12">14.19</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="subsetting-a-data-set" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> Subsetting a data set<a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sometimes when you are working with a large data set, you are only interested in a small portion of it. For example, suppose the LHS researchers were only interested in the females that were in the study.</p>
+<p>There are two ways to subset the data in R. The first option is the most basic way by using square brackets after the data name, <code>data[rows, columns]</code>. The second option (and easiest to read) is to use the <code>subset()</code> function.</p>
+<div id="option-1" class="section level3 hasAnchor" number="12.5.1">
+<h3><span class="header-section-number">12.5.1</span> Option #1<a href="correlation-and-simple-linear-regression-in-r.html#option-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>To subset the data set, first, create a <strong>new</strong> object/data set in R (e.g., <code>lhs.f1</code>), followed by the assignment operator (<code>&lt;-</code>), then assign the new data set to the old one (e.g., <code>lhs</code>), followed by which rows you are interested in keeping (e.g., <code>lhs[lhs$AGENDER=="F", ]</code>):</li>
+</ul>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb92-1" tabindex="-1"></a>lhs.f1<span class="ot">&lt;-</span>lhs[lhs<span class="sc">$</span>AGENDER<span class="sc">==</span><span class="st">&quot;F&quot;</span>, ]</span></code></pre></div>
+<p>Here’s how you read the line of code:</p>
+<p>“I want to create a new object/data set, called lhs.f1, (denoted by <code>lhs.f1&lt;-</code>) …
+and this object is the lhs data set (<code>lhs[ , ]</code>), <strong>but</strong> only give me the rows for when AGENDER==”F” (denoted by the <code>lhs$AGENDER=="F"</code> before the comma in the square brackets), and give me all of the columns (denoted by the empty space after the comma in the square brackets).”</p>
+</div>
+<div id="option-2" class="section level3 hasAnchor" number="12.5.2">
+<h3><span class="header-section-number">12.5.2</span> Option #2<a href="correlation-and-simple-linear-regression-in-r.html#option-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>To subset the data set, first, create a <strong>new</strong> object/data set in R (e.g., <code>lhs.f2</code>), followed by the assignment operator (<code>&lt;-</code>), then use the <code>subset()</code> function, specifying the name of the data set first and then how you want to subset the data (e.g., <code>subset(data, data$variable == value</code>):</li>
+</ul>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="correlation-and-simple-linear-regression-in-r.html#cb93-1" tabindex="-1"></a>lhs.f2<span class="ot">&lt;-</span><span class="fu">subset</span>(lhs, lhs<span class="sc">$</span>AGENDER<span class="sc">==</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<p>Note: For either subsetting option, if you want to subset the data on a range of values for a numerical variable (e.g., age &gt; 50) rather than on a single value (as presented above), then you can just supply that particular criteria in the code.</p>
+<div class="bluebox">
+<p><strong>SUBSETTING A DATA SET</strong></p>
+<b>Purpose:</b> To filter the data set based on specific criteria.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on subsetting a data set, see:</p>
+<ul>
+<li><a href="https://www.r-bloggers.com/5-ways-to-subset-a-data-frame-in-r/">5 Ways to Subset a Data Frame in R [R Bloggers].</a></li>
+<li><a href="https://stats.idre.ucla.edu/r/modules/subsetting-data/">Subsetting Data [UCLA].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="ch12" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> CHALLENGE QUESTIONS<a href="correlation-and-simple-linear-regression-in-r.html#ch12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-4-10" class="section level5 hasAnchor" number="12.6.0.0.1">
+<h5><span class="header-section-number">12.6.0.0.1</span> Question 4<a href="correlation-and-simple-linear-regression-in-r.html#question-4-10" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Investigate the relationship between the number of cigarettes smoked per day at baseline (<code>f10cigs</code>; Y) and the number of alcoholic drinks per week at baseline (<code>DRINKSBL</code>; X). Create a scatterplot, calculate a correlation coefficient, and obtain regression coefficients and <span class="math inline">\(R^2\)</span> from a simple linear regression model.</p>
+</div>
+<div id="question-5-8" class="section level5 hasAnchor" number="12.6.0.0.2">
+<h5><span class="header-section-number">12.6.0.0.2</span> Question 5<a href="correlation-and-simple-linear-regression-in-r.html#question-5-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Investigate the relationship between the FEV1/FVC<span class="math inline">\(\%\)</span> at baseline (<code>FEVFVC02</code>; Y) and the number of cigarettes smoked per day at baseline (<code>f10cigs</code>; X) for the data set that contains only females (<code>lhs.f1</code> or <code>lhs.f2</code>). Create a scatterplot, calculate a correlation coefficient, and obtain regression coefficients and <span class="math inline">\(R^2\)</span> from a simple linear regression model.</p>
+</div>
+<div id="question-6-8" class="section level5 hasAnchor" number="12.6.0.0.3">
+<h5><span class="header-section-number">12.6.0.0.3</span> Question 6<a href="correlation-and-simple-linear-regression-in-r.html#question-6-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Install and load the <code>{ggplot2}</code> package to create a scatterplot of the number of cigarettes smoked per day at baseline (<code>f10cigs</code>) and FEV1/FVC<span class="math inline">\(\%\)</span> at baseline (<code>FEVFVC02</code>). See the following website for tips on how to code using <code>ggplot2</code>: <a href="http://www.sthda.com/english/wiki/ggplot2-scatter-plots-quick-start-guide-r-software-and-data-visualization">ggplot2 scatterplots: Quick start guide - R software and data visualization</a>. Try modifying the size of the points, modifying the shape and color of the points, and adding the line of best fit.</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-chal-12">14.19.0.1</a> for answers</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correlation-and-simple-linear-regression-in-r-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

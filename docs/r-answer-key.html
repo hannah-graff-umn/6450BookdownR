@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>R Answer Key | 6450 Answer Keys - R</title>
+  <meta name="description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="R Answer Key | 6450 Answer Keys - R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="github-repo" content="hannah-graff-umn/6450BookdownR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Answer Key | 6450 Answer Keys - R" />
+  
+  <meta name="twitter:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  
+
+
+
+<meta name="date" content="2026-04-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="multiple-linear-regression-in-r.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pubh 6450 Answer Keys - R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Importing &amp; Summarizing Data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1"><i class="fa fa-check"></i><b>1.1</b> Goal of Software Lesson 1</a></li>
+<li class="chapter" data-level="1.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#dataset"><i class="fa fa-check"></i><b>1.2</b> Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#importing-data"><i class="fa fa-check"></i><b>1.3</b> Importing data</a></li>
+<li class="chapter" data-level="1.4" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#examine-the-data"><i class="fa fa-check"></i><b>1.4</b> Examine the data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-the-dataset"><i class="fa fa-check"></i><b>1.4.1</b> View the dataset</a></li>
+<li class="chapter" data-level="1.4.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables"><i class="fa fa-check"></i><b>1.4.2</b> View data types of the variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-names-of-the-variables"><i class="fa fa-check"></i><b>1.4.3</b> View names of the variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g11"><i class="fa fa-check"></i><b>1.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.6" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarizing-the-data"><i class="fa fa-check"></i><b>1.6</b> Summarizing the data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once"><i class="fa fa-check"></i><b>1.6.1</b> Summarize all variables at once</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g12"><i class="fa fa-check"></i><b>1.7</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable"><i class="fa fa-check"></i><b>1.7.1</b> Summarize single categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g13"><i class="fa fa-check"></i><b>1.8</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable"><i class="fa fa-check"></i><b>1.8.1</b> Summarize single continuous variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g14"><i class="fa fa-check"></i><b>1.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.10" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#ch1"><i class="fa fa-check"></i><b>1.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html"><i class="fa fa-check"></i><b>2</b> Normal Binomial in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#goal-of-software-lesson-2"><i class="fa fa-check"></i><b>2.1</b> Goal of Software Lesson 2</a></li>
+<li class="chapter" data-level="2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution"><i class="fa fa-check"></i><b>2.2</b> Computing probabilities using the Normal distribution</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Computing “less than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Computing “greater than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Computing “between” probabilities in a Normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g21"><i class="fa fa-check"></i><b>2.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution"><i class="fa fa-check"></i><b>2.4</b> Computing probabilities using the Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.1</b> Computing “equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Computing “less than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.3</b> Computing “greater than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.4</b> Computing “between” probabilities in a Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g22"><i class="fa fa-check"></i><b>2.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.6" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#ch2"><i class="fa fa-check"></i><b>2.6</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html"><i class="fa fa-check"></i><b>3</b> Confidence Intervals for a Proportion in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#goal-of-software-lesson-3"><i class="fa fa-check"></i><b>3.1</b> Goal of Software Lesson 3</a></li>
+<li class="chapter" data-level="3.2" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#confidence-interval-for-a-proportion"><i class="fa fa-check"></i><b>3.2</b> Confidence interval for a proportion</a></li>
+<li class="chapter" data-level="3.3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#g31"><i class="fa fa-check"></i><b>3.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="3.4" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#ch3"><i class="fa fa-check"></i><b>3.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>4</b> Confidence Intervals for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#goal-of-software-lesson-4"><i class="fa fa-check"></i><b>4.1</b> Goal of Software Lesson 4</a></li>
+<li class="chapter" data-level="4.2" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#confidence-interval-for-a-mean"><i class="fa fa-check"></i><b>4.2</b> Confidence interval for a mean</a></li>
+<li class="chapter" data-level="4.3" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#g41"><i class="fa fa-check"></i><b>4.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="4.4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#ch4"><i class="fa fa-check"></i><b>4.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Test for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5"><i class="fa fa-check"></i><b>5.1</b> Goal of Software Lesson 5</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean"><i class="fa fa-check"></i><b>5.2</b> Hypothesis test for a mean</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g51"><i class="fa fa-check"></i><b>5.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>5.4</b> Paired <em>t</em>-test</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g52"><i class="fa fa-check"></i><b>5.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.6" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable"><i class="fa fa-check"></i><b>5.6</b> Reclassify a variable</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable"><i class="fa fa-check"></i><b>5.6.1</b> Reclassify numerical variable as categorical variable</a></li>
+<li class="chapter" data-level="5.6.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable"><i class="fa fa-check"></i><b>5.6.2</b> Recode categories in a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g53"><i class="fa fa-check"></i><b>5.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.8" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#ch5"><i class="fa fa-check"></i><b>5.8</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Inferential Methods for Comparing Means &amp; More Summarizing Numerical Data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#goal-of-software-lesson-6"><i class="fa fa-check"></i><b>6.1</b> Goal of Software Lesson 6</a></li>
+<li class="chapter" data-level="6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#two-sample-t-test"><i class="fa fa-check"></i><b>6.2</b> Two-sample <em>t</em>-test</a></li>
+<li class="chapter" data-level="6.3" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61"><i class="fa fa-check"></i><b>6.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.4" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#mann-whitney-test-aka-wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>6.4</b> Mann-Whitney test (aka Wilcoxon Rank-Sum test)</a></li>
+<li class="chapter" data-level="6.5" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62"><i class="fa fa-check"></i><b>6.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summarizing-numerical-variables-by-group"><i class="fa fa-check"></i><b>6.6</b> Summarizing numerical variables by group</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summary-measures-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.1</b> Summary measures of numerical variable by group</a></li>
+<li class="chapter" data-level="6.6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#graphical-displays-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.2</b> Graphical displays of numerical variable by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63"><i class="fa fa-check"></i><b>6.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.8" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#transforming-a-numerical-variable"><i class="fa fa-check"></i><b>6.8</b> Transforming a numerical variable</a></li>
+<li class="chapter" data-level="6.9" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64"><i class="fa fa-check"></i><b>6.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.10" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6"><i class="fa fa-check"></i><b>6.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html"><i class="fa fa-check"></i><b>7</b> Power &amp; Sample Size Estimation in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#goal-of-software-lesson-7"><i class="fa fa-check"></i><b>7.1</b> Goal of Software Lesson 7</a></li>
+<li class="chapter" data-level="7.2" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-and-sample-size-calculations"><i class="fa fa-check"></i><b>7.2</b> Power and Sample Size Calculations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#sample-size-estimation"><i class="fa fa-check"></i><b>7.2.1</b> Sample size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g71"><i class="fa fa-check"></i><b>7.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g72"><i class="fa fa-check"></i><b>7.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="7.5" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#ch7"><i class="fa fa-check"></i><b>7.5</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="project-1-in-r.html"><a href="project-1-in-r.html"><i class="fa fa-check"></i><b>8</b> Project 1 in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="project-1-in-r.html"><a href="project-1-in-r.html#goal-of-software-lesson-8"><i class="fa fa-check"></i><b>8.1</b> Goal of Software Lesson 8</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova-in-r.html"><a href="anova-in-r.html"><i class="fa fa-check"></i><b>9</b> ANOVA in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova-in-r.html"><a href="anova-in-r.html#goal-of-software-lesson-9"><i class="fa fa-check"></i><b>9.1</b> Goal of Software Lesson 9</a></li>
+<li class="chapter" data-level="9.2" data-path="anova-in-r.html"><a href="anova-in-r.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9.3" data-path="anova-in-r.html"><a href="anova-in-r.html#g91"><i class="fa fa-check"></i><b>9.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.4" data-path="anova-in-r.html"><a href="anova-in-r.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova-in-r.html"><a href="anova-in-r.html#bonferroni"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova-in-r.html"><a href="anova-in-r.html#g92"><i class="fa fa-check"></i><b>9.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-in-r.html"><a href="anova-in-r.html#ch9"><i class="fa fa-check"></i><b>9.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10"><i class="fa fa-check"></i><b>10.1</b> Goal of Software Lesson 10</a></li>
+<li class="chapter" data-level="10.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables"><i class="fa fa-check"></i><b>10.2</b> Comparing two categorical variables</a></li>
+<li class="chapter" data-level="10.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables"><i class="fa fa-check"></i><b>10.3</b> Summarizing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables"><i class="fa fa-check"></i><b>10.3.1</b> 2x2 tables</a></li>
+<li class="chapter" data-level="10.3.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group"><i class="fa fa-check"></i><b>10.3.2</b> Graphical displays of a categorical variable by group</a></li>
+<li class="chapter" data-level="10.3.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio"><i class="fa fa-check"></i><b>10.3.3</b> Risk difference, relative risk, and odds ratio</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101"><i class="fa fa-check"></i><b>10.4</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels"><i class="fa fa-check"></i><b>10.4.1</b> Modifying categorical labels</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102"><i class="fa fa-check"></i><b>10.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="10.6" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10"><i class="fa fa-check"></i><b>10.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><i class="fa fa-check"></i><b>11</b> Chi-Square Test, Fisher’s Exact Test, and McNemar’s Test in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#goal-of-software-lesson-11"><i class="fa fa-check"></i><b>11.1</b> Goal of Software Lesson 11</a></li>
+<li class="chapter" data-level="11.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#hypothesis-test-comparing-two-categorical-variables"><i class="fa fa-check"></i><b>11.2</b> Hypothesis test comparing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#chi-square-test"><i class="fa fa-check"></i><b>11.2.1</b> Chi-square test</a></li>
+<li class="chapter" data-level="11.2.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#fishers-exact-test"><i class="fa fa-check"></i><b>11.2.2</b> Fisher’s exact test</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111"><i class="fa fa-check"></i><b>11.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.4" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#mcnemars-test-for-paired-data"><i class="fa fa-check"></i><b>11.4</b> McNemar’s test for paired data</a></li>
+<li class="chapter" data-level="11.5" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112"><i class="fa fa-check"></i><b>11.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.6" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11"><i class="fa fa-check"></i><b>11.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>12</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12"><i class="fa fa-check"></i><b>12.1</b> Goal of Software Lesson 12</a></li>
+<li class="chapter" data-level="12.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables"><i class="fa fa-check"></i><b>12.2</b> Relationship between two numerical variables</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#scatterplot"><i class="fa fa-check"></i><b>12.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="12.2.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#correlation"><i class="fa fa-check"></i><b>12.2.2</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g121"><i class="fa fa-check"></i><b>12.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.3.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="12.3.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit"><i class="fa fa-check"></i><b>12.3.2</b> Draw line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g122"><i class="fa fa-check"></i><b>12.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="12.5" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set"><i class="fa fa-check"></i><b>12.5</b> Subsetting a data set</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-1"><i class="fa fa-check"></i><b>12.5.1</b> Option #1</a></li>
+<li class="chapter" data-level="12.5.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-2"><i class="fa fa-check"></i><b>12.5.2</b> Option #2</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#ch12"><i class="fa fa-check"></i><b>12.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html"><i class="fa fa-check"></i><b>13</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#goal-of-software-lesson-13"><i class="fa fa-check"></i><b>13.1</b> Goal of Software Lesson 13</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#inference-for-simple-linear-regression"><i class="fa fa-check"></i><b>13.1.1</b> Inference for Simple Linear Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#p-values-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.2</b> <em>p</em>-values for regression coefficients</a></li>
+<li class="chapter" data-level="13.1.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#confidence-intervals-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.3</b> Confidence intervals for regression coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#g131"><i class="fa fa-check"></i><b>13.2</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="13.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#model-diagnostics"><i class="fa fa-check"></i><b>13.3</b> Model diagnostics</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#diagnostic-plots"><i class="fa fa-check"></i><b>13.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#ch13"><i class="fa fa-check"></i><b>13.4</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>14</b> Multiple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#goal-of-software-lesson-14"><i class="fa fa-check"></i><b>14.1</b> Goal of Software Lesson 14</a></li>
+<li class="chapter" data-level="14.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>14.2</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.1</b> Scatterplot with a categorical variable</a></li>
+<li class="chapter" data-level="14.2.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#add-best-fit-lines-to-scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.2</b> Add best-fit lines to scatterplot with a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g141"><i class="fa fa-check"></i><b>14.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.4" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression-model"><i class="fa fa-check"></i><b>14.4</b> Multiple linear regression model</a></li>
+<li class="chapter" data-level="14.5" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g142"><i class="fa fa-check"></i><b>14.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.6" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>14.6</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="14.7" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#ch14"><i class="fa fa-check"></i><b>14.7</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-answer-key.html"><a href="r-answer-key.html"><i class="fa fa-check"></i>R Answer Key</a>
+<ul>
+<li class="chapter" data-level="14.8" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-1"><i class="fa fa-check"></i><b>14.8</b> Software Lesson 1 Guided Questions</a></li>
+<li class="chapter" data-level="14.9" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-2"><i class="fa fa-check"></i><b>14.9</b> Software Lesson 2 Guided Questions</a></li>
+<li class="chapter" data-level="14.10" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-3"><i class="fa fa-check"></i><b>14.10</b> Software Lesson 3 Guided Questions</a></li>
+<li class="chapter" data-level="14.11" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-4"><i class="fa fa-check"></i><b>14.11</b> Software Lesson 4 Guided Questions</a></li>
+<li class="chapter" data-level="14.12" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-5"><i class="fa fa-check"></i><b>14.12</b> Software Lesson 5 Guided Questions</a></li>
+<li class="chapter" data-level="14.13" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-6"><i class="fa fa-check"></i><b>14.13</b> Software Lesson 6 Guided Questions</a></li>
+<li class="chapter" data-level="14.14" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-7"><i class="fa fa-check"></i><b>14.14</b> Software Lesson 7 Guided Questions</a></li>
+<li class="chapter" data-level="14.15" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-8"><i class="fa fa-check"></i><b>14.15</b> Software Lesson 8 Guided Questions</a></li>
+<li class="chapter" data-level="14.16" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-9"><i class="fa fa-check"></i><b>14.16</b> Software Lesson 9 Guided Questions</a></li>
+<li class="chapter" data-level="14.17" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-10"><i class="fa fa-check"></i><b>14.17</b> Software Lesson 10 Guided Questions</a></li>
+<li class="chapter" data-level="14.18" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-11"><i class="fa fa-check"></i><b>14.18</b> Software Lesson 11 Guided Questions</a></li>
+<li class="chapter" data-level="14.19" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-12"><i class="fa fa-check"></i><b>14.19</b> Software Lesson 12 Guided Questions</a></li>
+<li class="chapter" data-level="14.20" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-13"><i class="fa fa-check"></i><b>14.20</b> Software Lesson 13 Guided Questions</a></li>
+<li class="chapter" data-level="14.21" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-14"><i class="fa fa-check"></i><b>14.21</b> Software Lesson 14 Guided Questions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">6450 Answer Keys - R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-answer-key" class="section level1 unnumbered hasAnchor">
+<h1>R Answer Key<a href="r-answer-key.html#r-answer-key" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="answers-1" class="section level2 hasAnchor" number="14.8">
+<h2><span class="header-section-number">14.8</span> Software Lesson 1 Guided Questions<a href="r-answer-key.html#answers-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 1:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="importing-summarizing-data-in-r.html#g11">1.5</a>)</li>
+<li>Guided Questions 4-6 (<a href="importing-summarizing-data-in-r.html#g12">1.7</a>)</li>
+<li>Guided Questions 7-8 (<a href="importing-summarizing-data-in-r.html#g13">1.8</a>)</li>
+<li>Guided Questions 9-10 (<a href="importing-summarizing-data-in-r.html#g14">1.9</a>)</li>
+<li>Challenge Questions (<a href="importing-summarizing-data-in-r.html#ch1">1.10</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>44 years old</li>
+<li>Race is given as an integer <br>
+Aclinic is given as a character <br>
+BMI is given as a number <br></li>
+<li>The data types match for ACLINIC and BMI, as the clinic is a factor variable and bmi should be a number. However, race should be a character variable, not an integer. Since the different races are categorized by the numbers 1-5, R reads them as integers, not classifications.</li>
+<li>Min = 2 <br> Q1 = 20 <br> Med = 30 <br> Q3 = 40 <br> Max = 120 <br> Mean = 31.27</li>
+<li>Weight change (wgtchg02) and Salivary cotinine (COT4) have missing values.</li>
+<li>No, because the races are categories, not numbers.</li>
+<li>The category 1 represents those who have never been married, and there are 288 such participants.</li>
+<li>Married, Divorced, Never Been Married, Widowed, Single</li>
+<li>Mean: 48.47 years <br> Median: 49 years <br> Std. Dev: 6.83 years <br> Min: 34 years <br> Max: 67 years</li>
+<li>Around 150 participants</li>
+</ol>
+<div id="answers-chal-1" class="section level4 hasAnchor" number="14.8.0.1">
+<h4><span class="header-section-number">14.8.0.1</span> Challenge Questions 1<a href="r-answer-key.html#answers-chal-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="11" style="list-style-type: decimal">
+<li><code>prop.table(counts)</code></li>
+<li></li>
+</ol>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="r-answer-key.html#cb106-1" tabindex="-1"></a><span class="fu">barplot</span>(counts, <span class="at">main=</span><span class="st">&quot;Barplot of LHS Marital Status&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Number&quot;</span>,</span>
+<span id="cb106-2"><a href="r-answer-key.html#cb106-2" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">c</span>(<span class="st">&quot;Never&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;S&quot;</span>,<span class="st">&quot;D&quot;</span>), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<ol start="13" style="list-style-type: decimal">
+<li>One possible answer for this is:</li>
+</ol>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="r-answer-key.html#cb107-1" tabindex="-1"></a><span class="fu">hist</span>(lhs<span class="sc">$</span>age, <span class="at">main=</span><span class="st">&quot;Histogram of LHS Ages&quot;</span>,</span>
+<span id="cb107-2"><a href="r-answer-key.html#cb107-2" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Ages&quot;</span>, <span class="at">breaks =</span> <span class="dv">10</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="answers-2" class="section level2 hasAnchor" number="14.9">
+<h2><span class="header-section-number">14.9</span> Software Lesson 2 Guided Questions<a href="r-answer-key.html#answers-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 2:</p>
+<ul>
+<li>Guided Questions 1-2 (<a href="normal-binomial-in-r.html#g21">2.3</a>)</li>
+<li>Guided Questions 3-5 (<a href="normal-binomial-in-r.html#g22">2.5</a>)</li>
+<li>Challenge Questions (<a href="normal-binomial-in-r.html#ch2">2.6</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>0.045</li>
+<li>0.744</li>
+<li>0.022</li>
+<li>0.030</li>
+<li>Because we want to subtract those less than 1, not including 1</li>
+</ol>
+<div id="answers-chal-2" class="section level4 hasAnchor" number="14.9.0.1">
+<h4><span class="header-section-number">14.9.0.1</span> Challenge Questions 2<a href="r-answer-key.html#answers-chal-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="6" style="list-style-type: decimal">
+<li>Two ways to find this are:</li>
+</ol>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="r-answer-key.html#cb108-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">45</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb108-2"><a href="r-answer-key.html#cb108-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.5</span>)</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>0.745</li>
+<li>0.9999693</li>
+<li>0.9999969</li>
+</ol>
+</div>
+</div>
+<div id="answers-3" class="section level2 hasAnchor" number="14.10">
+<h2><span class="header-section-number">14.10</span> Software Lesson 3 Guided Questions<a href="r-answer-key.html#answers-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 3:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="confidence-intervals-for-a-proportion-in-r.html#g31">3.3</a>)</li>
+<li>Challenge Questions (<a href="confidence-intervals-for-a-proportion-in-r.html#ch3">3.4</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>0.01054</li>
+<li>1.959964</li>
+<li>Manual calculation result (Wald method): (0.00787, 0.01322)</li>
+</ol>
+<p><code>prop.test()</code> function result (Wilson method): (0.00810, 0.01367)</p>
+<div id="answers-chal-3" class="section level4 hasAnchor" number="14.10.0.1">
+<h4><span class="header-section-number">14.10.0.1</span> Challenge Questions 3<a href="r-answer-key.html#answers-chal-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="4" style="list-style-type: decimal">
+<li>Manual calculation result (Wald method): (0.15806, 0.17766)</li>
+</ol>
+<p><code>prop.test()</code> function result (Wilson method): (0.15820, 0.17798)</p>
+</div>
+</div>
+<div id="answers-4" class="section level2 hasAnchor" number="14.11">
+<h2><span class="header-section-number">14.11</span> Software Lesson 4 Guided Questions<a href="r-answer-key.html#answers-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 4:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="confidence-intervals-for-a-mean-in-r.html#g41">4.3</a>)</li>
+<li>Challenge Questions (<a href="confidence-intervals-for-a-mean-in-r.html#ch4">4.4</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>The average weight change is 3.71064 kg, with a standard error of 0.09035.</li>
+<li>5468 degrees of freedom</li>
+<li>(3.53, 3.89)</li>
+</ol>
+<div id="answers-chal-4" class="section level4 hasAnchor" number="14.11.0.1">
+<h4><span class="header-section-number">14.11.0.1</span> Challenge Questions 4<a href="r-answer-key.html#answers-chal-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="4" style="list-style-type: decimal">
+<li>(13.54004, 14.31612)</li>
+</ol>
+</div>
+</div>
+<div id="answers-5" class="section level2 hasAnchor" number="14.12">
+<h2><span class="header-section-number">14.12</span> Software Lesson 5 Guided Questions<a href="r-answer-key.html#answers-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 5:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="hypothesis-test-for-a-mean-in-r.html#g51">5.3</a>)</li>
+<li>Guided Questions 4-8 (<a href="hypothesis-test-for-a-mean-in-r.html#g52">5.5</a>)</li>
+<li>Guided Questions 9-11 (<a href="hypothesis-test-for-a-mean-in-r.html#g53">5.7</a>)</li>
+<li>Challenge Questions (<a href="hypothesis-test-for-a-mean-in-r.html#ch5">5.8</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>3.7106 kg</li>
+<li>The test statistic is <span class="math inline">\(t = 41.068\)</span> with 5468 degrees of freedom.</li>
+<li><span class="math inline">\(2.2 \times 10^{-16},\)</span> which is the smallest value R will show.</li>
+<li>The mean difference is 212.97. Since the result was negative, the salivary cotinine level was higher at baseline on average.</li>
+<li>No they do not. They are the default arguments in R.</li>
+<li>(202.19, 223.76)</li>
+<li>The test statistic is <span class="math inline">\(t = -38.73\)</span>, with 2545 degrees of freedom and a <em>p</em>-value of <span class="math inline">\(p &lt; 2.2 \times 10^{-16}\)</span>.</li>
+<li>We have already taken the differences between the two visits, so they have already been paired, and now we only have one measurement.</li>
+<li>There are quotes placed around the labels because they are characters.</li>
+<li>You would need six breaks for five categories.</li>
+<li>“pipe1”</li>
+</ol>
+<div id="answers-chal-5" class="section level4 hasAnchor" number="14.12.0.1">
+<h4><span class="header-section-number">14.12.0.1</span> Challenge Questions 5<a href="r-answer-key.html#answers-chal-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="12" style="list-style-type: decimal">
+<li>Using a one-sided t-test, we have a test statistic of <span class="math inline">\(t= 32.854\)</span>, with a <em>p</em>-value of <span class="math inline">\(p = 2.2\times 10^{-16}\)</span>.</li>
+<li>One way to code this is</li>
+</ol>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="r-answer-key.html#cb109-1" tabindex="-1"></a>lhs<span class="sc">$</span>wgt.fxn<span class="ot">&lt;-</span><span class="fu">cut</span>(lhs<span class="sc">$</span>wgtchg01,</span>
+<span id="cb109-2"><a href="r-answer-key.html#cb109-2" tabindex="-1"></a>       <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>, <span class="sc">-</span>.<span class="dv">0001</span>, .<span class="dv">0001</span>, <span class="dv">35</span>),</span>
+<span id="cb109-3"><a href="r-answer-key.html#cb109-3" tabindex="-1"></a>      <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;lost wt&quot;</span>,<span class="st">&quot;no change&quot;</span>, <span class="st">&quot;gained wt&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="answers-6" class="section level2 hasAnchor" number="14.13">
+<h2><span class="header-section-number">14.13</span> Software Lesson 6 Guided Questions<a href="r-answer-key.html#answers-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 6:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61">6.3</a>)</li>
+<li>Guided Question 4 (<a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62">6.5</a>)</li>
+<li>Guided Questions 5-6 (<a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63">6.7</a>)</li>
+<li>Guided Question 7 (<a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64">6.9</a>)</li>
+<li>Challenge Questions (<a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6">6.10</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>The difference in mean CO values at baseline is 3.64, where males had the higher baseline mean.</li>
+<li>(-5.24, -2.04)</li>
+<li>The test statistic is <span class="math inline">\(t = -4.4595\)</span> with 847.97 degrees of freedom and a <em>p</em>-value of <span class="math inline">\(p = 9.32\times 10^{-6}\)</span>.</li>
+<li>The test statistic is <span class="math inline">\(W = 717030\)</span> with a <em>p</em>-value of <span class="math inline">\(p= 0.08908\)</span>.</li>
+<li>The median age is 49 in each group. The means are 48.41 in the SI-A group, 48.56 in the SI-P group, and 48.44 in the UC group. The SDs are 6.84 in the SI-A group, 6.83 in the SI-P group, and 6.8 in the UC group.</li>
+<li>Based on the statistics and boxplots, the groups have almost the same mean and shape, but the UC group has a smaller maximum. The histograms look almost the same for all three groups.</li>
+<li>The value in the first row is 2.3026.</li>
+</ol>
+<div id="answers-chal-6" class="section level4 hasAnchor" number="14.13.0.1">
+<h4><span class="header-section-number">14.13.0.1</span> Challenge Questions 6<a href="r-answer-key.html#answers-chal-6" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="8" style="list-style-type: decimal">
+<li>One way of coding this is</li>
+</ol>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="r-answer-key.html#cb110-1" tabindex="-1"></a>lhs<span class="sc">$</span>cigdiff <span class="ot">&lt;-</span> lhs<span class="sc">$</span>AV5CIGS <span class="sc">-</span> lhs<span class="sc">$</span>f10cigs</span></code></pre></div>
+<ol start="9" style="list-style-type: decimal">
+<li>One way of computing these statistics is</li>
+</ol>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="r-answer-key.html#cb111-1" tabindex="-1"></a><span class="fu">describeBy</span>(lhs<span class="sc">$</span>cigdiff, lhs<span class="sc">$</span>AGENDER)</span></code></pre></div>
+<ol start="10" style="list-style-type: decimal">
+<li>A histogram can be created using the following code:</li>
+</ol>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="r-answer-key.html#cb112-1" tabindex="-1"></a><span class="fu">histogram</span>(<span class="sc">~</span>lhs<span class="sc">$</span>cigdiff <span class="sc">|</span> lhs<span class="sc">$</span>AGENDER,</span>
+<span id="cb112-2"><a href="r-answer-key.html#cb112-2" tabindex="-1"></a>          <span class="at">xlab=</span><span class="st">&quot;Cigarette Difference&quot;</span>, <span class="at">main=</span><span class="st">&quot;Histograms of Cig Difference by </span><span class="sc">\n</span><span class="st"> Sex&quot;</span>)</span></code></pre></div>
+<p>A boxplot can be created using the following code:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="r-answer-key.html#cb113-1" tabindex="-1"></a><span class="fu">boxplot</span>(lhs<span class="sc">$</span>cigdiff<span class="sc">~</span>lhs<span class="sc">$</span>AGENDER, <span class="at">main=</span><span class="st">&quot;Boxplot of Cig Differences by </span><span class="sc">\n</span><span class="st"> Sex&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Sex&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Cigarette Differences&quot;</span>)</span></code></pre></div>
+<ol start="11" style="list-style-type: decimal">
+<li>The appropriate method here is a two-sample t-test, which can be found using the following:</li>
+</ol>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="r-answer-key.html#cb114-1" tabindex="-1"></a><span class="fu">t.test</span>(lhs<span class="sc">$</span>cigdiff<span class="sc">~</span>lhs<span class="sc">$</span>AGENDER, <span class="at">conf.level=</span><span class="fl">0.95</span>,</span>
+<span id="cb114-2"><a href="r-answer-key.html#cb114-2" tabindex="-1"></a>       <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="answers-7" class="section level2 hasAnchor" number="14.14">
+<h2><span class="header-section-number">14.14</span> Software Lesson 7 Guided Questions<a href="r-answer-key.html#answers-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 7:</p>
+<ul>
+<li>Guided Question 1 (<a href="power-sample-size-estimation-in-r.html#g71">7.3</a>)</li>
+<li>Guided Questions 2-3 (<a href="power-sample-size-estimation-in-r.html#g72">7.4</a>)</li>
+<li>Challenge Questions (<a href="power-sample-size-estimation-in-r.html#ch7">7.5</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>The sample size is <span class="math inline">\(n = 100\)</span> individuals per group.</li>
+<li>The power is 0.692.</li>
+<li>The power is 0.364.</li>
+</ol>
+<div id="answers-chal-7" class="section level4 hasAnchor" number="14.14.0.1">
+<h4><span class="header-section-number">14.14.0.1</span> Challenge Questions 7<a href="r-answer-key.html#answers-chal-7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="4" style="list-style-type: decimal">
+<li>Three choices of effect sizes and their corresponding sample sizes are:
+<br>1. <span class="math inline">\(d = 0.1, N = 1571\)</span>
+<br>2. <span class="math inline">\(d = 0.6, N = 45\)</span>
+<br>3. <span class="math inline">\(d = 1.2, N = 12\)</span></li>
+<li>Three choices of power and their corresponding sample sizes are:
+<br>1. <span class="math inline">\(pwr = 0.7, N = 79\)</span>
+<br>2. <span class="math inline">\(pwr = 0.85, N = 114\)</span>
+<br>3. <span class="math inline">\(pwr = 0.95, N = 164\)</span></li>
+<li>Three choices of significance levels and their corresponding sample sizes are:
+<br>1. <span class="math inline">\(\alpha = 0.1, N = 78\)</span>
+<br>2. <span class="math inline">\(\alpha = 0.05, N = 100\)</span>
+<br>3. <span class="math inline">\(\alpha = 0.01, N = 148\)</span></li>
+<li>Three choices of sample sizes and their corresponding powers are:
+<br>1. <span class="math inline">\(N = 10\)</span> has a power of 0.135
+<br>2. <span class="math inline">\(N = 50\)</span> has a power of 0.508
+<br>3. <span class="math inline">\(N = 134\)</span> has a power of 0.904</li>
+<li>Three choices of effect sizes and their corresponding powers are:
+<br>1. <span class="math inline">\(d = 0.1\)</span> has a power of 0.073
+<br>2. <span class="math inline">\(d = 0.6\)</span> has a power of 0.755
+<br>3. <span class="math inline">\(d = 1.2\)</span> has a power of 1</li>
+<li>Three choices of significance level and their corresponding powers are:
+<br>1. <span class="math inline">\(\alpha = 0.1\)</span> has a power of 0.55
+<br>2. <span class="math inline">\(\alpha = 0.05\)</span> has a power of 0.424
+<br>3. <span class="math inline">\(\alpha = 0.01\)</span> has a power of 0.205</li>
+</ol>
+</div>
+</div>
+<div id="answers-8" class="section level2 hasAnchor" number="14.15">
+<h2><span class="header-section-number">14.15</span> Software Lesson 8 Guided Questions<a href="r-answer-key.html#answers-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="answers-9" class="section level2 hasAnchor" number="14.16">
+<h2><span class="header-section-number">14.16</span> Software Lesson 9 Guided Questions<a href="r-answer-key.html#answers-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 9:</p>
+<ul>
+<li>Guided Question 1 (<a href="anova-in-r.html#g91">9.3</a>)</li>
+<li>Guided Questions 2-4 (<a href="anova-in-r.html#g92">9.5</a>)</li>
+<li>Challenge Questions (<a href="anova-in-r.html#ch9">9.6</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>The <em>F</em>-statistic is <span class="math inline">\(F = 32.94\)</span> with 2 and 5466 degrees of freedom and a <em>p</em>-value of <span class="math inline">\(p = 6.02 \times 10^{-15}\)</span>.</li>
+<li>The difference is -1.5378 (UC - SI-A), where SI-A has the higher average weight change than UC.</li>
+<li>The confidence interval is (-2.054, -1.022) with a <em>p</em>- value of 0.0000000 (Note: <em>p</em>-values can’t be 0, so seeing a value like this just means it’s a <strong>really</strong> small value.)</li>
+<li>The <em>p</em>-value is <span class="math inline">\(p = 4.8 \times 10^{-12}\)</span>.</li>
+</ol>
+<div id="answers-chal-9" class="section level4 hasAnchor" number="14.16.0.1">
+<h4><span class="header-section-number">14.16.0.1</span> Challenge Questions 9<a href="r-answer-key.html#answers-chal-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="5" style="list-style-type: decimal">
+<li>One way of coding this is</li>
+</ol>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="r-answer-key.html#cb115-1" tabindex="-1"></a>lhs<span class="sc">$</span>cigdiff <span class="ot">&lt;-</span> lhs<span class="sc">$</span>AV5CIGS <span class="sc">-</span> lhs<span class="sc">$</span>f10cigs</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>One way of computing these statistics is</li>
+</ol>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="r-answer-key.html#cb116-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb116-2"><a href="r-answer-key.html#cb116-2" tabindex="-1"></a><span class="fu">describeBy</span>(lhs<span class="sc">$</span>cigdiff, lhs<span class="sc">$</span>alphagroup)</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>A histogram can be created using the following code:</li>
+</ol>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="r-answer-key.html#cb117-1" tabindex="-1"></a><span class="fu">histogram</span>(<span class="sc">~</span>lhs<span class="sc">$</span>cigdiff <span class="sc">|</span> lhs<span class="sc">$</span>alphagroup,</span>
+<span id="cb117-2"><a href="r-answer-key.html#cb117-2" tabindex="-1"></a>          <span class="at">xlab=</span><span class="st">&quot;Cigarette Difference&quot;</span>, <span class="at">main=</span><span class="st">&quot;Histograms of Cig Difference by </span><span class="sc">\n</span><span class="st"> Treatment Group&quot;</span>)</span></code></pre></div>
+<p>A boxplot can be created using the following code:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="r-answer-key.html#cb118-1" tabindex="-1"></a><span class="fu">boxplot</span>(lhs<span class="sc">$</span>cigdiff<span class="sc">~</span>lhs<span class="sc">$</span>alphagroup, <span class="at">main=</span><span class="st">&quot;Boxplot of LHS Cig Differences by </span><span class="sc">\n</span><span class="st"> Treatment Group&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Group&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Cigarette Differences&quot;</span>)</span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>We would use an ANOVA to answer this research question:</li>
+</ol>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="r-answer-key.html#cb119-1" tabindex="-1"></a>diff.ANOVA<span class="ot">&lt;-</span><span class="fu">aov</span>(lhs<span class="sc">$</span>cigdiff<span class="sc">~</span>lhs<span class="sc">$</span>alphagroup)</span>
+<span id="cb119-2"><a href="r-answer-key.html#cb119-2" tabindex="-1"></a><span class="fu">summary</span>(diff.ANOVA)</span></code></pre></div>
+<p>Post-hoc analysis can be done using one of the following methods:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="r-answer-key.html#cb120-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(diff.ANOVA)</span>
+<span id="cb120-2"><a href="r-answer-key.html#cb120-2" tabindex="-1"></a><span class="fu">pairwise.t.test</span>(lhs<span class="sc">$</span>cigdiff, lhs<span class="sc">$</span>alphagroup, <span class="at">p.adj =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="answers-10" class="section level2 hasAnchor" number="14.17">
+<h2><span class="header-section-number">14.17</span> Software Lesson 10 Guided Questions<a href="r-answer-key.html#answers-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 10:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101">10.4</a>)</li>
+<li>Guided Questions 4-6 (<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102">10.5</a>)</li>
+<li>Challenge Questions (<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10">10.6</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>The risk difference is 0.027, with a confidence interval of (0.006, 0.048).</li>
+<li>The relative risk is 1.171, with a confidence interval of (1.041, 1.318).</li>
+<li>The odds ratio is 1.21, with a confidence interval of (1.049, 1.396).</li>
+<li>We have 7 Asian participants in this group, which is 0.0012 of the total.</li>
+<li>0.0388 of the SI-A group were Black.</li>
+<li>0.7143 of Native Americans were in the UC group.</li>
+</ol>
+<div id="answers-chal-10" class="section level4 hasAnchor" number="14.17.0.1">
+<h4><span class="header-section-number">14.17.0.1</span> Challenge Questions 10<a href="r-answer-key.html#answers-chal-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="7" style="list-style-type: decimal">
+<li>The new variable can be created using the following:</li>
+</ol>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="r-answer-key.html#cb121-1" tabindex="-1"></a>lhs<span class="sc">$</span>wgt5.c<span class="ot">&lt;-</span><span class="fu">cut</span>(lhs<span class="sc">$</span>wgtchg05,</span>
+<span id="cb121-2"><a href="r-answer-key.html#cb121-2" tabindex="-1"></a>                 <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="sc">-</span>.<span class="dv">0001</span>, <span class="dv">100</span>),</span>
+<span id="cb121-3"><a href="r-answer-key.html#cb121-3" tabindex="-1"></a>                 <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;lost wt&quot;</span>,<span class="st">&quot;gained wt&quot;</span>))</span></code></pre></div>
+<p>Now we can look at the values in a table, and then put them in the proper order using the following:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="r-answer-key.html#cb122-1" tabindex="-1"></a><span class="fu">table</span>(lhs<span class="sc">$</span>AGENDER, lhs<span class="sc">$</span>wgt5.c)</span>
+<span id="cb122-2"><a href="r-answer-key.html#cb122-2" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="r-answer-key.html#cb122-3" tabindex="-1"></a>mytable1<span class="ot">&lt;-</span><span class="fu">matrix</span>(</span>
+<span id="cb122-4"><a href="r-answer-key.html#cb122-4" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">518</span>,<span class="dv">1530</span>,<span class="dv">995</span>,<span class="dv">2426</span>),</span>
+<span id="cb122-5"><a href="r-answer-key.html#cb122-5" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">2</span>, </span>
+<span id="cb122-6"><a href="r-answer-key.html#cb122-6" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">2</span>, </span>
+<span id="cb122-7"><a href="r-answer-key.html#cb122-7" tabindex="-1"></a>  <span class="at">byrow=</span><span class="cn">TRUE</span>, </span>
+<span id="cb122-8"><a href="r-answer-key.html#cb122-8" tabindex="-1"></a>  <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb122-9"><a href="r-answer-key.html#cb122-9" tabindex="-1"></a>                <span class="fu">c</span>(<span class="st">&quot;Lost Weight&quot;</span>, <span class="st">&quot;Gained Weight&quot;</span>)))</span></code></pre></div>
+<p>One possible graphical summary is given by</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="r-answer-key.html#cb123-1" tabindex="-1"></a><span class="fu">barplot</span>(mytable1, <span class="at">main=</span><span class="st">&quot;Barplot of Weight Change by Gender&quot;</span>,</span>
+<span id="cb123-2"><a href="r-answer-key.html#cb123-2" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Weight Change Group&quot;</span>,</span>
+<span id="cb123-3"><a href="r-answer-key.html#cb123-3" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>))</span>
+<span id="cb123-4"><a href="r-answer-key.html#cb123-4" tabindex="-1"></a></span>
+<span id="cb123-5"><a href="r-answer-key.html#cb123-5" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="fl">0.2</span>,<span class="at">y=</span><span class="dv">3000</span>,<span class="at">legend=</span><span class="fu">rownames</span>(mytable1),</span>
+<span id="cb123-6"><a href="r-answer-key.html#cb123-6" tabindex="-1"></a>      <span class="at">fill=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>), </span>
+<span id="cb123-7"><a href="r-answer-key.html#cb123-7" tabindex="-1"></a>      <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p>Then we can find estimates for RR, RD, and OR using</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="r-answer-key.html#cb124-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">epi2x2</span>(mytable1))</span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>First we need to create the table, then calculate the statistics:</li>
+</ol>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="r-answer-key.html#cb125-1" tabindex="-1"></a>mytable2<span class="ot">&lt;-</span><span class="fu">matrix</span>(</span>
+<span id="cb125-2"><a href="r-answer-key.html#cb125-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">111</span>,<span class="dv">2110</span>,<span class="dv">189</span>,<span class="dv">2034</span>), </span>
+<span id="cb125-3"><a href="r-answer-key.html#cb125-3" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">2</span>, </span>
+<span id="cb125-4"><a href="r-answer-key.html#cb125-4" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">2</span>, </span>
+<span id="cb125-5"><a href="r-answer-key.html#cb125-5" tabindex="-1"></a>  <span class="at">byrow=</span><span class="cn">TRUE</span>, </span>
+<span id="cb125-6"><a href="r-answer-key.html#cb125-6" tabindex="-1"></a>  <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Trt&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb125-7"><a href="r-answer-key.html#cb125-7" tabindex="-1"></a>                <span class="fu">c</span>(<span class="st">&quot;Fatal HA&quot;</span>, <span class="st">&quot;No Fatal HA&quot;</span>)))</span>
+<span id="cb125-8"><a href="r-answer-key.html#cb125-8" tabindex="-1"></a></span>
+<span id="cb125-9"><a href="r-answer-key.html#cb125-9" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">epi2x2</span>(mytable2))</span></code></pre></div>
+</div>
+</div>
+<div id="answers-11" class="section level2 hasAnchor" number="14.18">
+<h2><span class="header-section-number">14.18</span> Software Lesson 11 Guided Questions<a href="r-answer-key.html#answers-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 11:</p>
+<ul>
+<li>Guided Questions 1-4 (<a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111">11.3</a>)</li>
+<li>Guided Question 5 (<a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112">11.5</a>)</li>
+<li>Challenge Questions (<a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11">11.6</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>387 females</li>
+<li>The test statistic is <span class="math inline">\(\chi^2 = 6.8252\)</span>, with one degree of freedom, and a <em>p</em>-value of <span class="math inline">\(p = 0.008988\)</span>.</li>
+<li>351.6661 females</li>
+<li><span class="math inline">\(p = 0.00964\)</span></li>
+<li>The test statistic is <span class="math inline">\(\chi^2 = 6.5455\)</span> with one degree of freedom and a <em>p</em>-value of <span class="math inline">\(p = 0.0105\)</span>.</li>
+</ol>
+<div id="answers-chal-11" class="section level4 hasAnchor" number="14.18.0.1">
+<h4><span class="header-section-number">14.18.0.1</span> Challenge Questions 11<a href="r-answer-key.html#answers-chal-11" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="6" style="list-style-type: decimal">
+<li>First, we can create our table with the following:</li>
+</ol>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="r-answer-key.html#cb126-1" tabindex="-1"></a>newtable <span class="ot">&lt;-</span> <span class="fu">table</span>(lhs<span class="sc">$</span>f31pipe, lhs<span class="sc">$</span>alphagroup)</span>
+<span id="cb126-2"><a href="r-answer-key.html#cb126-2" tabindex="-1"></a><span class="fu">rownames</span>(newtable) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Pipe Smoker&quot;</span>, <span class="st">&quot;Not Pipe Smoker&quot;</span>)</span></code></pre></div>
+<p>Now, we create a plot:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="r-answer-key.html#cb127-1" tabindex="-1"></a><span class="fu">barplot</span>(newtable, <span class="at">beside=</span><span class="cn">TRUE</span>,</span>
+<span id="cb127-2"><a href="r-answer-key.html#cb127-2" tabindex="-1"></a>        <span class="at">main=</span><span class="st">&quot;Barplot of Pipe Smoking at Baseline by Intervention Group&quot;</span>,</span>
+<span id="cb127-3"><a href="r-answer-key.html#cb127-3" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Intervention Group&quot;</span>,</span>
+<span id="cb127-4"><a href="r-answer-key.html#cb127-4" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
+<span id="cb127-5"><a href="r-answer-key.html#cb127-5" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="fl">6.25</span>,<span class="at">y=</span><span class="dv">1500</span>,<span class="at">legend=</span><span class="fu">rownames</span>(newtable),</span>
+<span id="cb127-6"><a href="r-answer-key.html#cb127-6" tabindex="-1"></a>       <span class="at">fill=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;red&quot;</span>),</span>
+<span id="cb127-7"><a href="r-answer-key.html#cb127-7" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p>One possibility here is to use the chi-squared test:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="r-answer-key.html#cb128-1" tabindex="-1"></a>newchi.test<span class="ot">&lt;-</span><span class="fu">chisq.test</span>(newtable, <span class="at">correct=</span><span class="cn">FALSE</span>)</span>
+<span id="cb128-2"><a href="r-answer-key.html#cb128-2" tabindex="-1"></a>newchi.test</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>First, we can view our variables and then create with the following:</li>
+</ol>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="r-answer-key.html#cb129-1" tabindex="-1"></a><span class="fu">table</span>(lhs<span class="sc">$</span>A5CIGAR, lhs<span class="sc">$</span>BLCIGAR)</span>
+<span id="cb129-2"><a href="r-answer-key.html#cb129-2" tabindex="-1"></a></span>
+<span id="cb129-3"><a href="r-answer-key.html#cb129-3" tabindex="-1"></a>mytable<span class="ot">&lt;-</span><span class="fu">matrix</span>(</span>
+<span id="cb129-4"><a href="r-answer-key.html#cb129-4" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">43</span>,<span class="dv">69</span>, <span class="dv">214</span>,<span class="dv">5228</span>), </span>
+<span id="cb129-5"><a href="r-answer-key.html#cb129-5" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">2</span>, </span>
+<span id="cb129-6"><a href="r-answer-key.html#cb129-6" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">2</span>,</span>
+<span id="cb129-7"><a href="r-answer-key.html#cb129-7" tabindex="-1"></a>  <span class="at">byrow=</span><span class="cn">TRUE</span>, </span>
+<span id="cb129-8"><a href="r-answer-key.html#cb129-8" tabindex="-1"></a>  <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Smoked Cigar 5th&quot;</span>, <span class="st">&quot;No Cigar 5th&quot;</span>),</span>
+<span id="cb129-9"><a href="r-answer-key.html#cb129-9" tabindex="-1"></a>                <span class="fu">c</span>(<span class="st">&quot;Cigar at BL&quot;</span>, <span class="st">&quot;No Cigar at BL&quot;</span>)))</span></code></pre></div>
+<p>Then we can run a McNemar’s test:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="r-answer-key.html#cb130-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(mytable)</span></code></pre></div>
+</div>
+</div>
+<div id="answers-12" class="section level2 hasAnchor" number="14.19">
+<h2><span class="header-section-number">14.19</span> Software Lesson 12 Guided Questions<a href="r-answer-key.html#answers-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 12:</p>
+<ul>
+<li>Guided Question 1 (<a href="correlation-and-simple-linear-regression-in-r.html#g121">12.3</a>)</li>
+<li>Guided Questions 2-3 (<a href="correlation-and-simple-linear-regression-in-r.html#g122">12.4</a>)</li>
+<li>Challenge Questions (<a href="correlation-and-simple-linear-regression-in-r.html#ch12">12.6</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(r = -0.0378\)</span></li>
+<li>The intercept is 65.5043, and the slope is -0.0180.</li>
+<li>The <span class="math inline">\(R^2\)</span> value is 0.001432.</li>
+</ol>
+<div id="answers-chal-12" class="section level4 hasAnchor" number="14.19.0.1">
+<h4><span class="header-section-number">14.19.0.1</span> Challenge Questions 12<a href="r-answer-key.html#answers-chal-12" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="4" style="list-style-type: decimal">
+<li>The following can be used to find the correlation, create the model, and create a scatterplot for the model:</li>
+</ol>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="r-answer-key.html#cb131-1" tabindex="-1"></a><span class="fu">cor</span>(lhs<span class="sc">$</span>DRINKSBL,lhs<span class="sc">$</span>f10cigs, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb131-2"><a href="r-answer-key.html#cb131-2" tabindex="-1"></a></span>
+<span id="cb131-3"><a href="r-answer-key.html#cb131-3" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lhs<span class="sc">$</span>f10cigs<span class="sc">~</span>lhs<span class="sc">$</span>DRINKSBL)</span>
+<span id="cb131-4"><a href="r-answer-key.html#cb131-4" tabindex="-1"></a><span class="fu">summary</span>(model3)</span>
+<span id="cb131-5"><a href="r-answer-key.html#cb131-5" tabindex="-1"></a></span>
+<span id="cb131-6"><a href="r-answer-key.html#cb131-6" tabindex="-1"></a><span class="fu">plot</span>(lhs<span class="sc">$</span>DRINKSBL, lhs<span class="sc">$</span>f10cigs, </span>
+<span id="cb131-7"><a href="r-answer-key.html#cb131-7" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Drinks at Baseline&quot;</span>, </span>
+<span id="cb131-8"><a href="r-answer-key.html#cb131-8" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Cigarettes per day&quot;</span>, </span>
+<span id="cb131-9"><a href="r-answer-key.html#cb131-9" tabindex="-1"></a>     <span class="at">main=</span> <span class="st">&quot;Cigarettes at Baseline vs Drinks at Baseline&quot;</span>)</span>
+<span id="cb131-10"><a href="r-answer-key.html#cb131-10" tabindex="-1"></a><span class="fu">abline</span>(model3)</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>The following can be used to find the correlation, create the model, and create a scatterplot for the model:</li>
+</ol>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="r-answer-key.html#cb132-1" tabindex="-1"></a><span class="fu">cor</span>(lhs.f1<span class="sc">$</span>FEVFVC02,lhs.f1<span class="sc">$</span>f10cigs, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb132-2"><a href="r-answer-key.html#cb132-2" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="r-answer-key.html#cb132-3" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lhs.f1<span class="sc">$</span>FEVFVC02<span class="sc">~</span>lhs.f1<span class="sc">$</span>f10cigs)</span>
+<span id="cb132-4"><a href="r-answer-key.html#cb132-4" tabindex="-1"></a><span class="fu">summary</span>(model2)</span>
+<span id="cb132-5"><a href="r-answer-key.html#cb132-5" tabindex="-1"></a></span>
+<span id="cb132-6"><a href="r-answer-key.html#cb132-6" tabindex="-1"></a><span class="fu">plot</span>(lhs.f1<span class="sc">$</span>f10cigs, lhs.f1<span class="sc">$</span>FEVFVC02, </span>
+<span id="cb132-7"><a href="r-answer-key.html#cb132-7" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Cigarettes per day&quot;</span>, </span>
+<span id="cb132-8"><a href="r-answer-key.html#cb132-8" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;FEV/FVC%&quot;</span>, </span>
+<span id="cb132-9"><a href="r-answer-key.html#cb132-9" tabindex="-1"></a>     <span class="at">main=</span> <span class="st">&quot;FEV/FVC% vs. Cigarettes at Baseline for Females&quot;</span>)</span>
+<span id="cb132-10"><a href="r-answer-key.html#cb132-10" tabindex="-1"></a><span class="fu">abline</span>(model2)</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>The following will create a scatter plot using purple triangle shapes, and fits a regression line:</li>
+</ol>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="r-answer-key.html#cb133-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb133-2"><a href="r-answer-key.html#cb133-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb133-3"><a href="r-answer-key.html#cb133-3" tabindex="-1"></a><span class="fu">ggplot</span>(lhs, <span class="fu">aes</span>(<span class="at">x=</span>f10cigs, <span class="at">y=</span>FEVFVC02)) <span class="sc">+</span> </span>
+<span id="cb133-4"><a href="r-answer-key.html#cb133-4" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">6</span>, <span class="at">color =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)</span></code></pre></div>
+</div>
+</div>
+<div id="answers-13" class="section level2 hasAnchor" number="14.20">
+<h2><span class="header-section-number">14.20</span> Software Lesson 13 Guided Questions<a href="r-answer-key.html#answers-13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 13:</p>
+<ul>
+<li>Guided Questions 1-2 (<a href="correlation-and-simple-linear-regression-in-r-1.html#g131">13.2</a>)</li>
+<li>Challenge Questions (<a href="correlation-and-simple-linear-regression-in-r-1.html#ch13">13.4</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>The test statistic is <span class="math inline">\(t = -2.905\)</span>, with a <em>p</em>-value of <span class="math inline">\(p = 0.00369\)</span>.</li>
+<li>(-0.0301, -0.0058)</li>
+</ol>
+<div id="answers-chal-13" class="section level4 hasAnchor" number="14.20.0.1">
+<h4><span class="header-section-number">14.20.0.1</span> Challenge Questions 13<a href="r-answer-key.html#answers-chal-13" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="3" style="list-style-type: decimal">
+<li>The following will give estimates and confidence intervals for the model coefficients, as well as diagnostic plots:</li>
+</ol>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="r-answer-key.html#cb134-1" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lhs<span class="sc">$</span>f10cigs<span class="sc">~</span>lhs<span class="sc">$</span>DRINKSBL)</span>
+<span id="cb134-2"><a href="r-answer-key.html#cb134-2" tabindex="-1"></a><span class="fu">summary</span>(model2)</span>
+<span id="cb134-3"><a href="r-answer-key.html#cb134-3" tabindex="-1"></a><span class="fu">confint</span>(model2, <span class="at">level=</span><span class="fl">0.95</span>)</span>
+<span id="cb134-4"><a href="r-answer-key.html#cb134-4" tabindex="-1"></a><span class="fu">autoplot</span>(model2)</span></code></pre></div>
+</div>
+</div>
+<div id="answers-14" class="section level2 hasAnchor" number="14.21">
+<h2><span class="header-section-number">14.21</span> Software Lesson 14 Guided Questions<a href="r-answer-key.html#answers-14" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="yellowbox">
+<p>Return to Chapter 14:</p>
+<ul>
+<li>Guided Questions 1-3 (<a href="multiple-linear-regression-in-r.html#g141">14.3</a>)</li>
+<li>Guided Questions 4-6 (<a href="multiple-linear-regression-in-r.html#g142">14.5</a>)</li>
+<li>Challenge Questions (<a href="multiple-linear-regression-in-r.html#ch14">14.7</a>)</li>
+</ul>
+</div>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>Red and black.</li>
+<li>A filled-in circle.</li>
+<li>Males have the highest number of cigarettes, as more of the blue dots are on the right side of the graph. They also have the lowest FEV1/FVC<span class="math inline">\(\%\)</span> at baseline.</li>
+<li>The intercept is 65.83078, the coefficient for f10cigs is -0.01388, the coefficient for AGENDERM is -0.84248, and the coefficient for DRINKSBL is 0.01740.</li>
+<li>The test statistic is <span class="math inline">\(t = -2.225\)</span>, with a <em>p</em>-value of <span class="math inline">\(p = 0.0261\)</span>.</li>
+<li>(-1.1699, -.5151)</li>
+</ol>
+<div id="answers-chal-14" class="section level4 hasAnchor" number="14.21.0.1">
+<h4><span class="header-section-number">14.21.0.1</span> Challenge Questions 14<a href="r-answer-key.html#answers-chal-14" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="7" style="list-style-type: decimal">
+<li>One way this can be done is with the following:</li>
+</ol>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="r-answer-key.html#cb135-1" tabindex="-1"></a>lhs<span class="sc">$</span>trtgroup <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(lhs<span class="sc">$</span>alphagroup <span class="sc">==</span> <span class="st">&quot;UC&quot;</span>, <span class="st">&quot;control&quot;</span>, <span class="st">&quot;intervention&quot;</span>)</span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>This can be done using the following:</li>
+</ol>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="r-answer-key.html#cb136-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>lhs<span class="sc">$</span>AGESTART, <span class="at">y=</span>lhs<span class="sc">$</span>AV2CIGS,</span>
+<span id="cb136-2"><a href="r-answer-key.html#cb136-2" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;mediumturquoise&quot;</span>)[<span class="fu">factor</span>(lhs<span class="sc">$</span>trtgroup)],</span>
+<span id="cb136-3"><a href="r-answer-key.html#cb136-3" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>,</span>
+<span id="cb136-4"><a href="r-answer-key.html#cb136-4" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Number of cigarettes at 2nd Visit (per day)&quot;</span>,</span>
+<span id="cb136-5"><a href="r-answer-key.html#cb136-5" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Age started smoking&quot;</span>)</span>
+<span id="cb136-6"><a href="r-answer-key.html#cb136-6" tabindex="-1"></a></span>
+<span id="cb136-7"><a href="r-answer-key.html#cb136-7" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="at">legend=</span><span class="fu">levels</span>(<span class="fu">factor</span>(lhs<span class="sc">$</span>trtgroup)), <span class="at">fill=</span><span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;mediumturquoise&quot;</span>), <span class="at">title =</span> <span class="st">&quot;Treatment&quot;</span>)</span></code></pre></div>
+<ol start="9" style="list-style-type: decimal">
+<li>This can be done using the following:</li>
+</ol>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="r-answer-key.html#cb137-1" tabindex="-1"></a>model3<span class="ot">&lt;-</span><span class="fu">lm</span>(AV2CIGS <span class="sc">~</span>  <span class="fu">factor</span>(trtgroup) <span class="sc">+</span> AGESTART, <span class="at">data=</span>lhs)</span>
+<span id="cb137-2"><a href="r-answer-key.html#cb137-2" tabindex="-1"></a><span class="fu">summary</span>(model3)</span>
+<span id="cb137-3"><a href="r-answer-key.html#cb137-3" tabindex="-1"></a><span class="fu">confint</span>(model3, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="multiple-linear-regression-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

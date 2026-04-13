@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Software Lesson 10 Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R | 6450 Answer Keys - R</title>
+  <meta name="description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Software Lesson 10 Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R | 6450 Answer Keys - R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="github-repo" content="hannah-graff-umn/6450BookdownR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Software Lesson 10 Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R | 6450 Answer Keys - R" />
+  
+  <meta name="twitter:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  
+
+
+
+<meta name="date" content="2026-04-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="anova-in-r.html"/>
+<link rel="next" href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pubh 6450 Answer Keys - R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Importing &amp; Summarizing Data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1"><i class="fa fa-check"></i><b>1.1</b> Goal of Software Lesson 1</a></li>
+<li class="chapter" data-level="1.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#dataset"><i class="fa fa-check"></i><b>1.2</b> Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#importing-data"><i class="fa fa-check"></i><b>1.3</b> Importing data</a></li>
+<li class="chapter" data-level="1.4" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#examine-the-data"><i class="fa fa-check"></i><b>1.4</b> Examine the data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-the-dataset"><i class="fa fa-check"></i><b>1.4.1</b> View the dataset</a></li>
+<li class="chapter" data-level="1.4.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables"><i class="fa fa-check"></i><b>1.4.2</b> View data types of the variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-names-of-the-variables"><i class="fa fa-check"></i><b>1.4.3</b> View names of the variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g11"><i class="fa fa-check"></i><b>1.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.6" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarizing-the-data"><i class="fa fa-check"></i><b>1.6</b> Summarizing the data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once"><i class="fa fa-check"></i><b>1.6.1</b> Summarize all variables at once</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g12"><i class="fa fa-check"></i><b>1.7</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable"><i class="fa fa-check"></i><b>1.7.1</b> Summarize single categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g13"><i class="fa fa-check"></i><b>1.8</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable"><i class="fa fa-check"></i><b>1.8.1</b> Summarize single continuous variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g14"><i class="fa fa-check"></i><b>1.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.10" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#ch1"><i class="fa fa-check"></i><b>1.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html"><i class="fa fa-check"></i><b>2</b> Normal Binomial in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#goal-of-software-lesson-2"><i class="fa fa-check"></i><b>2.1</b> Goal of Software Lesson 2</a></li>
+<li class="chapter" data-level="2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution"><i class="fa fa-check"></i><b>2.2</b> Computing probabilities using the Normal distribution</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Computing “less than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Computing “greater than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Computing “between” probabilities in a Normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g21"><i class="fa fa-check"></i><b>2.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution"><i class="fa fa-check"></i><b>2.4</b> Computing probabilities using the Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.1</b> Computing “equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Computing “less than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.3</b> Computing “greater than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.4</b> Computing “between” probabilities in a Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g22"><i class="fa fa-check"></i><b>2.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.6" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#ch2"><i class="fa fa-check"></i><b>2.6</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html"><i class="fa fa-check"></i><b>3</b> Confidence Intervals for a Proportion in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#goal-of-software-lesson-3"><i class="fa fa-check"></i><b>3.1</b> Goal of Software Lesson 3</a></li>
+<li class="chapter" data-level="3.2" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#confidence-interval-for-a-proportion"><i class="fa fa-check"></i><b>3.2</b> Confidence interval for a proportion</a></li>
+<li class="chapter" data-level="3.3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#g31"><i class="fa fa-check"></i><b>3.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="3.4" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#ch3"><i class="fa fa-check"></i><b>3.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>4</b> Confidence Intervals for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#goal-of-software-lesson-4"><i class="fa fa-check"></i><b>4.1</b> Goal of Software Lesson 4</a></li>
+<li class="chapter" data-level="4.2" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#confidence-interval-for-a-mean"><i class="fa fa-check"></i><b>4.2</b> Confidence interval for a mean</a></li>
+<li class="chapter" data-level="4.3" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#g41"><i class="fa fa-check"></i><b>4.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="4.4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#ch4"><i class="fa fa-check"></i><b>4.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Test for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5"><i class="fa fa-check"></i><b>5.1</b> Goal of Software Lesson 5</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean"><i class="fa fa-check"></i><b>5.2</b> Hypothesis test for a mean</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g51"><i class="fa fa-check"></i><b>5.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>5.4</b> Paired <em>t</em>-test</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g52"><i class="fa fa-check"></i><b>5.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.6" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable"><i class="fa fa-check"></i><b>5.6</b> Reclassify a variable</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable"><i class="fa fa-check"></i><b>5.6.1</b> Reclassify numerical variable as categorical variable</a></li>
+<li class="chapter" data-level="5.6.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable"><i class="fa fa-check"></i><b>5.6.2</b> Recode categories in a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g53"><i class="fa fa-check"></i><b>5.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.8" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#ch5"><i class="fa fa-check"></i><b>5.8</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Inferential Methods for Comparing Means &amp; More Summarizing Numerical Data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#goal-of-software-lesson-6"><i class="fa fa-check"></i><b>6.1</b> Goal of Software Lesson 6</a></li>
+<li class="chapter" data-level="6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#two-sample-t-test"><i class="fa fa-check"></i><b>6.2</b> Two-sample <em>t</em>-test</a></li>
+<li class="chapter" data-level="6.3" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61"><i class="fa fa-check"></i><b>6.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.4" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#mann-whitney-test-aka-wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>6.4</b> Mann-Whitney test (aka Wilcoxon Rank-Sum test)</a></li>
+<li class="chapter" data-level="6.5" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62"><i class="fa fa-check"></i><b>6.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summarizing-numerical-variables-by-group"><i class="fa fa-check"></i><b>6.6</b> Summarizing numerical variables by group</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summary-measures-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.1</b> Summary measures of numerical variable by group</a></li>
+<li class="chapter" data-level="6.6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#graphical-displays-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.2</b> Graphical displays of numerical variable by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63"><i class="fa fa-check"></i><b>6.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.8" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#transforming-a-numerical-variable"><i class="fa fa-check"></i><b>6.8</b> Transforming a numerical variable</a></li>
+<li class="chapter" data-level="6.9" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64"><i class="fa fa-check"></i><b>6.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.10" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6"><i class="fa fa-check"></i><b>6.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html"><i class="fa fa-check"></i><b>7</b> Power &amp; Sample Size Estimation in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#goal-of-software-lesson-7"><i class="fa fa-check"></i><b>7.1</b> Goal of Software Lesson 7</a></li>
+<li class="chapter" data-level="7.2" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-and-sample-size-calculations"><i class="fa fa-check"></i><b>7.2</b> Power and Sample Size Calculations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#sample-size-estimation"><i class="fa fa-check"></i><b>7.2.1</b> Sample size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g71"><i class="fa fa-check"></i><b>7.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g72"><i class="fa fa-check"></i><b>7.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="7.5" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#ch7"><i class="fa fa-check"></i><b>7.5</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="project-1-in-r.html"><a href="project-1-in-r.html"><i class="fa fa-check"></i><b>8</b> Project 1 in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="project-1-in-r.html"><a href="project-1-in-r.html#goal-of-software-lesson-8"><i class="fa fa-check"></i><b>8.1</b> Goal of Software Lesson 8</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova-in-r.html"><a href="anova-in-r.html"><i class="fa fa-check"></i><b>9</b> ANOVA in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova-in-r.html"><a href="anova-in-r.html#goal-of-software-lesson-9"><i class="fa fa-check"></i><b>9.1</b> Goal of Software Lesson 9</a></li>
+<li class="chapter" data-level="9.2" data-path="anova-in-r.html"><a href="anova-in-r.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9.3" data-path="anova-in-r.html"><a href="anova-in-r.html#g91"><i class="fa fa-check"></i><b>9.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.4" data-path="anova-in-r.html"><a href="anova-in-r.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova-in-r.html"><a href="anova-in-r.html#bonferroni"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova-in-r.html"><a href="anova-in-r.html#g92"><i class="fa fa-check"></i><b>9.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-in-r.html"><a href="anova-in-r.html#ch9"><i class="fa fa-check"></i><b>9.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10"><i class="fa fa-check"></i><b>10.1</b> Goal of Software Lesson 10</a></li>
+<li class="chapter" data-level="10.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables"><i class="fa fa-check"></i><b>10.2</b> Comparing two categorical variables</a></li>
+<li class="chapter" data-level="10.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables"><i class="fa fa-check"></i><b>10.3</b> Summarizing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables"><i class="fa fa-check"></i><b>10.3.1</b> 2x2 tables</a></li>
+<li class="chapter" data-level="10.3.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group"><i class="fa fa-check"></i><b>10.3.2</b> Graphical displays of a categorical variable by group</a></li>
+<li class="chapter" data-level="10.3.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio"><i class="fa fa-check"></i><b>10.3.3</b> Risk difference, relative risk, and odds ratio</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101"><i class="fa fa-check"></i><b>10.4</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels"><i class="fa fa-check"></i><b>10.4.1</b> Modifying categorical labels</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102"><i class="fa fa-check"></i><b>10.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="10.6" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10"><i class="fa fa-check"></i><b>10.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><i class="fa fa-check"></i><b>11</b> Chi-Square Test, Fisher’s Exact Test, and McNemar’s Test in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#goal-of-software-lesson-11"><i class="fa fa-check"></i><b>11.1</b> Goal of Software Lesson 11</a></li>
+<li class="chapter" data-level="11.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#hypothesis-test-comparing-two-categorical-variables"><i class="fa fa-check"></i><b>11.2</b> Hypothesis test comparing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#chi-square-test"><i class="fa fa-check"></i><b>11.2.1</b> Chi-square test</a></li>
+<li class="chapter" data-level="11.2.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#fishers-exact-test"><i class="fa fa-check"></i><b>11.2.2</b> Fisher’s exact test</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111"><i class="fa fa-check"></i><b>11.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.4" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#mcnemars-test-for-paired-data"><i class="fa fa-check"></i><b>11.4</b> McNemar’s test for paired data</a></li>
+<li class="chapter" data-level="11.5" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112"><i class="fa fa-check"></i><b>11.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.6" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11"><i class="fa fa-check"></i><b>11.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>12</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12"><i class="fa fa-check"></i><b>12.1</b> Goal of Software Lesson 12</a></li>
+<li class="chapter" data-level="12.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables"><i class="fa fa-check"></i><b>12.2</b> Relationship between two numerical variables</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#scatterplot"><i class="fa fa-check"></i><b>12.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="12.2.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#correlation"><i class="fa fa-check"></i><b>12.2.2</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g121"><i class="fa fa-check"></i><b>12.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.3.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="12.3.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit"><i class="fa fa-check"></i><b>12.3.2</b> Draw line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g122"><i class="fa fa-check"></i><b>12.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="12.5" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set"><i class="fa fa-check"></i><b>12.5</b> Subsetting a data set</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-1"><i class="fa fa-check"></i><b>12.5.1</b> Option #1</a></li>
+<li class="chapter" data-level="12.5.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-2"><i class="fa fa-check"></i><b>12.5.2</b> Option #2</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#ch12"><i class="fa fa-check"></i><b>12.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html"><i class="fa fa-check"></i><b>13</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#goal-of-software-lesson-13"><i class="fa fa-check"></i><b>13.1</b> Goal of Software Lesson 13</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#inference-for-simple-linear-regression"><i class="fa fa-check"></i><b>13.1.1</b> Inference for Simple Linear Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#p-values-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.2</b> <em>p</em>-values for regression coefficients</a></li>
+<li class="chapter" data-level="13.1.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#confidence-intervals-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.3</b> Confidence intervals for regression coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#g131"><i class="fa fa-check"></i><b>13.2</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="13.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#model-diagnostics"><i class="fa fa-check"></i><b>13.3</b> Model diagnostics</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#diagnostic-plots"><i class="fa fa-check"></i><b>13.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#ch13"><i class="fa fa-check"></i><b>13.4</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>14</b> Multiple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#goal-of-software-lesson-14"><i class="fa fa-check"></i><b>14.1</b> Goal of Software Lesson 14</a></li>
+<li class="chapter" data-level="14.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>14.2</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.1</b> Scatterplot with a categorical variable</a></li>
+<li class="chapter" data-level="14.2.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#add-best-fit-lines-to-scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.2</b> Add best-fit lines to scatterplot with a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g141"><i class="fa fa-check"></i><b>14.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.4" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression-model"><i class="fa fa-check"></i><b>14.4</b> Multiple linear regression model</a></li>
+<li class="chapter" data-level="14.5" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g142"><i class="fa fa-check"></i><b>14.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.6" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>14.6</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="14.7" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#ch14"><i class="fa fa-check"></i><b>14.7</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-answer-key.html"><a href="r-answer-key.html"><i class="fa fa-check"></i>R Answer Key</a>
+<ul>
+<li class="chapter" data-level="14.8" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-1"><i class="fa fa-check"></i><b>14.8</b> Software Lesson 1 Guided Questions</a></li>
+<li class="chapter" data-level="14.9" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-2"><i class="fa fa-check"></i><b>14.9</b> Software Lesson 2 Guided Questions</a></li>
+<li class="chapter" data-level="14.10" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-3"><i class="fa fa-check"></i><b>14.10</b> Software Lesson 3 Guided Questions</a></li>
+<li class="chapter" data-level="14.11" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-4"><i class="fa fa-check"></i><b>14.11</b> Software Lesson 4 Guided Questions</a></li>
+<li class="chapter" data-level="14.12" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-5"><i class="fa fa-check"></i><b>14.12</b> Software Lesson 5 Guided Questions</a></li>
+<li class="chapter" data-level="14.13" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-6"><i class="fa fa-check"></i><b>14.13</b> Software Lesson 6 Guided Questions</a></li>
+<li class="chapter" data-level="14.14" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-7"><i class="fa fa-check"></i><b>14.14</b> Software Lesson 7 Guided Questions</a></li>
+<li class="chapter" data-level="14.15" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-8"><i class="fa fa-check"></i><b>14.15</b> Software Lesson 8 Guided Questions</a></li>
+<li class="chapter" data-level="14.16" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-9"><i class="fa fa-check"></i><b>14.16</b> Software Lesson 9 Guided Questions</a></li>
+<li class="chapter" data-level="14.17" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-10"><i class="fa fa-check"></i><b>14.17</b> Software Lesson 10 Guided Questions</a></li>
+<li class="chapter" data-level="14.18" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-11"><i class="fa fa-check"></i><b>14.18</b> Software Lesson 11 Guided Questions</a></li>
+<li class="chapter" data-level="14.19" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-12"><i class="fa fa-check"></i><b>14.19</b> Software Lesson 12 Guided Questions</a></li>
+<li class="chapter" data-level="14.20" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-13"><i class="fa fa-check"></i><b>14.20</b> Software Lesson 13 Guided Questions</a></li>
+<li class="chapter" data-level="14.21" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-14"><i class="fa fa-check"></i><b>14.21</b> Software Lesson 14 Guided Questions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">6450 Answer Keys - R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Software Lesson 10</span> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goal-of-software-lesson-10" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Goal of Software Lesson 10<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="graybox">
+<p>The goal of this software lesson is to learn how to</p>
+<ul>
+<li>summarize two categorical variables (descriptively and graphically), including 2x2 tables and plots,</li>
+<li>calculate point and interval estimates for comparing two categorical variables (i.e., risk difference, relative risk, and odds ratio), and</li>
+<li>modify labels of a categorical variable.</li>
+</ul>
+</div>
+<p><br></p>
+<p>Let’s use the Lung Health Study (LHS) data set again.</p>
+<p>Recall that the data set and a description of data can be found on Canvas, titled <em>lhs.csv</em> and <em>lhsdoc.docx</em>, respectively.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb67-1" tabindex="-1"></a>lhs<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="at">file =</span> <span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="comparing-two-categorical-variables" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Comparing two categorical variables<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose that the LHS researchers were interested in estimating the relative risk of using nicotine gum at the 1st annual visit (<code>AV1GUM</code>), comparing females to males (<code>AGENDER</code>). This is a situation for using techniques that compare two groups on a categorical variable.</p>
+<p>The following would be their research question:</p>
+<center>
+<i>What is an estimate of the population difference in risks/odds of using nicotine gum at 1 year after starting treatment between the sexes?</i>
+</center>
+<p><br></p>
+<p>To answer the research question, you could compute and estimate the following summary measures: risk difference (RD), relative risk (RR), or odds ratio (OR), depending on the study design. However, before you compute these values, you should first examine the relationship between two categorical variables using 2x2 (or contingency) tables and stacked or side-by-side bar plots.</p>
+</div>
+<div id="summarizing-two-categorical-variables" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Summarizing two categorical variables<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In a previous software lesson, you learned how to create a table and bar plot for a single categorical variable. However, it may be of interest to examine the relationship between two categorical variables. This can be done with 2x2 (or contingency) tables and by stacked or side-by-side bar plots.</p>
+<div id="x2-tables" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> 2x2 tables<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>To create a 2x2 table of counts, use the <code>table()</code> function, specifying the two variables of interest:</li>
+</ul>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb68-1" tabindex="-1"></a><span class="fu">table</span>(lhs<span class="sc">$</span>AGENDER, lhs<span class="sc">$</span>AV1GUM)</span></code></pre></div>
+<p>The first variable in the argument (e.g., <code>lhs$AGENDER</code>) is placed in the rows and the second variable in the argument (e.g., <code>lhs$AV1GUM</code>) is placed in the columns.</p>
+<p>If you want the 2x2 table to be proportions rather than counts, there are two ways to do this. The first option, <code>prop.table()</code>, allows you to create three different kinds of 2x2 tables, depending if you want proportions by total (cell value divided by total), proportions by row (cell value divided by row total), or proportions by columns (cell value divide by column total). The second option, <code>CrossTable()</code>, gives you all of that information in a single table.</p>
+<p><strong>Option #1: <code>prop.table()</code> for table of proportions</strong></p>
+<p>When creating a 2x2 table of proportions using the <code>prop.table()</code> function, you first need to save the 2x2 table of counts from the <code>table()</code> function into an object (e.g., <code>mytable</code>) and then use that object in the function for computing table proportions (<code>prop.table()</code>).</p>
+<ul>
+<li>Step 1: To save the 2x2 table of counts into an object, first, name the object something meaningful (e.g., <code>mytable</code>), and then use the assignment operator (<code>&lt;-</code>) to assign the 2x2 table of counts (e.g., <code>table(lhs$AGENDER, lhs$AV1GUM)</code>) to the object:</li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb69-1" tabindex="-1"></a>mytable<span class="ot">&lt;-</span><span class="fu">table</span>(lhs<span class="sc">$</span>AGENDER, lhs<span class="sc">$</span>AV1GUM)</span></code></pre></div>
+<ul>
+<li>Step 2: To create a 2x2 table of proportions, use the <code>prop.table()</code> function, specifying the saved object containing the 2x2 table of counts (e.g., <code>mytable</code>) and other arguments if you want specific proportions (e.g., <code>margin = 1</code> for proportions by row, <code>margin = 2</code> for proportions by column):</li>
+</ul>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb70-1" tabindex="-1"></a><span class="fu">prop.table</span>(mytable) <span class="co"># cell proportions, cell/total</span></span>
+<span id="cb70-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb70-2" tabindex="-1"></a><span class="fu">prop.table</span>(mytable, <span class="at">margin =</span> <span class="dv">1</span>) <span class="co"># row proportions, cell/row total</span></span>
+<span id="cb70-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb70-3" tabindex="-1"></a><span class="fu">prop.table</span>(mytable, <span class="dv">2</span>) <span class="co"># column proportions, cell/column total</span></span></code></pre></div>
+<p>Row proportions and column proportions are helpful when you want to know the proportions given a particular subcategory. For example, based on the output from the row proportions code, you could answer the question of, “what proportion of female participants were using nicotine gum at 1 year after starting treatment?”</p>
+<p><strong>Option #2: CrossTable() for table of proportions</strong></p>
+<p>If you are looking for function that provides a multitude of information at once (counts, proportions), then use the <code>CrossTable()</code> function. The author that created this function modeled it after output provided by SAS for 2x2 tables (<code>proc freq</code> task in SAS).</p>
+<ul>
+<li>To create a 2x2 table with multiple values in each cell, use the <code>CrossTable()</code> function from the <code>{gmodels}</code> package, specifying the two variables of interest:</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-1" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb71-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-2" tabindex="-1"></a><span class="co"># Run the install.packages() function once per package</span></span>
+<span id="cb71-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-3" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb71-4"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gmodels&quot;</span>)</span>
+<span id="cb71-5"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-5" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-6" tabindex="-1"></a><span class="do">###Access the package using the library() function</span></span>
+<span id="cb71-7"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-7" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb71-8"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-8" tabindex="-1"></a></span>
+<span id="cb71-9"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-9" tabindex="-1"></a><span class="do">###Calculate multiple summary statistics using the CrossTable() function</span></span>
+<span id="cb71-10"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb71-10" tabindex="-1"></a><span class="fu">CrossTable</span>(lhs<span class="sc">$</span>AGENDER, lhs<span class="sc">$</span>AV1GUM)</span></code></pre></div>
+<p>The values computed by this function include count, Chi-square contribution (ignore for now), proportion of the row, proportion of the column, and proportion of the table for each cell, respectively, for each cell in the table.</p>
+</div>
+<div id="graphical-displays-of-a-categorical-variable-by-group" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Graphical displays of a categorical variable by group<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>After creating a 2x2 table, it might be helpful to visually examine the data via a bar plot. Two types of bar plots include stacked bar plots and side-by-side bar plots. The function is the same as you learned in a previous software lesson, <code>barplot()</code> but now you use your 2x2 table object.</p>
+<p><strong>Stacked bar plot</strong></p>
+<ul>
+<li>To create a stacked bar plot of counts by group, use the <code>barplot()</code> function, specifying the saved object containing the 2x2 table of counts (e.g., <code>mytable</code>) and other arguments if you want to customize the bar plot (e.g., <code>main=</code> for the plot title, <code>xlab=</code> for the bar labels, and <code>col=</code> for modifying the bar colors):</li>
+</ul>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-1" tabindex="-1"></a><span class="do">###Create the stacked barplot</span></span>
+<span id="cb72-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-2" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(mytable), <span class="at">main=</span><span class="st">&quot;Barplot of Nicotine Gum Usage by Sex&quot;</span>,</span>
+<span id="cb72-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-3" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Sex&quot;</span>,</span>
+<span id="cb72-4"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-4" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>))</span>
+<span id="cb72-5"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-5" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-6" tabindex="-1"></a><span class="do">###Add a legend to the barplot</span></span>
+<span id="cb72-7"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-7" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="fl">0.25</span>,<span class="at">y=</span><span class="dv">3000</span>,<span class="at">legend=</span><span class="fu">rownames</span>(<span class="fu">t</span>(mytable)),</span>
+<span id="cb72-8"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-8" tabindex="-1"></a>       <span class="at">fill=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>),</span>
+<span id="cb72-9"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb72-9" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p>Notice that there is a <code>t()</code> around the table object (<code>mytable</code>). This is to transpose the table so that the groups of interest are placed on the x-axis and the fill is the outcome/response of interest.</p>
+<p>For any plot, you can add a legend using the <code>legend()</code> function to describe features of the plot. The arguments that are included in the above code include:</p>
+<ul>
+<li><p>the x- and y-coordinates where the legend will be positioned (<code>x=</code> and <code>y=</code>),</p></li>
+<li><p>the text within the legend (<code>legend=</code>) [Notice again that <code>t()</code> was used for the table to be consistent with how the plot was oriented.],</p></li>
+<li><p>the colors that correspond to the text (<code>fill=</code>), and</p></li>
+<li><p>the size (relative to 1) of the legend box (<code>cex=</code>). Values less than 1 reduce the size of the legend and values greater than 1 increase the size of the legend.</p></li>
+</ul>
+<p><strong>Side-by-side bar plot</strong></p>
+<ul>
+<li>To create a side-by-side bar plot by group, use the <code>barplot()</code> function, specifying the saved object containing the 2x2 table of counts (e.g., <code>mytable</code>), the option for creating side-by-side bars (i.e., <code>beside=TRUE</code>), and other arguments if you want to customize the bar plot (e.g., <code>main=</code> for the plot title, <code>xlab=</code> for the bar labels, and <code>col=</code> for modifying the bar colors):</li>
+</ul>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(mytable), <span class="at">beside=</span><span class="cn">TRUE</span>, </span>
+<span id="cb73-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-2" tabindex="-1"></a>        <span class="at">main=</span><span class="st">&quot;Barplot of Nicotine Gum Usage by Sex&quot;</span>,</span>
+<span id="cb73-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-3" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Sex&quot;</span>,</span>
+<span id="cb73-4"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-4" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>))</span>
+<span id="cb73-5"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-5" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">1</span>,<span class="at">y=</span><span class="dv">2500</span>,<span class="at">legend=</span><span class="fu">rownames</span>(<span class="fu">t</span>(mytable)),</span>
+<span id="cb73-7"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-7" tabindex="-1"></a>       <span class="at">fill=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>),</span>
+<span id="cb73-8"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb73-8" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>As a reminder, if you want the formal R documentation for a function, type <bdi style = "font-family: 'Courier New'"> ?</bdi> before the function name (e.g., <bdi style = "font-family: 'Courier New'"> ?barplot</bdi>). This is useful when you want to see what other arguments can be called in the function.
+<br></p>
+<p>Also, if you curious on the names of the colors that are available in R, see the following website:
+<a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-colours-a4.pdf">Colors in R.</a></p>
+</div>
+</div>
+<div id="risk-difference-relative-risk-and-odds-ratio" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Risk difference, relative risk, and odds ratio<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When finding RD, RR, and OR in R, you have to first manually create the 2x2 table before using the function that finds the summary values for comparing categorical variables. When creating this table, it is <strong>very</strong> important you set up the table correctly in order for the function to work. The first column in the table needs to be the event of interest and the first row needs to be the group of interest. As an example, this is how the table should look:</p>
+<center>
+<table style="width:40%;" border="1">
+<tr>
+<th>
+</th>
+<th>
+Event
+</th>
+<th>
+Not Event
+</th>
+</tr>
+<tr>
+<th>
+Group 1
+</th>
+<td style="text-align:center;">
+a
+</td>
+<td style="text-align:center;">
+b
+</td>
+</tr>
+<tr>
+<th>
+Group 2
+</th>
+<td style="text-align:center;">
+c
+</td>
+<td style="text-align:center;">
+d
+</td>
+</tr>
+</table>
+</center>
+<p><br></p>
+<ul>
+<li>Step 1 (skip this step if you only have counts and/or totals for each group and not a entire data set): To create and view a 2x2 table of counts, use the <code>table()</code> function, specifying the two variables of interest, exposure or grouping variable first followed by the response or outcome variable next:</li>
+</ul>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb74-1" tabindex="-1"></a><span class="fu">table</span>(lhs<span class="sc">$</span>AGENDER, lhs<span class="sc">$</span>AV1GUM)</span></code></pre></div>
+<p>Now that you have the counts, you can manually create the 2x2 table. However, notice that the table that was produced by the above code has the event of interest (<code>1</code>) in the second column. Therefore, you cannot just copy the counts down in the order that the <code>table()</code> function displays them. You have to be conscious of order when you manually record the values.</p>
+<ul>
+<li>Step 2: To create a matrix of a 2x2 table of counts, use the <code>matrix()</code> function to create a table of the data, specifying the counts in the <code>c()</code> function in the order of <code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code> (according the table presented earlier), the number of rows in the table (<code>nrow=2</code>), the number of columns in the table (<code>ncol=2</code>), the order to read in the values (<code>byrow=TRUE</code> fills in the values across the rows), and the row names and column names in the table (<code>dimnames=list(c("Row1Name", "Row2Name"), c("Column1Name", "Column2Name")</code>):</li>
+</ul>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-1" tabindex="-1"></a>mytable1<span class="ot">&lt;-</span><span class="fu">matrix</span>(</span>
+<span id="cb75-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-2" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">387</span>,<span class="dv">1708</span>,<span class="dv">551</span>,<span class="dv">2942</span>), <span class="co">#specifying the cell values</span></span>
+<span id="cb75-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-3" tabindex="-1"></a>    <span class="at">nrow=</span><span class="dv">2</span>,      <span class="co">#specifying the number of rows</span></span>
+<span id="cb75-4"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-4" tabindex="-1"></a>    <span class="at">ncol=</span><span class="dv">2</span>,      <span class="co">#specifying the number of columns</span></span>
+<span id="cb75-5"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-5" tabindex="-1"></a>    <span class="at">byrow=</span><span class="cn">TRUE</span>,  <span class="co">#create the matrix by rows</span></span>
+<span id="cb75-6"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-6" tabindex="-1"></a>    <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb75-7"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-7" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;Used nicotine gum&quot;</span>, <span class="st">&quot;Did not use nicotine gum&quot;</span>)))</span>
+<span id="cb75-8"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-8" tabindex="-1"></a></span>
+<span id="cb75-9"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-9" tabindex="-1"></a><span class="do">####View the table that you just created</span></span>
+<span id="cb75-10"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb75-10" tabindex="-1"></a>mytable1</span></code></pre></div>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>It’s good practice when creating 2x2 tables to view the table you just created, especially, in this case, to make sure it was entered in correctly. To do this, you just need to type the name of the object that contains the 2x2 table and run that line of code.</p>
+</div>
+<p><br></p>
+<ul>
+<li>Step 3: To find estimates (RD, RR, and OR) for comparing categorical variables, use the <code>summary(epi2x2())</code> functions, where the <code>epi2x2()</code> function is from the <code>{epibasix}</code> package, specifying the saved object containing the 2x2 table of counts (e.g., <code>mytable1</code>):</li>
+</ul>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-1" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb76-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-2" tabindex="-1"></a><span class="co"># Run the install.packages() function once per package</span></span>
+<span id="cb76-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-3" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb76-4"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;epibasix&quot;</span>)</span>
+<span id="cb76-5"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-5" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-6" tabindex="-1"></a><span class="do">###Access the package using the library() function</span></span>
+<span id="cb76-7"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-7" tabindex="-1"></a><span class="fu">library</span>(epibasix)</span>
+<span id="cb76-8"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-8" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-9" tabindex="-1"></a><span class="do">###Calculate multiple summary statistics using the CrossTable() function</span></span>
+<span id="cb76-10"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb76-10" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">epi2x2</span>(mytable1))</span></code></pre></div>
+<p>The output presents you everything that you might be interested in knowing when comparing two categorical variables: 2x2 table, hypothesis testing for two inferential methods (Chi-squared test and Fisher’s Exact test; to be presented in a future lesson), and summary measure values for OR, RR, and RD and their confidence intervals.</p>
+<p>The confidence intervals for RR and OR are calculated from the log(RR) and the log(OR) and then back-transformed onto the original scale.</p>
+<div class="bluebox">
+<p><strong>COMPARING TWO CATEGORICAL VARIABLES</strong></p>
+<b>Purpose:</b> To estimate and examine the relationship between two categorical variables using 2x2 tables (counts, proportions, risk difference, relative risk, odds ratio) and graphical representations.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional resources on RD, RR, or OR, see:</p>
+<ul>
+<li><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association3.html">Risk Ratios and Rate Ratios (Relative Risk) [Boston University]</a></li>
+<li><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association8.html">Measuring Association in Case-Control Studies [Boston University]</a></li>
+<li><a href="http://www.pitt.edu/~bertsch/risk.pdf">Understanding Relative Risk, Odds Ratio, and Related Terms [University of Pittsburgh].</a></li>
+</ul>
+<p>For an additional R resource on comparing two categorical variables, see:</p>
+<ul>
+<li><a href="https://www.cyclismo.org/tutorial/R/tables.html">Two Way Tables [Cyclismo].</a></li>
+<li><a href="https://www.statmethods.net/stats/frequencies.html">Frequencies and Crosstabs [Quick-R].</a></li>
+<li><a href="http://www.sthda.com/english/wiki/bar-plots-r-base-graphs">Bar Plots - R Base Graphs [STHDA].</a></li>
+<li><a href="https://www.tutorialgateway.org/stacked-barplot-in-r/">Stacked Barplot in R [Tutorial Getaway].</a></li>
+<li><a href="https://www.rdocumentation.org/packages/epibasix/versions/1.5/topics/epi2x2">Epidemiological 2x2 Contingency Table Analysis Tool [R Documentation].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="g101" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> GUIDED QUESTIONS<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-1-8" class="section level5 hasAnchor" number="10.4.0.0.1">
+<h5><span class="header-section-number">10.4.0.0.1</span> Question 1<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-1-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the risk difference (Cohort) of using nicotine gum at the 1st annual visit between females and males? What is its confidence interval?</p>
+</div>
+<div id="question-2-8" class="section level5 hasAnchor" number="10.4.0.0.2">
+<h5><span class="header-section-number">10.4.0.0.2</span> Question 2<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-2-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the relative risk of using nicotine gum at the 1st annual visit between females and males? What is its confidence interval?</p>
+</div>
+<div id="question-3-8" class="section level5 hasAnchor" number="10.4.0.0.3">
+<h5><span class="header-section-number">10.4.0.0.3</span> Question 3<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-3-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the odds ratio of using nicotine gum at the 1st annual visit between females and males? What is its confidence interval?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-10">14.17</a> for answers</p>
+</div>
+</div>
+<div id="modifying-categorical-labels" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> Modifying categorical labels<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you examine the variable <code>race</code> in a table, do you notice that the labels are not very intuitive? What does <code>race = 1</code> represent? How about <code>race = 5</code>? It might be more useful to modify the labels of the categorical variable to something meaningful.</p>
+<ul>
+<li>To change labels of a categorical variable, first, create a <strong>new</strong> variable in the data set (e.g., <code>lhs$race1</code>), followed by the assignment operator (<code>&lt;-</code>), and then use the <code>factor()</code> function, specifying the variable of interest (e.g., <code>lhs$race</code>), the current categories of the variable (e.g., <code>levels=c(1, 2, 3, 4, 5)</code>), and the modified categories of the variable in the same order as in the <code>levels=</code> argument (e.g., <code>labels=c("White","Black","Asian","Native American","Other")</code>):</li>
+</ul>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb77-1" tabindex="-1"></a>lhs<span class="sc">$</span>race1<span class="ot">&lt;-</span><span class="fu">factor</span>(lhs<span class="sc">$</span>race,</span>
+<span id="cb77-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb77-2" tabindex="-1"></a>                 <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</span>
+<span id="cb77-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb77-3" tabindex="-1"></a>                 <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;White&quot;</span>,<span class="st">&quot;Black&quot;</span>,<span class="st">&quot;Asian&quot;</span>,<span class="st">&quot;Native American&quot;</span>,<span class="st">&quot;Other&quot;</span>))</span></code></pre></div>
+<p>Now when the new variable, <code>race1</code>, is used, the text labels will be displayed rather than the numeric labels found in <code>race</code>.</p>
+<p>Try it out!</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-1" tabindex="-1"></a>mytable2<span class="ot">&lt;-</span><span class="fu">table</span>(lhs<span class="sc">$</span>race1, lhs<span class="sc">$</span>alphagroup)</span>
+<span id="cb78-2"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-2" tabindex="-1"></a>mytable2</span>
+<span id="cb78-3"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-4" tabindex="-1"></a><span class="fu">barplot</span>(mytable2, <span class="at">main=</span><span class="st">&quot;Barplot of Race by Intervention Group&quot;</span>,</span>
+<span id="cb78-5"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-5" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Intervention Group&quot;</span>,</span>
+<span id="cb78-6"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-6" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
+<span id="cb78-7"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-7" tabindex="-1"></a></span>
+<span id="cb78-8"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-8" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="fl">2.5</span>,<span class="at">y=</span><span class="dv">1500</span>,<span class="at">legend=</span><span class="fu">rownames</span>(mytable2),</span>
+<span id="cb78-9"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-9" tabindex="-1"></a>      <span class="at">fill=</span><span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>), </span>
+<span id="cb78-10"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#cb78-10" tabindex="-1"></a>      <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>You may have noticed that the <bdi style = "font-family: 'Courier New'"> c()</bdi> function is used often in R. This function is used when you have multiple values that you have to specify.
+<br></p>
+<p>Also, recall that when you want to create a new variable and add it to an existing data set, you just type (<bdi style = "font-family: 'Courier New'"> dataset$variablename&lt;-</bdi>) followed by what you want that variable to contain (e.g., mapping, modifying, transforming, creating).</p>
+</div>
+<p><br></p>
+<div class="bluebox">
+<p><strong>MODIFYING CATEGORICAL LABELS</strong></p>
+<b>Purpose:</b> To modify the labels of the categorical variable.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on modifying labels of a categorical variable, see:</p>
+<ul>
+<li><a href="https://www.statmethods.net/input/valuelabels.html">Value Labels [Quick-R].</a></li>
+<li><a href="http://www.cookbook-r.com/Manipulating_data/Renaming_levels_of_a_factor/">Renaming levels of a factor [Cookbook for R].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="g102" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> GUIDED QUESTIONS<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-4-8" class="section level5 hasAnchor" number="10.5.0.0.1">
+<h5><span class="header-section-number">10.5.0.0.1</span> Question 4<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-4-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>How many participants in the LHS study were Asian and in the SI-P intervention group? What proportion of the total is this?</p>
+</div>
+<div id="question-5-6" class="section level5 hasAnchor" number="10.5.0.0.2">
+<h5><span class="header-section-number">10.5.0.0.2</span> Question 5<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-5-6" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What proportion of the SI-A intervention group were Black?</p>
+</div>
+<div id="question-6-6" class="section level5 hasAnchor" number="10.5.0.0.3">
+<h5><span class="header-section-number">10.5.0.0.3</span> Question 6<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-6-6" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What proportion of Native Americans were in the UC intervention group?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-10">14.17</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="ch10" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> CHALLENGE QUESTIONS<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-7-6" class="section level5 hasAnchor" number="10.6.0.0.1">
+<h5><span class="header-section-number">10.6.0.0.1</span> Question 7<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-7-6" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Suppose that the LHS researchers were interested in estimating RD, RR, and OR of losing weight by the end of the study (5th visit) between females and males. Create a new variable (<code>wgt5.c</code>) that turns the variable of weight change at the 5th annual visit (<code>wgtchg05</code>) into a categorical variable, with <code>"lost weight"</code> equal to values less than 0, and <code>"gained weight"</code> equal to values greater than or equal to 0. Then, explore the variables of interest by creating a table of sex (<code>AGENDER</code>) and the new variable, weight lost (<code>wgt5.c</code>), and also at least one graphical summary. Then, find estimates for RD, RR, and OR comparing females to males and their confidence intervals.</p>
+</div>
+<div id="question-8-6" class="section level5 hasAnchor" number="10.6.0.0.2">
+<h5><span class="header-section-number">10.6.0.0.2</span> Question 8<a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#question-8-6" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The Scandinavian simvastatin survival study (4S) was a randomized clinical trial designed to evaluate the effects of the cholesterol-lowering agent simvastatin in patients with coronary heart disease. Over the 5.4 years of follow-up, the treatment group (<span class="math inline">\(n_1\)</span>=2221) had 111 individuals experience a fatal heart attack. The placebo group (<span class="math inline">\(n_2\)</span>=2223) had 189 individuals experience such event. Compute RD, RR, and OR and their confidence intervals comparing the two groups on the risk of fatal heart attack.</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-chal-10">14.17.0.1</a> for answers</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="anova-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

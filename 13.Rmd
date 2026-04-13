@@ -1,0 +1,159 @@
+# Correlation and Simple Linear Regression in R
+
+## Goal of Software Lesson 13
+
+::: {.graybox}
+
+The goal of this software lesson is to learn how to
+
+* obtain test statistics, \textit{p}-values, and confidence intervals for the regression coefficients, and
+* create diagnostic plots (e.g., residual plot and QQ plot) for the regression model.
+
+:::
+<br>
+
+Let's use the Lung Health Study (LHS) data set again. 
+
+Recall that the data set and a description of data can be found on Canvas, titled *lhs.csv* and *lhsdoc.docx*, respectively.
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs<-read.csv(file = file.choose(), header = TRUE)
+```
+
+Last week, you investigated the relationship between two numerical variables via a graphical display (i.e., scatterplots) and summary measures (i.e., correlation, regression coefficients). This week, you are going to build on this knowledge and learn how to obtain inferential results (e.g., CI's, *p*-values) and diagnostic information for simple linear regression (SLR).
+
+You will be investigating the same scenario as in the previous lesson; that is, the relationship between the number of cigarettes smoked per day at baseline (`f10cigs`) and FEV1/FVC$\%$ at baseline (`FEVFVC02`). 
+
+### Inference for Simple Linear Regression
+
+Last week, you obtained regression coefficients (i.e., intercept and slope) from the SLR model to predict Y from X. Recall that the code to obtain these values also provided you with inferential results (i.e., *p*-values) regarding the regression coefficients. This code and explanation are presented again for completeness. 
+
+### *p*-values for regression coefficients
+
+- To fit a simple linear regression model, first, use the `lm()` function, specifying the y-variable and the x-variable, separated by `~` (e.g., `lm(y~x)`) and saving the information under an object name (e.g., `model1`). Then use the `summary()` function on the saved `lm` object (`model1`) to obtain the regression coefficient values: 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+model1<-lm(lhs$FEVFVC02~lhs$f10cigs)
+summary(model1)
+```
+
+As a reminder, the main information of interest is in the table under the header `Coefficients:`. 
+
+The regression coefficient values are under the column `Estimate`, with the intercept denoted in the first row and the slope denoted in the second row. The information in this column was of interest last week. 
+
+The standard errors for each of the regression coefficients are under the column `Std. Error`. This value is used to create confidence intervals and *t*-test statistics for the coefficients.
+
+In the third column, `t value` represents the *t*-test statistics for testing the regression coefficients. It is found by taking the `Estimate` divided by `Std. Error`.
+
+And lastly, the *p*-values for testing the regression coefficients are presented in the column `Pr(>|t|)`. These last three pieces of information are the focus this week.
+
+Additional model statistics that may be of interest include $R^2$, which is denoted next to `Multiple R-squared`, and  $\hat{\sigma}$, which is denoted next to `Residual standard error`. $R^2$ is a measure of how well the model fits the data and the residual standard error, $\hat{\sigma}$, is the standard deviation of the residual values.
+
+### Confidence intervals for regression coefficients
+
+Besides testing the regression coefficients against the null hypothesis, you can also produce confidence intervals for the regression coefficients to estimate the population value. 
+
+- To obtain confidence intervals for the regression coefficients, use the `confint()` function on the saved `lm` object (`model1`) and specifying the confidence level (`level=`): 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+confint(model1, level=0.95)
+```
+
+The output displays the lower and upper limits to the $95\%$ confidence interval for both the intercept and the slope. 
+
+The default confidence level is $95\%$, but you can modify the value for the `level=` argument if you want a different confidence level (e.g., `0.90`, `0.99`). 
+
+::: {.bluebox}
+**INFERENCE FOR SIMPLE LINEAR REGRESSION**
+
+<b>Purpose:</b> To estimate regression coefficients and their inferential statistics to investigate the relationship between two numerical variables: a response variable, Y, and an explanatory, X.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on simple linear regression, see: 
+
+* <a href="http://www.sthda.com/english/articles/40-regression-analysis/167-simple-linear-regression-in-r/">Simple Linear Regression in R [STHDA].</a>
+
+:::
+<br>
+
+
+## GUIDED QUESTIONS {#g131}
+
+##### Question 1
+What is the test statistic for the slope coefficient? What is the resulting *p*-value from that test?
+
+##### Question 2
+What is the $95\%$ confidence interval for the slope coefficient?
+
+::: {.graybox}
+
+See \@ref(answers-13) for answers
+
+:::
+
+## Model diagnostics
+
+Another step in SLR is to evaluate how well the model fits the data by creating model diagnostics. From these, you assess the assumptions of the linear regression model (via diagnostic plots, such as a residual plot).
+
+### Diagnostic plots
+
+- - To obtain diagnostic plots for a multiple linear regression model, use the `autoplot()` function from the `{ggfortify}` package on the saved `lm` object (`model1`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+#############
+# Run the install.packages() function only once per package
+############# 
+install.packages("ggfortify")
+
+###Access the package using the library() function 
+library(ggfortify)
+
+####Obtaining diagnostic plots for the model
+autoplot(model1)
+```
+
+
+As a reminder, four plots will be created in a 2x2 grid. You may need enlarge the Plot window in order to see the four plots clearly.
+
+The first plot (top left; first row, first column) is the Residual plot. It is used to assess the linearity and equal variance assumptions.
+
+The second plot (top right; first row, second column) is the QQ plot of the residuals from the model and is used to assess the normality assumption of the residuals.
+
+The third plot (bottom left; second row, first column) is called the Scale-Location plot and it is a plot of the square root of the standardized residuals vs. the fitted values. This is another plot that can be used to assess the equal variance assumption. 
+
+The fourth and final plot (bottom right; second row, second column) is the Residuals vs. Leverage plot and is used to help find influential points, if any.
+
+::: {.bluebox}
+**MODEL DIAGNOSTICS**
+
+<b>Purpose:</b> To evaluate the fit and assumptions of the model using plots (e.g., residual plot, QQ plot).
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For more information on how to evaluate these plots, check out the following website: <a href="https://data.library.virginia.edu/diagnostic-plots/">Understanding Diagnostic Plots for Linear Regression Analysis</a>.
+<br>
+
+For additional R resources on model diagnostics, see: 
+
+* <a href="http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials/">Linear Regression Assumptions and Diagnostics in R: Essentials [STHDA].</a>
+* <a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R5_Correlation-Regression/R5_Correlation-Regression7.html">Regression Diagnostics [Boston University].</a>
+
+:::
+<br>
+
+
+## CHALLENGE QUESTIONS {#ch13}
+
+##### Question 3
+Building on a previous challenge question of investigating the relationship between the number of cigarettes smoked per day at baseline (`f10cigs`; Y) and the number of alcoholic drinks per week at baseline (`DRINKSBL`; X), obtain regression coefficients from a simple linear regression model and their inferential statistics (*p*-values and confidence intervals). Also check the model diagnostics.
+
+::: {.graybox}
+
+See \@ref(answers-chal-13) for answers
+
+:::
+
+

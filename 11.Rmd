@@ -1,0 +1,241 @@
+# Chi-Square Test, Fisher's Exact Test, and McNemar's Test in R
+
+## Goal of Software Lesson 11
+
+::: {.graybox}
+
+The goal of this software lesson is to learn how to
+
+* obtain expected counts for a 2x2 table, and 
+* obtain inferential results for comparing two categorical variables (e.g., Chi-square test, Fisher's exact test, and McNemar’s test).
+
+:::
+
+<br>
+
+Let's use the Lung Health Study (LHS) data set again. 
+
+Recall that the data set and a description of data can be found on Canvas, titled *lhs.csv* and *lhsdoc.docx*, respectively.
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs<-read.csv(file = file.choose(), header = TRUE)
+```
+
+## Hypothesis test comparing two categorical variables
+
+When you want to test for a relationship between two categorical variables, you would use Chi-square test, if the expected counts are "large enough", or Fisher's exact test, if at least one of the expected counts is small.
+
+You are going to revisit the same scenario that was asked in a previous lesson: nicotine gum use at the 1st annual visit (`AV1GUM`) and gender (`AGENDER`). 
+
+The following would be their research question: 
+
+<center>
+<i>Is there a relationship between nicotine gum use and gender?</i> 
+</center>
+<br>
+
+### Chi-square test
+
+You should use Chi-square test for comparing two categorical variables if the expected counts in each of the cells in the 2x2 table are greater than 5. 
+
+There are two options for Step 1 when carrying out a Chi-square test in R. The choice of the option depends on the format of your data. You would use Option $\#1$ if you have the data in a spreadsheet, where each row represents an observation/individual. You would use Option $\#2$ if you only have the summary values of the data (e.g., counts and totals). 
+
+**Option #1:** When have a dataset
+
+- Step 1: To save a 2x2 table of counts, use the `table()` function to create a table of the two variables (format: `table(ROW, COLUMN)`), saving the table under an object name (e.g., `mytable<-`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+####Step 1a: Create and save the table of the two variables & view it
+mytable<-table(lhs$AGENDER,lhs$AV1GUM)
+
+####View the table that you just created
+mytable
+```
+
+**Option #2:** When have only counts and/or totals
+
+Suppose instead of having the entire data set, you were only given the count of those who had the event in each group and the total sample size for each group. [Note: This happens a lot in research articles, so it's good practice to learn how to deal with data that isn't in a spreadsheet.] Pretend that you were given the following information:
+
+Of the 2095 females in the study, 387 of them used nicotine gum at the 1st annual visit. Of the 3493 males in the study, 551 of them used nicotine gum at the 1st annual visit. 
+
+The code to create this table using the `matrix()` function is the same code you used in a previous lesson.
+
+- Step 1: To create a matrix of a 2x2 table of counts, use the `matrix()` function to create a table of the data, specifying the counts in the `c()` function in the order of `a`, `b`, `c`, and `d` (according the table presented in a previous lesson), the number of rows in the table (`nrow=2`), the number of columns in the table (`ncol=2`), the order to read in the values (`byrow=TRUE` fills in the values across the rows), and the row names and column names in the table (`dimnames=list(c("Row1Name", "Row2Name"), c("Column1Name", "Column2Name")`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+####Step 1b: Create and save the table of the two variables & view it
+mytable2<-matrix(
+    c(387,2095-387,551,3493-551), #specifying the cell values
+    nrow=2,      #specifying the number of rows
+    ncol=2,      #specifying the number of columns
+    byrow=TRUE,  #create the matrix by rows
+    dimnames=list(c("Female", "Male"),
+                  c("Used nicotine gum", "Did not use nicotine gum")))
+
+####View the table that you just created
+mytable2
+```
+
+Once you have the table in an object, you can move on to Step 2. 
+
+- Step 2: To carry out Chi-square test, use the `chisq.test()` function, specifying the name of the object that contains the 2x2 table (e.g., `mytable` or `mytable2`) and turning off the Yates' correction for the Chi-square test (which is used with small sample sizes) (`correct=FALSE`), and making sure to save the test results under an object name (e.g., `mychi.test<-`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+mychi.test<-chisq.test(mytable, correct=FALSE)
+
+####View the test results
+mychi.test
+```
+
+The default output is the Chi-square test statistic, the degrees of freedom for the test statistic, and the associated *p*-value. 
+
+The Chi-square test results were saved under an object name in the above code because there are additional values that are computed in the `chisq.test()` function and are not presented unless requested. 
+
+::: {.redbox}
+**R TIP**
+
+If you are interested in what values are saved in the <bdi style = "font-family: 'Courier New'"> chisq.test()</bdi> function, use the <bdi style = "font-family: 'Courier New'"> names()</bdi> function on your saved object that contains the Chi-square test results (e.g., <bdi style = "font-family: 'Courier New'"> names(mychi.test)</bdi>). 
+
+:::
+
+<br>
+
+For example, the `chisq.test()` function calculates the expected counts under the null hypothesis. You may be interested in these values so that you can check the conditions/assumptions of the Chi-square test.
+
+- To obtain expected counts for the table, use `$expected` on your saved object for the Chi-square results:
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+mychi.test$expected
+```
+
+### Fisher's exact test
+
+Suppose the conditions/assumptions are not met for carrying out a Chi-square test; that is, at least one of the expected counts in the 2x2 table is less than 5. If this occurs, you can use Fisher's exact test to determine whether the two categorical variables are related or not.
+
+- To carry out Fisher's exact test, use the `fisher.test()` function, specifying the name of the object that contains the 2x2 table (e.g., `mytable` or `mytable2`):  
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+fisher.test(mytable)
+```
+
+The output for the `fisher.test()` function provides the two-tailed *p*-value as well as the odds ratio and its confidence interval.
+<br>
+
+::: {.bluebox}
+**HYPOTHESIS TEST COMPARING TWO CATEGORICAL VARIABLES**
+
+<b>Purpose:</b> To make an inference via hypothesis testing about the relationship between two categorical variables.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional online websites about Chi-square test and Fisher's exact test, see:
+
+* <a href="https://www.spss-tutorials.com/chi-square-independence-test/">Chi-Square Independence Test: What and Why?</a>
+* <a href="https://www.researchgate.net/publication/237336173_The_analysis_of_categorical_data_Fisher%27s_exact_test">The Analysis of Categorical Data: Fisher's Exact Test</a>
+
+
+For additional R resources on Chi-square test and Fisher's exact test, see: 
+
+* <a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual15.html">Chi-square tests for categorical outcomes [BU SPH].</a>
+* <a href="http://www.sthda.com/english/wiki/chi-square-test-of-independence-in-r">Chi-Square Test of Independence in R [STHDA].</a>
+* <a href="https://www.r-bloggers.com/contingency-tables-%E2%80%93-fisher%E2%80%99s-exact-test/">Contingency Tables - Fisher's Exact Test [R Bloggers].</a>
+
+:::
+
+<br>
+
+## GUIDED QUESTIONS {#g111}
+
+##### Question 1
+What is the observed count for females who were using nicotine gum at the 1st annual visit? 
+
+##### Question 2
+What is the test statistic and the degrees of freedom from the Chi-square test? What is the resulting *p*-value from that test?
+
+##### Question 3
+What is the expected count for females who were using nicotine gum at the 1st annual visit?
+
+##### Question 4
+What is *p*-value from Fisher's exact test?
+
+::: {.graybox}
+
+See \@ref(answers-11) for answers
+
+:::
+
+## McNemar's test for paired data
+
+When the two categorical variables are paired, you would use McNemar's test. 
+
+As you have seen, there are situations when you only have summary values of the data rather than the entire data set. You are going to practice again inputting the summary values into a matrix so that you can perform a test for paired data. 
+
+Researchers investigated the relationship of smoking and death in monozygotic twins in a prospective cohort study. Twenty-two smoking-discordant monozygotic twins were studied to see which twin first succumbed to death. In this study, the smoking-twin died first in 17 of the pairs (matched-pair category *c*) and the nonsmoking-twin died first in 5 instances (category *b*). [Note: Zeros can be entered for cells *a* and *d* as they don't contribute to the calculations in the test.]
+
+- Step 1: To create a matrix of a 2x2 table of counts, use the `matrix()` function to create a table of the data, specifying the counts in the `c()` function in the order of `a`, `b`, `c`, and `d` (according the table presented in a previous lesson), the number of rows in the table (`nrow=2`), the number of columns in the table (`ncol=2`), the order to read in the values (`byrow=TRUE` fills in the values across the rows), and the row names and column names in the table (`dimnames=list(c("Row1Name", "Row2Name"), c("Column1Name", "Column2Name")`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+####Step 1: Create and save the table of the data & view it
+mytable.paired<-matrix(
+    c(0,5,17,0), #specifying the cell values
+    nrow=2,      #specifying the number of rows
+    ncol=2,      #specifying the number of columns
+    byrow=TRUE,  #create the matrix by rows
+    dimnames=list(c("Nonsmoker died 1st", "Nonsmoker died 2nd"),
+                  c("Smoker died 1st", "Smoker died 2nd")))
+
+####View the table that you just created
+mytable.paired
+```
+
+- Step 2: To carry out McNemar's test, use the `mcnemar.test()` function, specifying the name of the object that contains the 2x2 table (e.g., `mytable.paired`) and turning off the correction for the test (which is used with small sample sizes) (`correct=FALSE`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+mcnemar.test(mytable.paired, correct=FALSE)
+```
+
+The code for `mcnemar.test()` produces a Chi-square test statistic, the degrees of freedom for the test statistic, and the associated *p*-value. 
+<br>
+
+::: {.bluebox}
+**MCNEMAR'S TEST FOR PAIRED DATA**
+
+<b>Purpose:</b> To make an inference via hypothesis testing about the relationship between two categorical variables that are paired.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on McNemar's test, see:
+
+* <a href="http://yatani.jp/HCIstats/ChiSquare#McNemar">McNemar's Test [Koji Yatani].</a>
+* <a href="http://biotoolbox.binghamton.edu/Biostatistics/Biostatistics%20Student%20Tutorials/McNemars%20Test/Biol483MMcNemar%27sTestFinal.pdf">McNemar's Test for Paired Data [Fasano \& Hayden].</a>
+
+:::
+
+<br>
+
+## GUIDED QUESTIONS {#g112}
+
+##### Question 5
+What is the test statistic and the degrees of freedom from the McNemar's test? What is the resulting *p*-value from that test?
+
+::: {.graybox}
+
+See \@ref(answers-11) for answers
+
+:::
+
+## CHALLENGE QUESTIONS {#ch11}
+
+##### Question 6
+Create a graph to display the relationship between smoking a pipe at baseline (`f31pipe`) and intervention group (`alphagroup`). Then, use the the appropriate inferential method for investigating whether this relationship is significant or not. Be sure to check the conditions/assumptions.
+
+##### Question 7
+Use a McNemar's test to investigate whether or not there is a relationship between smoking a cigar at baseline (`BLCIGAR`) and smoking a cigar at the 5th annual visit (`A5CIGAR`). 
+
+::: {.graybox}
+
+See \@ref(answers-chal-11) for answers
+
+:::
+
+

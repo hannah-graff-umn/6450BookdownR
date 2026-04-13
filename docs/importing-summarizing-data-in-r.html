@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Software Lesson 1 Importing &amp; Summarizing Data in R | 6450 Answer Keys - R</title>
+  <meta name="description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Software Lesson 1 Importing &amp; Summarizing Data in R | 6450 Answer Keys - R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="github-repo" content="hannah-graff-umn/6450BookdownR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Software Lesson 1 Importing &amp; Summarizing Data in R | 6450 Answer Keys - R" />
+  
+  <meta name="twitter:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  
+
+
+
+<meta name="date" content="2026-04-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="normal-binomial-in-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pubh 6450 Answer Keys - R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Importing &amp; Summarizing Data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1"><i class="fa fa-check"></i><b>1.1</b> Goal of Software Lesson 1</a></li>
+<li class="chapter" data-level="1.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#dataset"><i class="fa fa-check"></i><b>1.2</b> Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#importing-data"><i class="fa fa-check"></i><b>1.3</b> Importing data</a></li>
+<li class="chapter" data-level="1.4" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#examine-the-data"><i class="fa fa-check"></i><b>1.4</b> Examine the data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-the-dataset"><i class="fa fa-check"></i><b>1.4.1</b> View the dataset</a></li>
+<li class="chapter" data-level="1.4.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables"><i class="fa fa-check"></i><b>1.4.2</b> View data types of the variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-names-of-the-variables"><i class="fa fa-check"></i><b>1.4.3</b> View names of the variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g11"><i class="fa fa-check"></i><b>1.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.6" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarizing-the-data"><i class="fa fa-check"></i><b>1.6</b> Summarizing the data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once"><i class="fa fa-check"></i><b>1.6.1</b> Summarize all variables at once</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g12"><i class="fa fa-check"></i><b>1.7</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable"><i class="fa fa-check"></i><b>1.7.1</b> Summarize single categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g13"><i class="fa fa-check"></i><b>1.8</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable"><i class="fa fa-check"></i><b>1.8.1</b> Summarize single continuous variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g14"><i class="fa fa-check"></i><b>1.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.10" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#ch1"><i class="fa fa-check"></i><b>1.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html"><i class="fa fa-check"></i><b>2</b> Normal Binomial in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#goal-of-software-lesson-2"><i class="fa fa-check"></i><b>2.1</b> Goal of Software Lesson 2</a></li>
+<li class="chapter" data-level="2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution"><i class="fa fa-check"></i><b>2.2</b> Computing probabilities using the Normal distribution</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Computing “less than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Computing “greater than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Computing “between” probabilities in a Normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g21"><i class="fa fa-check"></i><b>2.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution"><i class="fa fa-check"></i><b>2.4</b> Computing probabilities using the Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.1</b> Computing “equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Computing “less than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.3</b> Computing “greater than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.4</b> Computing “between” probabilities in a Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g22"><i class="fa fa-check"></i><b>2.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.6" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#ch2"><i class="fa fa-check"></i><b>2.6</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html"><i class="fa fa-check"></i><b>3</b> Confidence Intervals for a Proportion in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#goal-of-software-lesson-3"><i class="fa fa-check"></i><b>3.1</b> Goal of Software Lesson 3</a></li>
+<li class="chapter" data-level="3.2" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#confidence-interval-for-a-proportion"><i class="fa fa-check"></i><b>3.2</b> Confidence interval for a proportion</a></li>
+<li class="chapter" data-level="3.3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#g31"><i class="fa fa-check"></i><b>3.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="3.4" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#ch3"><i class="fa fa-check"></i><b>3.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>4</b> Confidence Intervals for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#goal-of-software-lesson-4"><i class="fa fa-check"></i><b>4.1</b> Goal of Software Lesson 4</a></li>
+<li class="chapter" data-level="4.2" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#confidence-interval-for-a-mean"><i class="fa fa-check"></i><b>4.2</b> Confidence interval for a mean</a></li>
+<li class="chapter" data-level="4.3" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#g41"><i class="fa fa-check"></i><b>4.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="4.4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#ch4"><i class="fa fa-check"></i><b>4.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Test for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5"><i class="fa fa-check"></i><b>5.1</b> Goal of Software Lesson 5</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean"><i class="fa fa-check"></i><b>5.2</b> Hypothesis test for a mean</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g51"><i class="fa fa-check"></i><b>5.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>5.4</b> Paired <em>t</em>-test</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g52"><i class="fa fa-check"></i><b>5.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.6" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable"><i class="fa fa-check"></i><b>5.6</b> Reclassify a variable</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable"><i class="fa fa-check"></i><b>5.6.1</b> Reclassify numerical variable as categorical variable</a></li>
+<li class="chapter" data-level="5.6.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable"><i class="fa fa-check"></i><b>5.6.2</b> Recode categories in a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g53"><i class="fa fa-check"></i><b>5.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.8" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#ch5"><i class="fa fa-check"></i><b>5.8</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Inferential Methods for Comparing Means &amp; More Summarizing Numerical Data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#goal-of-software-lesson-6"><i class="fa fa-check"></i><b>6.1</b> Goal of Software Lesson 6</a></li>
+<li class="chapter" data-level="6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#two-sample-t-test"><i class="fa fa-check"></i><b>6.2</b> Two-sample <em>t</em>-test</a></li>
+<li class="chapter" data-level="6.3" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61"><i class="fa fa-check"></i><b>6.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.4" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#mann-whitney-test-aka-wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>6.4</b> Mann-Whitney test (aka Wilcoxon Rank-Sum test)</a></li>
+<li class="chapter" data-level="6.5" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62"><i class="fa fa-check"></i><b>6.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summarizing-numerical-variables-by-group"><i class="fa fa-check"></i><b>6.6</b> Summarizing numerical variables by group</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summary-measures-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.1</b> Summary measures of numerical variable by group</a></li>
+<li class="chapter" data-level="6.6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#graphical-displays-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.2</b> Graphical displays of numerical variable by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63"><i class="fa fa-check"></i><b>6.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.8" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#transforming-a-numerical-variable"><i class="fa fa-check"></i><b>6.8</b> Transforming a numerical variable</a></li>
+<li class="chapter" data-level="6.9" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64"><i class="fa fa-check"></i><b>6.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.10" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6"><i class="fa fa-check"></i><b>6.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html"><i class="fa fa-check"></i><b>7</b> Power &amp; Sample Size Estimation in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#goal-of-software-lesson-7"><i class="fa fa-check"></i><b>7.1</b> Goal of Software Lesson 7</a></li>
+<li class="chapter" data-level="7.2" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-and-sample-size-calculations"><i class="fa fa-check"></i><b>7.2</b> Power and Sample Size Calculations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#sample-size-estimation"><i class="fa fa-check"></i><b>7.2.1</b> Sample size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g71"><i class="fa fa-check"></i><b>7.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g72"><i class="fa fa-check"></i><b>7.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="7.5" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#ch7"><i class="fa fa-check"></i><b>7.5</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="project-1-in-r.html"><a href="project-1-in-r.html"><i class="fa fa-check"></i><b>8</b> Project 1 in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="project-1-in-r.html"><a href="project-1-in-r.html#goal-of-software-lesson-8"><i class="fa fa-check"></i><b>8.1</b> Goal of Software Lesson 8</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova-in-r.html"><a href="anova-in-r.html"><i class="fa fa-check"></i><b>9</b> ANOVA in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova-in-r.html"><a href="anova-in-r.html#goal-of-software-lesson-9"><i class="fa fa-check"></i><b>9.1</b> Goal of Software Lesson 9</a></li>
+<li class="chapter" data-level="9.2" data-path="anova-in-r.html"><a href="anova-in-r.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9.3" data-path="anova-in-r.html"><a href="anova-in-r.html#g91"><i class="fa fa-check"></i><b>9.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.4" data-path="anova-in-r.html"><a href="anova-in-r.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova-in-r.html"><a href="anova-in-r.html#bonferroni"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova-in-r.html"><a href="anova-in-r.html#g92"><i class="fa fa-check"></i><b>9.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-in-r.html"><a href="anova-in-r.html#ch9"><i class="fa fa-check"></i><b>9.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10"><i class="fa fa-check"></i><b>10.1</b> Goal of Software Lesson 10</a></li>
+<li class="chapter" data-level="10.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables"><i class="fa fa-check"></i><b>10.2</b> Comparing two categorical variables</a></li>
+<li class="chapter" data-level="10.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables"><i class="fa fa-check"></i><b>10.3</b> Summarizing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables"><i class="fa fa-check"></i><b>10.3.1</b> 2x2 tables</a></li>
+<li class="chapter" data-level="10.3.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group"><i class="fa fa-check"></i><b>10.3.2</b> Graphical displays of a categorical variable by group</a></li>
+<li class="chapter" data-level="10.3.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio"><i class="fa fa-check"></i><b>10.3.3</b> Risk difference, relative risk, and odds ratio</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101"><i class="fa fa-check"></i><b>10.4</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels"><i class="fa fa-check"></i><b>10.4.1</b> Modifying categorical labels</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102"><i class="fa fa-check"></i><b>10.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="10.6" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10"><i class="fa fa-check"></i><b>10.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><i class="fa fa-check"></i><b>11</b> Chi-Square Test, Fisher’s Exact Test, and McNemar’s Test in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#goal-of-software-lesson-11"><i class="fa fa-check"></i><b>11.1</b> Goal of Software Lesson 11</a></li>
+<li class="chapter" data-level="11.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#hypothesis-test-comparing-two-categorical-variables"><i class="fa fa-check"></i><b>11.2</b> Hypothesis test comparing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#chi-square-test"><i class="fa fa-check"></i><b>11.2.1</b> Chi-square test</a></li>
+<li class="chapter" data-level="11.2.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#fishers-exact-test"><i class="fa fa-check"></i><b>11.2.2</b> Fisher’s exact test</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111"><i class="fa fa-check"></i><b>11.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.4" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#mcnemars-test-for-paired-data"><i class="fa fa-check"></i><b>11.4</b> McNemar’s test for paired data</a></li>
+<li class="chapter" data-level="11.5" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112"><i class="fa fa-check"></i><b>11.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.6" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11"><i class="fa fa-check"></i><b>11.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>12</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12"><i class="fa fa-check"></i><b>12.1</b> Goal of Software Lesson 12</a></li>
+<li class="chapter" data-level="12.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables"><i class="fa fa-check"></i><b>12.2</b> Relationship between two numerical variables</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#scatterplot"><i class="fa fa-check"></i><b>12.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="12.2.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#correlation"><i class="fa fa-check"></i><b>12.2.2</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g121"><i class="fa fa-check"></i><b>12.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.3.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="12.3.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit"><i class="fa fa-check"></i><b>12.3.2</b> Draw line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g122"><i class="fa fa-check"></i><b>12.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="12.5" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set"><i class="fa fa-check"></i><b>12.5</b> Subsetting a data set</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-1"><i class="fa fa-check"></i><b>12.5.1</b> Option #1</a></li>
+<li class="chapter" data-level="12.5.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-2"><i class="fa fa-check"></i><b>12.5.2</b> Option #2</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#ch12"><i class="fa fa-check"></i><b>12.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html"><i class="fa fa-check"></i><b>13</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#goal-of-software-lesson-13"><i class="fa fa-check"></i><b>13.1</b> Goal of Software Lesson 13</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#inference-for-simple-linear-regression"><i class="fa fa-check"></i><b>13.1.1</b> Inference for Simple Linear Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#p-values-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.2</b> <em>p</em>-values for regression coefficients</a></li>
+<li class="chapter" data-level="13.1.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#confidence-intervals-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.3</b> Confidence intervals for regression coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#g131"><i class="fa fa-check"></i><b>13.2</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="13.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#model-diagnostics"><i class="fa fa-check"></i><b>13.3</b> Model diagnostics</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#diagnostic-plots"><i class="fa fa-check"></i><b>13.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#ch13"><i class="fa fa-check"></i><b>13.4</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>14</b> Multiple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#goal-of-software-lesson-14"><i class="fa fa-check"></i><b>14.1</b> Goal of Software Lesson 14</a></li>
+<li class="chapter" data-level="14.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>14.2</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.1</b> Scatterplot with a categorical variable</a></li>
+<li class="chapter" data-level="14.2.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#add-best-fit-lines-to-scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.2</b> Add best-fit lines to scatterplot with a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g141"><i class="fa fa-check"></i><b>14.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.4" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression-model"><i class="fa fa-check"></i><b>14.4</b> Multiple linear regression model</a></li>
+<li class="chapter" data-level="14.5" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g142"><i class="fa fa-check"></i><b>14.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.6" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>14.6</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="14.7" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#ch14"><i class="fa fa-check"></i><b>14.7</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-answer-key.html"><a href="r-answer-key.html"><i class="fa fa-check"></i>R Answer Key</a>
+<ul>
+<li class="chapter" data-level="14.8" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-1"><i class="fa fa-check"></i><b>14.8</b> Software Lesson 1 Guided Questions</a></li>
+<li class="chapter" data-level="14.9" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-2"><i class="fa fa-check"></i><b>14.9</b> Software Lesson 2 Guided Questions</a></li>
+<li class="chapter" data-level="14.10" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-3"><i class="fa fa-check"></i><b>14.10</b> Software Lesson 3 Guided Questions</a></li>
+<li class="chapter" data-level="14.11" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-4"><i class="fa fa-check"></i><b>14.11</b> Software Lesson 4 Guided Questions</a></li>
+<li class="chapter" data-level="14.12" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-5"><i class="fa fa-check"></i><b>14.12</b> Software Lesson 5 Guided Questions</a></li>
+<li class="chapter" data-level="14.13" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-6"><i class="fa fa-check"></i><b>14.13</b> Software Lesson 6 Guided Questions</a></li>
+<li class="chapter" data-level="14.14" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-7"><i class="fa fa-check"></i><b>14.14</b> Software Lesson 7 Guided Questions</a></li>
+<li class="chapter" data-level="14.15" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-8"><i class="fa fa-check"></i><b>14.15</b> Software Lesson 8 Guided Questions</a></li>
+<li class="chapter" data-level="14.16" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-9"><i class="fa fa-check"></i><b>14.16</b> Software Lesson 9 Guided Questions</a></li>
+<li class="chapter" data-level="14.17" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-10"><i class="fa fa-check"></i><b>14.17</b> Software Lesson 10 Guided Questions</a></li>
+<li class="chapter" data-level="14.18" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-11"><i class="fa fa-check"></i><b>14.18</b> Software Lesson 11 Guided Questions</a></li>
+<li class="chapter" data-level="14.19" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-12"><i class="fa fa-check"></i><b>14.19</b> Software Lesson 12 Guided Questions</a></li>
+<li class="chapter" data-level="14.20" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-13"><i class="fa fa-check"></i><b>14.20</b> Software Lesson 13 Guided Questions</a></li>
+<li class="chapter" data-level="14.21" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-14"><i class="fa fa-check"></i><b>14.21</b> Software Lesson 14 Guided Questions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">6450 Answer Keys - R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="importing-summarizing-data-in-r" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Software Lesson 1</span> Importing &amp; Summarizing Data in R<a href="importing-summarizing-data-in-r.html#importing-summarizing-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goal-of-software-lesson-1" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Goal of Software Lesson 1<a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="graybox">
+<p>The goal of this software lesson is to learn how to</p>
+<ul>
+<li><p>import data from a CSV file,</p></li>
+<li><p>examine the contents of the data, and</p></li>
+<li><p>create summary statistics, tables, and graphs for a variable.</p></li>
+</ul>
+</div>
+</div>
+<div id="dataset" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Dataset<a href="importing-summarizing-data-in-r.html#dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The data set that will be used for the software lessons comes from the Lung Health Study (LHS).</p>
+<p>The LHS was a multicenter randomized clinical trial investigating whether smoking intervention and use of an inhaled bronchodilator (Atrovent) would decrease the rate of decline in lung function over the 5-year follow-up period. A total of 5,887 participants (smokers, aged 35-67 years old) were recruited from 10 clinical centers in the US and Canada between the years of 1986 to 1988. They were randomized into three groups:</p>
+<ul>
+<li><p>usual care (UC): advised to stop smoking and followed;</p></li>
+<li><p>special intervention with Atrovent (SIA): enrolled in an intensive smoking cessation program &amp; was prescribed an inhaled bronchodilator (Atrovent); and,</p></li>
+<li><p>special intervention with Placebo (SIP): enrolled in an intensive smoking cessation program &amp; was prescribed a placebo.</p></li>
+</ul>
+<p>Baseline measurements and measurements at each of 5 annual visits were collected on each of the participants.</p>
+<p>The data set and a description of the 80 variables can be found on Canvas, titled <em>lhs.csv</em> and <em>lhsdoc.docx</em>, respectively.</p>
+</div>
+<div id="importing-data" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Importing data<a href="importing-summarizing-data-in-r.html#importing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Two ways of importing the data will be presented. The first option uses the <code>read.csv()</code> function and can be carried out in either R or R Studio. The second way uses a built-in feature of R Studio, so it can only be carried out in R Studio and not R.</p>
+<p><strong>Option #1</strong></p>
+<ul>
+<li>To import a CSV data set from your computer into R, use the <code>read.csv()</code> function:
+</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="importing-summarizing-data-in-r.html#cb1-1" tabindex="-1"></a>lhs<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="at">file =</span> <span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Let’s break apart the important pieces in the code above:</p>
+<ul>
+<li><p><b> object </b> (e.g., <code>lhs</code>),</p></li>
+<li><p><b> assignment operator </b> (<code>&lt;-</code>), and</p></li>
+<li><p><b> function </b> (e.g., <code>read.csv()</code>).</p></li>
+</ul>
+<p>The first important part in the above code is saving the data set as a name (or <strong>object</strong>) in R. R uses object-oriented programming, which means that data are assigned to an object and you, the programmer, are in charge of naming that object. You create objects in R to store information for later use. The name or object created in the example above is called <code>lhs</code>. A good programmer will name the objects in a meaningful way in order for easy recall of what is stored in that object.</p>
+<p>The next important part is using the <strong>assignment operator</strong> (<code>&lt;-</code>) to assign information to the object.</p>
+<p>The other important part in the above code is using the appropriate <strong>function</strong> to import the data into R. A function in R allows you to specify some inputs in order to obtain particular outputs. The function that is used to import a CSV file into R is the <code>read.csv()</code> function. The inputs that are specified by you are called <strong>arguments</strong> and are separated by commas in the function’s parentheses. There are two necessary arguments needed in the <code>read.csv()</code> function: <code>file =</code> and <code>header =</code>.</p>
+<p>The first argument, <code>file =</code>, tells R where the CSV file is located, on your computer or on the web. If the file is on your computer, the easiest way to find the file is through the function <code>file.choose()</code>. This function allows you to browse your computer for the location of the CSV file. Once found, select the CSV file (<em>lhs.csv</em>, in this situation) and click <em>Open</em>.</p>
+<p>The other argument, <code>header =</code>, tells R whether or not the first row of the CSV file contains the variable names. If it does, then you would type <code>header = TRUE</code> (as seen in the code above). If the first row does not contain the variable names and the file starts with data values in the first row, then the argument would change to <code>header = FALSE</code>.</p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>R is case sensitive, which means that the symbols <bdi style = "font-family: 'Courier New'"> A </bdi> and <bdi style = "font-family: 'Courier New'"> a </bdi> would not refer to the same thing. Make sure you pay attention to the details of the naming of the functions, arguments of the functions, or objects.</p>
+</div>
+<p><br></p>
+<p><strong>Option #2</strong> (R Studio only):</p>
+<ul>
+<li><p>Go to <em>File -&gt; Import Dataset -&gt; From Text (base)…</em></p></li>
+<li><p>Browse your computer for the location of the CSV file (<em>lhs.csv</em>, in this situation), select the file, and click <em>Open</em>.</p></li>
+<li><p>In the new window, give your data set a name (e.g., lhs), make sure the option for Header is selected <strong>Yes</strong>, and click <em>Import</em>.</p></li>
+</ul>
+<div class="bluebox">
+<p><strong>IMPORTING DATA</strong></p>
+<b>Purpose:</b> To read in an external data set into R.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br>
+For additional R resources on importing data into R, see:</p>
+<ul>
+<li><a href ="https://www.statmethods.net/input/importingdata.html">Importing Data [Quick-R]. </a></li>
+<li><a href ="http://www.sthda.com/english/wiki/importing-data-into-r">Importing Data into R [STHDA]. </a></li>
+<li><a href ="https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-RStudio">Importing data with RStudio [RStudio Support]. </a></li>
+</ul>
+</div>
+</div>
+<div id="examine-the-data" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Examine the data<a href="importing-summarizing-data-in-r.html#examine-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="view-the-dataset" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> View the dataset<a href="importing-summarizing-data-in-r.html#view-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once the data has been imported into R, it’s good coding practice to view your data set to make sure everything was read in properly.</p>
+<p>One way to view your data set is by viewing the first few rows of the data set.</p>
+<ul>
+<li>To view the first few rows of the data, use the <code>head()</code> function, specifying the object or name of the data set:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="importing-summarizing-data-in-r.html#cb2-1" tabindex="-1"></a><span class="fu">head</span>(lhs)</span>
+<span id="cb2-2"><a href="importing-summarizing-data-in-r.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="importing-summarizing-data-in-r.html#cb2-3" tabindex="-1"></a><span class="do">### To modify the number of rows presented, use head(lhs, n=10),</span></span>
+<span id="cb2-4"><a href="importing-summarizing-data-in-r.html#cb2-4" tabindex="-1"></a><span class="do">### where the argument n= denotes the number of rows to be displayed</span></span></code></pre></div>
+<p>The function <code>head()</code> displays the first six rows of the data set. So if you were to read the line of code above, it would read as “I would like the first 6 rows (i.e., <code>head()</code>) of the <code>lhs</code> data set”. The “of” is denoted by the parentheses around <code>lhs</code>.</p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>You may want to add comments within your code so that you can recall at a later time what was executed. To do this, type on a new line # {this is my comment} and R will ignore everything after the #.</p>
+</div>
+<p><br></p>
+<p>If you wanted to look at the entire data set at once in the console, you could do so by typing the name of the object (e.g., <code>lhs</code>). However, this is unwise for large data sets, like the LHS one. Rather, it is better to look at the data in small chunks as presented above.</p>
+<p>There is one exception to the note above. If you are using R Studio, you can view the data in the source window as a spreadsheet.</p>
+<ul>
+<li>In R Studio, to view the data in the source window, use the <code>View()</code> function, specifying the object or name of the data set:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="importing-summarizing-data-in-r.html#cb3-1" tabindex="-1"></a><span class="fu">View</span>(lhs)</span></code></pre></div>
+<div class="bluebox">
+<p><strong>VIEWING THE DATASET</strong></p>
+<p>For additional R resources on viewing the data set in R, see:</p>
+<ul>
+<li><a href ="http://rfunction.com/archives/699">head, tail [R Function of the Day]. </a></li>
+<li><a href="http://www.datasciencemadesimple.com/get-first-n-rows-last-n-rows-head-and-tail-function-in-r/">Get first n rows and last n rows with head and tail function in R [Data Science Made Simple]. </a> <br>
+Note: Scroll about half way down the page to see the article on the head and tail function.</li>
+</ul>
+</div>
+</div>
+<div id="view-data-types-of-the-variables" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> View data types of the variables<a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another good coding practice is to examine the data types of the variables in the data set to make sure they are correctly denoted in R.</p>
+<p>R has 6 data types, but only 4 will be used in this class. A variable can classified in R as a</p>
+<ul>
+<li><p>character (or categorical variable), labeled as <code>chr</code>: “Male”, “High Cholesterol”;</p></li>
+<li><p>numeric (or continuous variable, if contains decimals), labeled as <code>num</code>: 15.5, 20;</p></li>
+<li><p>integer (or whole number or discrete variable), labeled as <code>int</code>: 0, 1, 2, 3; and</p></li>
+<li><p>logical, labeled as <code>logi</code>: TRUE, FALSE</p></li>
+</ul>
+<p><br></p>
+<p>To view the data types for all of the variables in the data set, use the <code>str()</code> function, specifying the object or name of the data set:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="importing-summarizing-data-in-r.html#cb4-1" tabindex="-1"></a><span class="fu">str</span>(lhs)</span></code></pre></div>
+<div class="redbox">
+<p><strong>R Tip</strong></p>
+<p>Variables that are categorical but are recorded as 0/1 (or 1/2) in the data set will be treated as an integer data type (i.e., <code>int</code>), even though they are not actually a numerical variable. In some instances, you may have to modify the data type of a variable in R to carry out particular analyses.</p>
+</div>
+<p><br></p>
+<div class="bluebox">
+<p><strong>VIEWING DATA TYPES</strong></p>
+<p>For additional R resources on viewing data types of the variables in R, see:</p>
+<ul>
+<li><a href ="https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures">Data Types and Structures [Programming with R]. </a></li>
+<li><a href = "https://www.r-bloggers.com/basic-data-types-in-r">Basic Data Types in R [R-Bloggers]. </a></li>
+</ul>
+</div>
+</div>
+<div id="view-names-of-the-variables" class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> View names of the variables<a href="importing-summarizing-data-in-r.html#view-names-of-the-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The last useful tip when examining the data is to view the names of the variables in the data set. This is useful because you want to make sure you are using the correct variable name as R sees it.</p>
+<ul>
+<li>To view the names of all of the variable in the data set, use the <code>names()</code> function, specifying the object or name of the data set:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="importing-summarizing-data-in-r.html#cb5-1" tabindex="-1"></a><span class="fu">names</span>(lhs)</span></code></pre></div>
+</div>
+</div>
+<div id="g11" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> GUIDED QUESTIONS<a href="importing-summarizing-data-in-r.html#g11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-1" class="section level5 hasAnchor" number="1.5.0.0.1">
+<h5><span class="header-section-number">1.5.0.0.1</span> Question 1<a href="importing-summarizing-data-in-r.html#question-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the age of the participant in the third row of the data set?</p>
+</div>
+<div id="question-2" class="section level5 hasAnchor" number="1.5.0.0.2">
+<h5><span class="header-section-number">1.5.0.0.2</span> Question 2<a href="importing-summarizing-data-in-r.html#question-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What data type did R put for the race variable, <code>race</code>? For the clinical center code variable, <code>ACLINIC</code>? For the BMI variable, <code>bmi</code>?</p>
+</div>
+<div id="question-3" class="section level5 hasAnchor" number="1.5.0.0.3">
+<h5><span class="header-section-number">1.5.0.0.3</span> Question 3<a href="importing-summarizing-data-in-r.html#question-3" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Using the LHS data documentation and the output from the <code>str()</code> function, do the data types of the variables in R match the actual type for the variables? If they do not match for a variable, think about why R incorrectly defined a data type for the variable. That is, what is it about the way the data was recorded that made R misclassify the data type?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-1">14.8</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="summarizing-the-data" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Summarizing the data<a href="importing-summarizing-data-in-r.html#summarizing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that you have the basics of your software (e.g., import a CSV file, examine the data), the next step is to get a sense of the variables’ values in the data set by summarizing them (e.g., counts/number and/or percents; measures of center and spread; graphical displays).</p>
+<div id="summarize-all-variables-at-once" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Summarize all variables at once<a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The fastest way to get a sense of the variables is to summarize them all at once.</p>
+<ul>
+<li>To summarize all of the variables in the data set at once, use the <code>summary()</code> function, specifying the object or name of the data set:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="importing-summarizing-data-in-r.html#cb6-1" tabindex="-1"></a><span class="fu">summary</span>(lhs)</span></code></pre></div>
+<p>The <code>summary()</code> function provides different summaries, depending on the data type of the variable.</p>
+<p>For continuous or integer variables, six summary measures/statistics are computed: minimum (<code>Min.</code>), Q1 (<code>1st Qu.</code>), median (<code>Median</code>), mean (<code>Mean</code>), Q3 (<code>3rd Qu.</code>), and maximum (<code>Max.</code>).</p>
+<p>Unfortunetaly, for categorical variables (that are <code>chr</code> types), R doesn’t tell you any summary information at all about the variable, apart from the length (or number of rows) and the class type (which is <code>character</code>). If the categorical variable is a <code>Factor</code> (another data type in R for categorical variables), then the summary measure/statistic is the count for each category in the variable.</p>
+<p>The <code>summary()</code> function also provides a count of missing values for each variable, as indicated by <code>NA's   :</code>. This is only displayed for a variable if there are missing values for that variable.</p>
+<p><br></p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>Remember to examine the description of the data (aka data dictionary) to make sure you are interpreting the summaries correctly. Recall that some of the variables may really be categorical but were recorded as integers (e.g., 0’s and 1’s; 1’s and 2’s; 1’s, 2’s, 3’s, 4’s, and 5’s). As a result, R will, by default, summarize the variable as if it was a continuous or integer variable, which would not be correct for the variable.</p>
+</div>
+</div>
+</div>
+<div id="g12" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> GUIDED QUESTIONS<a href="importing-summarizing-data-in-r.html#g12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-4" class="section level5 hasAnchor" number="1.7.0.0.1">
+<h5><span class="header-section-number">1.7.0.0.1</span> Question 4<a href="importing-summarizing-data-in-r.html#question-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the five-number summary of number of cigarettes per day at baseline (see <code>f10cigs</code> variable)? What is the mean number of cigarettes per day at baseline?</p>
+</div>
+<div id="question-5" class="section level5 hasAnchor" number="1.7.0.0.2">
+<h5><span class="header-section-number">1.7.0.0.2</span> Question 5<a href="importing-summarizing-data-in-r.html#question-5" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Which of the following variables have missing values: number of years of education at baseline (<code>yeareduc</code>), weight change (kg) from baseline to 2nd annual visit (<code>wgtchg02</code>), salivary cotinine at 4th annual visit (<code>COT4</code>)?</p>
+</div>
+<div id="question-6" class="section level5 hasAnchor" number="1.7.0.0.3">
+<h5><span class="header-section-number">1.7.0.0.3</span> Question 6<a href="importing-summarizing-data-in-r.html#question-6" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Does it make sense to interpret the summaries computed for the <code>race</code> variable? Why or why not?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-1">14.8</a> for answers</p>
+</div>
+</div>
+<div id="summarize-single-categorical-variable" class="section level3 hasAnchor" number="1.7.1">
+<h3><span class="header-section-number">1.7.1</span> Summarize single categorical variable<a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is good practice to examine the data when you first import it into your software, and summarizing all the variables at once is part of that.</p>
+<p>However, it’s most often of interest to focus on a single variable or subsets of the variables. Let’s now shift to learning how to summarize single variables in the data set, starting with summarizing a single categorical variable. The LHS variable that will be the focus in this section is the marital status variable, <code>marital0</code>.</p>
+<p>To summarize categorical variables, one is often interested in the counts/frequencies and proportions within the categories. This can be displayed in a table or in a graph (i.e., bar plot).</p>
+<div id="table-of-counts" class="section level4 hasAnchor" number="1.7.1.1">
+<h4><span class="header-section-number">1.7.1.1</span> Table of counts<a href="importing-summarizing-data-in-r.html#table-of-counts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>To create a table of counts for a categorical variable, use the <code>table()</code> function, specifying the object or name of the data set, followed by a <code>$</code>, and then the variable name of interest (e.g., <code>lhs$marital0</code>):</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="importing-summarizing-data-in-r.html#cb7-1" tabindex="-1"></a><span class="fu">table</span>(lhs<span class="sc">$</span>marital0)</span></code></pre></div>
+<p>This function produces a count for each unique category in the variable.
+<br></p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>Whenever you want to look at a particular variable in the data set (e.g., <bdi style = "font-family: 'Courier New'"> marital0</bdi>), the structure of the R code will be <bdi style = "font-family: 'Courier New'"> object$variable_name </bdi> (e.g., <bdi style = "font-family: 'Courier New'"> lhs$marital0</bdi>).</p>
+</div>
+</div>
+<div id="table-of-proportions" class="section level4 hasAnchor" number="1.7.1.2">
+<h4><span class="header-section-number">1.7.1.2</span> Table of proportions<a href="importing-summarizing-data-in-r.html#table-of-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If you are interested in creating a table of proportions instead of counts, you first need to save the count information from the <code>table()</code> function into an object (e.g., <code>counts</code>) and then use that object in the function for calculating the proportions for each unique category (<code>prop.table()</code>).</p>
+<ul>
+<li>Step 1: To save the count information from the <code>table()</code> function into an object, first, name the object something meaningful (e.g., <code>counts</code>), and then use the assignment operator (<code>&lt;-</code>) to assign the table of counts (e.g., <code>table(lhs$marital0)</code>) to the object:</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="importing-summarizing-data-in-r.html#cb8-1" tabindex="-1"></a><span class="do">###Save the count information from the table() function</span></span>
+<span id="cb8-2"><a href="importing-summarizing-data-in-r.html#cb8-2" tabindex="-1"></a>counts<span class="ot">&lt;-</span><span class="fu">table</span>(lhs<span class="sc">$</span>marital0)</span></code></pre></div>
+<ul>
+<li>Step 2: To create a table of proportions for a categorical variable, use the <code>prop.table()</code> function and specify the saved count object (e.g., <code>counts</code>):</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="importing-summarizing-data-in-r.html#cb9-1" tabindex="-1"></a><span class="do">###Create a table of proportions using the counts object</span></span>
+<span id="cb9-2"><a href="importing-summarizing-data-in-r.html#cb9-2" tabindex="-1"></a><span class="fu">prop.table</span>(counts)</span></code></pre></div>
+<p>This function produces a proportion for each unique category in the variable.</p>
+</div>
+<div id="bar-plot" class="section level4 hasAnchor" number="1.7.1.3">
+<h4><span class="header-section-number">1.7.1.3</span> Bar plot<a href="importing-summarizing-data-in-r.html#bar-plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When creating a bar plot for a categorical variable, the instructions are similar to that for creating a table of proportions: you first need to save the count information from the <code>table()</code> function into an object (e.g., <code>counts</code>) and then use that object in the function for bar plots (<code>barplot()</code>). Because you created the <code>counts</code> object previously, that step will not be shown again and will go straight into using the object in the bar plot function.</p>
+<ul>
+<li>To create a bar plot, first, use the <code>barplot()</code> function, specifying the saved count object (e.g., <code>counts</code>) and other arguments if you want to customize the bar plot (e.g., <code>main=</code> for the plot title and <code>names.arg=</code> for the bar labels):</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="importing-summarizing-data-in-r.html#cb10-1" tabindex="-1"></a><span class="do">###Create a barplot using the counts object</span></span>
+<span id="cb10-2"><a href="importing-summarizing-data-in-r.html#cb10-2" tabindex="-1"></a><span class="fu">barplot</span>(counts, <span class="at">main=</span><span class="st">&quot;Barplot of LHS Marital Status&quot;</span>, </span>
+<span id="cb10-3"><a href="importing-summarizing-data-in-r.html#cb10-3" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">c</span>(<span class="st">&quot;Never&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;S&quot;</span>,<span class="st">&quot;D&quot;</span>))</span></code></pre></div>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>If you want the formal R documentation for a function, type <bdi style = "font-family: 'Courier New'"> ?</bdi> before the function name (e.g., <bdi style = "font-family: 'Courier New'"> ?barplot</bdi>). This is useful when you want to see what other arguments can be called in the function.</p>
+</div>
+<p><br></p>
+<div class="bluebox">
+<p><strong>SUMMARIZE SINGLE CATEGORICAL VARIABLE</strong></p>
+<b>Purpose:</b> To summarize a single categorical variable using summary measures and graphical representations.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br>
+For additional R resources on summarizing categorical variables, see:</p>
+<ul>
+<li><a href="http://www.sthda.com/english/wiki/descriptive-statistics-and-graphics\#frequency-tables">Frequency Tables [STHDA]. </a></li>
+<li><a href="https://www.r-bloggers.com/r-function-of-the-day-table/">R Function of the Day: table [R-bloggers]. <a></li>
+<li><a href="http://www.sthda.com/english/wiki/bar-plots-r-base-graphs">Bar Plots - R Base Graphs [STHDA]. </a></li>
+<li><a href="https://www.statmethods.net/graphs/bar.html">Bar Plots [Quick-R]. </a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="g13" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> GUIDED QUESTIONS<a href="importing-summarizing-data-in-r.html#g13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-7" class="section level5 hasAnchor" number="1.8.0.0.1">
+<h5><span class="header-section-number">1.8.0.0.1</span> Question 7<a href="importing-summarizing-data-in-r.html#question-7" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>For the marital status variable (<code>marital0</code>), what does the category of <code>1</code> represent? How many <code>1</code>’s are there in the data set?</p>
+</div>
+<div id="question-8" class="section level5 hasAnchor" number="1.8.0.0.2">
+<h5><span class="header-section-number">1.8.0.0.2</span> Question 8<a href="importing-summarizing-data-in-r.html#question-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Using the bar plot, write down the marital status groups in descending order (from largest to smallest).</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-1">14.8</a> for answers</p>
+</div>
+</div>
+<div id="summarize-single-continuous-variable" class="section level3 hasAnchor" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> Summarize single continuous variable<a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now let’s learn how to summarize a single continuous variable. The LHS variable that will be the focus in this section is the variable for age (in years) at baseline, <code>age</code>.</p>
+<p>Recall that common descriptive methods for summarizing continuous variables include measures of center, measures of spread, percentiles, and graphical displays (e.g., boxplot, histogram).</p>
+<div id="summary-measures" class="section level4 hasAnchor" number="1.8.1.1">
+<h4><span class="header-section-number">1.8.1.1</span> Summary measures<a href="importing-summarizing-data-in-r.html#summary-measures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>There are two ways to calculate summary measures for a continuous variable. The first option is to compute the summary statistics for a variable one-by-one, or one-line-at-a-time. The second option allows you to compute multiple summarize statistics at once.</p>
+<p><strong>Option #1</strong></p>
+<ul>
+<li>To create a summary statistics for a continuous variable, use the following functions, specifying the object or name of the data set, followed by a <code>$</code>, and then the variable name of interest (e.g., <code>lhs$age</code>):</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="importing-summarizing-data-in-r.html#cb11-1" tabindex="-1"></a><span class="do">###Measures of center functions: mean() and median()</span></span>
+<span id="cb11-2"><a href="importing-summarizing-data-in-r.html#cb11-2" tabindex="-1"></a><span class="fu">mean</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-3"><a href="importing-summarizing-data-in-r.html#cb11-3" tabindex="-1"></a><span class="fu">median</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-4"><a href="importing-summarizing-data-in-r.html#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="importing-summarizing-data-in-r.html#cb11-5" tabindex="-1"></a><span class="do">###Measures of spread functions: sd(), var() for variance, IQR(), and </span></span>
+<span id="cb11-6"><a href="importing-summarizing-data-in-r.html#cb11-6" tabindex="-1"></a><span class="do">###max()-min() for range</span></span>
+<span id="cb11-7"><a href="importing-summarizing-data-in-r.html#cb11-7" tabindex="-1"></a><span class="fu">sd</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-8"><a href="importing-summarizing-data-in-r.html#cb11-8" tabindex="-1"></a><span class="fu">var</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-9"><a href="importing-summarizing-data-in-r.html#cb11-9" tabindex="-1"></a><span class="fu">IQR</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-10"><a href="importing-summarizing-data-in-r.html#cb11-10" tabindex="-1"></a><span class="fu">max</span>(lhs<span class="sc">$</span>age) <span class="sc">-</span> <span class="fu">min</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-11"><a href="importing-summarizing-data-in-r.html#cb11-11" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="importing-summarizing-data-in-r.html#cb11-12" tabindex="-1"></a><span class="do">###Other measures: min() for minimum and max() for maximum</span></span>
+<span id="cb11-13"><a href="importing-summarizing-data-in-r.html#cb11-13" tabindex="-1"></a><span class="fu">min</span>(lhs<span class="sc">$</span>age)</span>
+<span id="cb11-14"><a href="importing-summarizing-data-in-r.html#cb11-14" tabindex="-1"></a><span class="fu">max</span>(lhs<span class="sc">$</span>age)</span></code></pre></div>
+<p>Some of the function names give away what they calculate (e.g., <code>mean()</code> calculates the mean), but for completeness, a brief description for each function will be presented.</p>
+<p><code>mean()</code> calculates the mean of the variable,</p>
+<p><code>median()</code> calculates the median of the variable,</p>
+<p><code>sd()</code> calculates the standard deviation of the variable,</p>
+<p><code>var()</code> calculates the variance of the variable,</p>
+<p><code>IQR()</code> calculates the interquartile range of the variable,</p>
+<p><code>min()</code> reports the minimum value of the variable, and</p>
+<p><code>max()</code> finds the maximum value of the variable.</p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>If a variable has any missing values, then the functions above will return <span class="math inline">\(NA\)</span> for that variable. In those situations, you will need to include a <bdi style = "font-family: 'Courier New'"> na.rm=TRUE</bdi> argument in the function (e.g., <bdi style = "font-family: 'Courier New'"> mean(object$variable,na.rm=TRUE)</bdi>).
+<br></p>
+<p>For example, the LHS variable for salivary cotinine at 4th annual visit (<bdi style = "font-family: 'Courier New'"> COT4 </bdi>) has missing values. To compute the mean for this variable, you would type the following code: <bdi style = "font-family: 'Courier New'"> mean(lhs$COT4,na.rm=TRUE)</bdi>.</p>
+</div>
+<p><strong>Option #2</strong></p>
+<p>If you wanted to compute multiple summary statistics for a continuous variable in one function, you can use either the <code>summary()</code> function again, but only on the specific variable, or the <code>describe()</code> function.</p>
+<ul>
+<li>To compute multiple summary statistics at once for a continuous variable, use the <code>summary()</code> function, specifying the object or name of the data set, followed by a <code>$</code>, and then the variable name of interest (e.g., <code>lhs$age</code>):</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="importing-summarizing-data-in-r.html#cb12-1" tabindex="-1"></a><span class="fu">summary</span>(lhs<span class="sc">$</span>age)</span></code></pre></div>
+<p><strong>OR</strong></p>
+<p>The <code>describe()</code> function is located within a package in R called the <code>{psych}</code> package. Because R is an open-sourced software, there are packages being added to R all the time. Packages contain functions, data, and documentation and allows the material to be easily shared with others. You only need to install a particular package <strong>once</strong> on your computer using the <code>install.packages()</code> function.</p>
+<p>Then, to use the functions and data in a package, you must run the <code>library()</code> function, specifying the package name, with every new R session. That is, if you exit R and then come back to it, you must first run <code>library(&lt;package name&gt;)</code> to use the material within that package.</p>
+<ul>
+<li>To compute multiple summary statistics at once for a continuous variable, use the <code>describe()</code> function, from the <code>{psych}</code> package, specifying the object or name of the data set, followed by a <code>$</code>, and then the variable name of interest (e.g., <code>lhs$age</code>). Two additional useful arguments to the <code>describe()</code> function include <code>IQR=TRUE</code> to calculate the IQR of the variable and <code>quant=c(.25,.75)</code> to calculate the first and third quartile (also known as Q1 or 25th percentile and Q3 or 75th percentile, respectively):</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="importing-summarizing-data-in-r.html#cb13-1" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb13-2"><a href="importing-summarizing-data-in-r.html#cb13-2" tabindex="-1"></a><span class="co"># Run the install.packages() function once per package</span></span>
+<span id="cb13-3"><a href="importing-summarizing-data-in-r.html#cb13-3" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb13-4"><a href="importing-summarizing-data-in-r.html#cb13-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;psych&quot;</span>)</span>
+<span id="cb13-5"><a href="importing-summarizing-data-in-r.html#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="importing-summarizing-data-in-r.html#cb13-6" tabindex="-1"></a><span class="do">###Access the package using the library() function</span></span>
+<span id="cb13-7"><a href="importing-summarizing-data-in-r.html#cb13-7" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb13-8"><a href="importing-summarizing-data-in-r.html#cb13-8" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="importing-summarizing-data-in-r.html#cb13-9" tabindex="-1"></a><span class="do">###Calculate multiple summary statistics using the describe() function</span></span>
+<span id="cb13-10"><a href="importing-summarizing-data-in-r.html#cb13-10" tabindex="-1"></a><span class="fu">describe</span>(lhs<span class="sc">$</span>age, <span class="at">IQR=</span><span class="cn">TRUE</span>, <span class="at">quant=</span><span class="fu">c</span>(.<span class="dv">25</span>,.<span class="dv">75</span>))</span></code></pre></div>
+<p>The summary measures of most interest from the <code>describe()</code> function include the count or number of valid cases (<code>n</code>), the mean (<code>mean</code>), the standard deviation (<code>sd</code>), the median (<code>median</code>), the minimum (<code>min</code>), the maximum (<code>max</code>), the range (<code>range</code>), the standard error (<code>se</code>) (to be introduced in a later week), the IQR (<code>IQR</code>), and first and third quartile (<code>Q0.25</code> and <code>Q0.75</code>, respectively).</p>
+</div>
+<div id="boxplots-and-histograms" class="section level4 hasAnchor" number="1.8.1.2">
+<h4><span class="header-section-number">1.8.1.2</span> Boxplots and histograms<a href="importing-summarizing-data-in-r.html#boxplots-and-histograms" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>To create a boxplot of a continuous variable, use the <code>boxplot()</code> function, specifying the object or name of the data set, followed by a <code>$</code> and the variable name of interest (e.g., <code>lhs$age</code>), and other arguments if you wish to customize the bar plot (e.g., <code>main=</code> for the plot title):</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="importing-summarizing-data-in-r.html#cb14-1" tabindex="-1"></a><span class="fu">boxplot</span>(lhs<span class="sc">$</span>age, <span class="at">main=</span><span class="st">&quot;Boxplot of LHS Ages&quot;</span>)</span></code></pre></div>
+<ul>
+<li>To create a histogram of a continuous variable, use the <code>hist()</code> function, specifying the object or name of the data set, followed by a <code>$</code> and the variable name of interest (e.g., <code>lhs$age</code>), and other arguments to customize the bar plot (e.g., <code>main=</code> for the plot title, <code>xlab=</code> for the x-axis label, <code>breaks=</code> for modifying the binning of the histogram):</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="importing-summarizing-data-in-r.html#cb15-1" tabindex="-1"></a><span class="fu">hist</span>(lhs<span class="sc">$</span>age, <span class="at">main=</span><span class="st">&quot;Histogram of LHS Ages&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Ages&quot;</span>, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="bluebox">
+<p><strong>SUMMARIZE SINGLE CONTINUOUS VARIABLE</strong></p>
+<b>Purpose:</b> To summarize a single continuous variable using summary measures and graphical representations.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br>
+For additional R resources on summarizing continuous variables, see:</p>
+<ul>
+<li><a href="http://www.sthda.com/english/wiki/descriptive-statistics-and-graphics">Descriptive Statistics and Graphics [STHDA]</a>.</li>
+<li><a href="http://www.sthda.com/english/wiki/box-plots-r-base-graphs">Box Plots - R Base Graphs [STHDA].</a></li>
+<li><a href="https://www.statmethods.net/graphs/density.html">Histograms and Density Plots [Quick-R].</a></li>
+<li><a href="http://www.sthda.com/english/wiki/histogram-and-density-plots-r-base-graphs">Histogram and Density Plots - R Base Graphs [STHDA].</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="g14" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> GUIDED QUESTIONS<a href="importing-summarizing-data-in-r.html#g14" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-9" class="section level5 hasAnchor" number="1.9.0.0.1">
+<h5><span class="header-section-number">1.9.0.0.1</span> Question 9<a href="importing-summarizing-data-in-r.html#question-9" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the mean age of the participants in the LHS study? What is the median age? The standard deviation of age? The minimum and maximum age?</p>
+</div>
+<div id="question-10" class="section level5 hasAnchor" number="1.9.0.0.2">
+<h5><span class="header-section-number">1.9.0.0.2</span> Question 10<a href="importing-summarizing-data-in-r.html#question-10" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Using the histogram, approximately how many participants were between 30 and 35 years old at the beginning of the LHS study?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-1">14.8</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="ch1" class="section level2 hasAnchor" number="1.10">
+<h2><span class="header-section-number">1.10</span> CHALLENGES<a href="importing-summarizing-data-in-r.html#ch1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-11" class="section level5 hasAnchor" number="1.10.0.0.1">
+<h5><span class="header-section-number">1.10.0.0.1</span> Question 11<a href="importing-summarizing-data-in-r.html#question-11" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Using the <code>counts</code> object, figure out how to create a table of proportions instead of counts for the marital status variable. [Hint: Use <code>prop.table()</code> function.]</p>
+</div>
+<div id="question-12" class="section level5 hasAnchor" number="1.10.0.0.2">
+<h5><span class="header-section-number">1.10.0.0.2</span> Question 12<a href="importing-summarizing-data-in-r.html#question-12" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Figure out how to make the color of bars in the bar plot for marital status, <code>marital0</code>, to be blue, and how to change the y-axis title to be “Number”.</p>
+</div>
+<div id="question-13" class="section level5 hasAnchor" number="1.10.0.0.3">
+<h5><span class="header-section-number">1.10.0.0.3</span> Question 13<a href="importing-summarizing-data-in-r.html#question-13" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Figure out how to make the color of the bars in the histogram for age, <code>age</code>, to be orange, and how to modify the binning of the histogram to your liking.</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-chal-1">14.8.0.1</a> for answers</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="normal-binomial-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

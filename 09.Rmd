@@ -1,0 +1,169 @@
+# ANOVA in R
+
+## Goal of Software Lesson 9
+::: {.graybox}
+
+The goal of this software lesson is to learn how to
+
+* obtain inferential results for comparing three or more means, and
+* obtain post-hoc results while properly adjusting for multiple comparisons.
+
+:::
+<br>
+
+Let's use the Lung Health Study (LHS) data set again. 
+
+Recall that the data set and a description of data can be found on Canvas, titled *lhs.csv* and *lhsdoc.docx*, respectively.
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs<-read.csv(file = file.choose(), header = TRUE)
+```
+
+## ANOVA
+
+Thus far, you have learned inferential methods for one mean (one-sample or paired situation) and for comparing two means (two-sample situation). However, there are situations when researchers want to compare means between three or more groups. When this is the case, one would use ANOVA to compare the three (or more) group means, simultaneously. 
+
+In the LHS study, the researchers investigated three interventions: smoking intervention plus atrovent, smoking intervention plus placebo, and usual care (i.e., no active intervention). The researchers were most likely interested in how those interventions compared to one another on a variety of outcomes (e.g., cigarette and tobacco habits over duration of the study, weight change). 
+
+Suppose that the researchers were interested in the effect of intervention group (`alphagroup`) on weight change at the 5th annual visit (`wgtchg05`). The following would be their research question: 
+<center>
+<i>Is there a difference in average weight change at the 5th annual visit between the three LHS intervention groups?</i>
+</center>
+<br>
+
+When carrying out ANOVA in R, you first need to save the ANOVA results from the `aov()` function into an object (e.g., `myANOVA`) and then use that object in the `summary()` function to structure the ANOVA results into a meaningful table.
+
+- Step 1: To carry out an ANOVA comparing three or more groups, first, name the object something meaningful (e.g., `wgt.ANOVA`) and then use the assignment operator (`<-`) to assign the results from the `aov()` function to that object. Then, use the `aov()` function, specifying the numerical variable first and the grouping variable second (with a `~` in between): 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+wgt.ANOVA<-aov(lhs$wgtchg05~lhs$alphagroup)
+```
+
+- Step 2: To obtain the ANOVA results, use the `summary()` function on the object that contains the ANOVA results from the `aov()` function: 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+summary(wgt.ANOVA)
+```
+
+The results are presented in an ANOVA table. This table provides statistics regarding the variability between groups (first row) and the variability within groups (second row), as well as the usual hypothesis test information (i.e., test statistic (i.e., `F value`), *p*-value (i.e., `Pr(>F)`)).
+
+::: {.bluebox}
+**ANOVA**
+
+<b>Purpose:</b> To make an inference about whether the means differ between three or more groups.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on ANOVA, see: 
+
+* <a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual14.html">One factor ANOVA comparing means across several groups [BU].</a>
+* <a href="http://www.sthda.com/english/wiki/one-way-anova-test-in-r">One-Way ANOVA Test in R [STHDA].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g91}
+
+##### Question 1
+What is the value of the *F*-statistic from the ANOVA test? What are the degrees of freedom that was used in this test for the *F*-distribution? What is the *p*-value? 
+
+::: {.graybox}
+
+See \@ref(answers-9) for answers
+
+:::
+
+## Multiple Comparisons
+
+If the results from ANOVA are statistically significant, then you can conclude that there is evidence that at least one of the group means is different from the others. But then this begs the questions of "well, how different are they?" and "which means are different from the others?". This is where post-hoc (meaning "after the event") analyses come into play. 
+
+Post-hoc analyses following ANOVA allow us to compare the means of each possible pair of groups (e.g., group A compared to group B, group A compared to group C, group B compared to group C). However, there is a limitation to carrying out multiple tests simultaneously: increasing the Type I error rate, called multiple comparisons issue (see <a href="https://www.graphpad.com/guides/prism/7/statistics/beware_of_multiple_comparisons.htm?toc=0&printWindow">Beware of Multiple Comparisons</a>). Many methods have been developed to tackle this issue, including Tukey's HSD method and the Bonferroni method, to name a few. You can think of these corrections as running all possible two-sample *t*-tests for which the results have been corrected. Tukey's HSD and Bonferroni will be presented in this lesson. 
+
+#### Tukey's HSD
+
+- To carry out Tukey's multiple comparisons method, use the `TukeyHSD()` function, specifying the object that contains the ANOVA results from the `aov()` function:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+TukeyHSD(wgt.ANOVA)
+```
+
+This function provides a table of information on the pairwise comparisons. Each row presents a pairwise group comparison. The first column (`diff`) provides the difference in means between the two groups. The second (`lwr`) and third (`upr`) columns provide the lower and upper values of a $95\%$ adjusted confidence interval for the difference in the two means. And the final column (`p adj`) provides an adjusted *p*-value testing the difference in the two means. 
+
+### Bonferroni
+
+- To carry out Bonferroni multiple comparisons method, use the `pairwise.t.test()` function, specifying the numerical variable, the grouping variable, and the particular method for adjusting fo multiple comparisons (`p.adj= "bonferroni`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+pairwise.t.test(lhs$wgtchg05, lhs$alphagroup, p.adj = "bonferroni")
+```
+
+This function provides a table of adjusted Bonferroni *p*-values for comparing each of the groups to each other. Note that the *p*-values have already been adjusted for you, so you would compare these *p*-values to the standard $\alpha$ level. 
+
+If the *p*-values had **not** been adjusted for you, then you would have needed to compare the [unadjusted] *p*-values to the adjusted $\alpha$ level using the Bonferroni approach (i.e., $\frac{\alpha}{\# pairs}$). 
+
+::: {.bluebox}
+**MULTIPLE COMPARISONS**
+
+<b>Purpose:</b> To adjust for multiple comparisons when carrying out post-hoc analyses following ANOVA.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on multiple comparisons, see: 
+
+* <a href="https://stats.idre.ucla.edu/r/faq/how-can-i-do-post-hoc-pairwise-comparisons-in-r/">How can I do post-hoc pairwise comparisons in R? [UCLA].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g92}
+
+##### Question 2
+What is the difference in the two mean weight changes between UC and SI-A groups? Which group had the higher weight change, on average?
+
+##### Question 3
+What is the $95\%$ adjusted confidence interval for the difference in the two population mean weight changes between UC and SI-A groups? What is the resulting adjusted *p*-value for that same comparison using the Tukey's HSD method?
+
+##### Question 4
+4. What is the adjusted *p*-value for comparing the SI-P and UC group means using the Bonferroni method?
+
+::: {.graybox}
+
+See \@ref(answers-9) for answers
+
+:::
+
+## CHALLENGE QUESTIONS {#ch9}
+
+Similar to a previous software lesson, the challenge section this week will force you to incorporate everything you have learned thus far in the software lesson documents. 
+
+Suppose you were interested in the effect of the intervention groups on change in cigarette use from beginning to end of the study. The following would be your research question:
+<center>
+<b>Is the a difference in the population mean change in cigarette use (pre to post) between the intervention groups?} </b>
+</center>
+<br>
+
+Recall that the numerical outcome is the change in cigarette use from beginning to end of study (visit in year 5). 
+
+To start, you will need to create one new variable for the numerical outcome. And then you can use the newly created variable to carry out the appropriate analyses.
+
+##### Question 5
+Create a new variable in the data set that computes the difference between the "pre" cigarette use (`f10cigs`) and "post" cigarette use (`AV5CIGS`). Name this new variable `cigdiff`.
+
+##### Question 6
+Compute summary statistics for the difference in cigarette use (`cigdiff`) by intervention group (`alphagroup`).
+
+##### Question 7
+Create a histogram for the difference in cigarette use (`cigdiff`) by intervention group (`alphagroup`). Also create a side-by-side boxplot for the difference in cigarette use (`cigdiff`) by intervention group (`alphagroup`).
+
+##### Question 8
+Carry out the appropriate inferential method for answering the research question. If the result is statistically significant, proceed to perform the appropriate post-hoc analyses to answer the research question.
+
+::: {.graybox}
+
+See \@ref(answers-chal-9) for answers
+
+:::
+
+

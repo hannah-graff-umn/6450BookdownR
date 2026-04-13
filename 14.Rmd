@@ -1,0 +1,291 @@
+# Multiple Linear Regression in R
+
+## Goal of Software Lesson 14
+
+::: {.graybox}
+The goal of this software lesson is to learn how to
+
+* create a a scatterplot with a categorical variable in the plot,
+* obtain regression coefficients, and their test statistics, <i>p</i>-values, and confidence intervals for a multiple linear regression model, and
+* create diagnostic plots for the regression model.
+
+:::
+<br>
+
+Let's use the Lung Health Study (LHS) data set again. 
+
+Recall that the data set and a description of data can be found on Canvas, titled *lhs.csv* and *lhsdoc.docx*, respectively.
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs<-read.csv(file = file.choose(), header = TRUE)
+```
+
+## Multiple linear regression
+
+The previous weeks have been focused on investigating the relationship between two numerical variables (e.g., scatterplot, correlation, simple linear regression). This week builds on that topic, but you will now be investigating the relationship between multiple predictors and a single numerical response variable via multiple linear regression (MLR). 
+
+In a previous lesson, you examined the relationship between the number of cigarettes smoked per day at baseline (`f10cigs`) and FEV1/FVC$\%$ at baseline (`FEVFVC02`). Now you are going to add in other predictors to the analysis: gender (`AGENDER`) and number of alcoholic drinks at baseline (`DRINKSBL`).
+
+### Scatterplot with a categorical variable
+
+If you have a model that has a single numerical predictor and a binary numerical predictor, then you can make a graphical display of the response vs. numerical predictor, and denote a categorical predictor within the plot (e.g., change point color/shape/size). This "simple" type of display is presented in this lesson. However, for models with more predictors than the ones just described, we are out of luck for making a graphical display of the relationships because our human brains aren't capable of thinking in 4D or beyond.
+
+- Step 1: To create a scatterplot with a categorical variable, use the `plot()` function, specifying the x-variable first and then the y-variable second, separated by a `,` (e.g., `plot(x, y)`), adding the color argument to modify the colors of the points according to the categorical variable, `z` (e.g., `col=c("color1","color2")[factor(data$z)]`), and other arguments if you wish to customize the scatterplot (e.g., `pch=` to change the point shape in the plot, `xlab=` to specify the x-axis label, `ylab=` to specify the y-axis label, `main=` to specify the plot title): 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+plot(x=lhs$f10cigs, y=lhs$FEVFVC02, 
+     col=c("darkorange", "mediumturquoise")[factor(lhs$AGENDER)], 
+     pch=16,
+     ylab="FEV/FVC at baseline", 
+     xlab="Number of cigarettes at baseline (per day)")
+```
+
+::: {.redbox}
+**R TIP**
+
+You need to specify the same number of colors as there are categories in the categorical variable (e.g., two colors if you have two categories, three colors if you have three categories). 
+<br>
+
+However, if you wanted R to set the colors for you, you could have just specified <bdi style = "font-family: 'Courier New'"> col=factor(lhs\$AGENDER)</bdi> instead of <bdi style = "font-family: 'Courier New'"> col=c("darkorange", "mediumturquoise")[factor(lhs\$AGENDER)]</bdi>. 
+
+<br>
+For more information on names of the colors that are available in R, see the following website:
+<a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">Colors in R [Columbia University].</a>
+
+<br>
+For more information on shapes of the points (<bdi style = "font-family: 'Courier New'"> pch=</bdi>) that are available in R, see the following website:
+<a href="http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r">R plot pch symbols: The different point shapes available in R [STHDA].</a>
+
+:::
+<br>
+
+When you have this "third" variable in the scatterplot, it's useful add a legend to denote what the colors in the plot represent. 
+
+- Step 2: To create a legend on the plot, use the `legend()` function, specifying where you want the legend to be located (e.g., `"bottomright"`, `"bottom"`, `"bottomleft"`, `"left"`, `"topleft"`, `"top"`, `"topright"`, `"right"`, `"center"`), the text of the legend (e.g., `legend=levels(factor(data$z))`, or `legend=c("Label1", "Label2")`), the colors to use for filling the boxes beside the legend text (`fill=`), and other arguments if you wish to customize the legend (e.g., `box.lty=` to change the border of the legend box, `title=` to specify the legend title): 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+legend("bottomright", 
+       legend=levels(factor(lhs$AGENDER)), 
+       fill=c("darkorange", "mediumturquoise"), 
+       box.lty=0)
+```
+
+::: {.redbox}
+**R TIP**
+
+For more information on adding legends to R plots, see <a href="http://www.sthda.com/english/wiki/add-legends-to-plots-in-r-software-the-easiest-way">Add legends to plots in R [STHDA].</a>
+
+:::
+<br>
+
+### Add best-fit lines to scatterplot with a categorical variable
+
+If you want to add best-fit lines to the scatterplot with a categorical variable, you have to first fit a model that has the numerical predictor and the categorical predictor in the model, then manually calculate the two best-fit lines for each category, and finally, add the two best-fit lines to the scatterplot. 
+
+- Step 1: To fit a multiple linear regression model, first, use the `lm()` function, specifying the y-variable and the x-variables (separating the y-variable from the x-variables by `~`, separating the x-variables with a `+` (e.g., `lm(y ~ x1 + factor(x2))`), and using the `factor()` function around the categorical x-variable(s)), and saving the information under an object name (e.g., `model1`). Then use the `summary()` function on the saved `lm` object (`model1`) to obtain the regression coefficient values: 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+model1<-lm(lhs$FEVFVC02 ~ lhs$f10cigs + factor(lhs$AGENDER))
+summary(model1)
+```
+
+The output is similar to the output for simple linear regression, except you have a row for each predictor in the model.
+
+For categorical variables, the row will be labeled with the variable name and the category that R denoted as 1. Based on the output from the `summary()` function, there is a row denoted `factor(lhs$AGENDER)M`, which means that row is for the `AGENDER` categorical variable and the category of interest (1) is `M` or males and thus the reference category (0) is `F` or females. 
+
+Using the results in the output, the equation for this model is:
+
+$\hat{y} = 65.883 - 0.014*x_1 - 0.819*x_2$, where $y$ = FEV1/FVC$\%$ at baseline, $x_1$ = number of cigarettes smoked per day at baseline, and $x_2$ = gender, where 1 = male and 0 = female. 
+
+Let's use this information to manually calculate the two best-fit slopes for males and females. 
+
+For males ($x_2$ = 1):
+
+$\hat{y}_M = 65.883 - 0.014*x_1 - 0.819*1 = (65.883 - 0.819) - 0.014*x_1 = 65.064 - 0.014*x_1$.
+
+So the intercept value for the best-fit line for males is 65.064 and the slope value is -0.014. 
+
+For females ($x_2$ = 0):
+
+$\hat{y}_F = 65.883 - 0.014*x_1 - 0.819*0 = 65.883 - 0.014*x_1$.
+
+So the intercept value for the best-fit line for females is 65.883 and the slope value is -0.014. 
+
+- Step 2: To add the best-fit lines to the scatterplot with a categorical variable, use the `abline()` function, **twice**, specifying the intercept value (`a=`) and the slope value (`b=`), and other arguments if you wish to customize the lines (e.g., `col=` to modify the colors of the lines according to the categorical variable):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+### Adding a best-fit line for the males
+abline(a=65.064, b=-0.014, col="mediumturquoise")
+
+### Adding a best-fit line for the females
+abline(a=65.883, b=-0.014, col="darkorange")
+```
+
+::: {.bluebox}
+**SCATTERPLOT WITH A CATEGORICAL VARIABLE**
+
+<b>Purpose:</b> To visually examine the relationship between two numerical variables, and denote a categorical variable within the plot.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on colors for scatterplots, see: 
+
+* <a href="https://thomasleeper.com/Rcourse/Tutorials/plotcolors.html">Colors for Plotting [Sleeper, T.].</a>
+
+<br>
+
+For additional R resources on useful code for creating (and customizing) various plots, see: 
+
+* <a href="http://www.sthda.com/english/wiki/ggplot2-scatterplot-easy-scatter-plot-using-ggplot2-and-r-statistical-software">ggplot.scatterplot [STHDA].</a>
+* <a href="https://www.statmethods.net/advgraphs/ggplot2.html">Graphics with ggplot2 [Quick-R].</a>
+* <a href="http://www.sthda.com/english/wiki/qplot-quick-plot-with-ggplot2-r-software-and-data-visualization">qplot: Quick plot with ggplot2 [STHDA].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g141}
+
+##### Question 1
+If colors weren't specified in the `plot()` function and the argument was just `col=lhs$AGENDER`, what are the default colors that R displays? 
+
+##### Question 2
+In the `plot()` function, what type of symbol is created when `pch=16` is specified?
+
+##### Question 3
+Based on the scatterplot, which gender has the highest number of cigarettes per day at baseline? Which gender has the lowest FEV1/FVC$\%$ at baseline?
+
+::: {.graybox}
+
+See \@ref(answers-14) for answers
+
+:::
+
+## Multiple linear regression model
+
+Let's examine the effect of the number of cigarettes smoked per day at baseline (`f10cigs`), gender (`AGENDER`), and the number of alcoholic drinks at baseline (`DRINKSBL`) on FEV1/FVC$\%$ at baseline (`FEVFVC02`).
+
+- To fit a multiple linear regression model, first, use the `lm()` function, specifying the y-variable and the x-variables, (separating the y-variable from the x-variables by `~`, separating the x-variables with a `+` (e.g., `lm(y ~ x1 + factor(x2) + x3)`), and using the `factor()` function around the categorical x-variable(s)), and saving the information under an object name (e.g., `model2`). Then use the `summary()` function on the saved `lm` object (`model2`) to obtain the regression coefficient values: 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+model2<-lm(FEVFVC02 ~ f10cigs + factor(AGENDER) + DRINKSBL, data=lhs) 
+summary(model2)
+```
+
+The output is similar to the output shown earlier, except now you have an extra row for the `DRINKSBL` variable. 
+
+Additional model statistics that may be of interest include:
+
+- Adjusted $R^2$, which is denoted next to `Adjusted R-squared`. This is a "penalized" measure of how well the MLR model fits the data; and, 
+
+- $\hat{\sigma}$, which is denoted next to `Residual standard error`. This is the standard deviation of the residual values.
+
+Besides testing the regression coefficients against the null hypothesis, you can also produce confidence intervals for the regression coefficients. 
+
+- To obtain confidence intervals for the regression coefficients, use the `confint()` function on the saved `lm` object (`model2`) and specifying the confidence level (`level=`): 
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+confint(model2, level=0.95)
+```
+
+Similar to a previous lesson, the output displays the lower and upper limits to the $95\%$ confidence interval for the intercept and all of the regression coefficients. The default confidence level is $95\%$, but you can modify the value for the `level=` argument if you want a different confidence level (e.g., `0.90`, `0.99`). 
+
+<br>
+
+::: {.bluebox}
+**MULTIPLE LINEAR REGRESSION MODEL**
+
+<b>Purpose:</b> To examine the relationship between a numerical response variable and multiple explanatory variables.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on multiple linear regression, see: 
+
+* <a href="https://www.statmethods.net/stats/regression.html">Multiple (Linear) Regression [Quick-R]</a>.
+* <a href="http://www.sthda.com/english/articles/40-regression-analysis/168-multiple-linear-regression-in-r/">Multiple Linear Regression in R [STHDA].</a>
+
+:::
+<br>
+
+## GUIDED QUESTIONS {#g142}
+
+##### Question 4
+What is the value of the intercept in the model of `FEVFVC02` vs. `f10cigs`, `AGENDER`, and `DRINKSBL`? What is the value of the regression coefficient for `f10cigs`? What is the value of the regression coefficient for `AGENDERM`? What is the value of the regression coefficient for `DRINKSBL`?
+
+##### Question 5
+What is the test statistic for the regression coefficient for `f10cigs`? What is the resulting *p*-value from that test?
+
+##### Question 6
+What is the $95\%$ confidence interval for the regression coefficient for `AGENDERM`?
+
+::: {.graybox}
+
+See \@ref(answers-14) for answers
+
+:::
+
+
+
+## Diagnostic plots
+
+Similar to simple linear regression, you generate diagnostics to evaluate how well the model fits the data. From these, you assess the assumptions of the linear regression model.
+
+- To obtain diagnostic plots for a multiple linear regression model, use the `autoplot()` function from the `{ggfortify}` package on the saved `lm` object (`model2`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+#############
+# Run the install.packages() function only once per package
+############# 
+install.packages("ggfortify")
+
+###Access the package using the library() function 
+library(ggfortify)
+
+####Obtaining diagnostic plots for the model
+autoplot(model2)
+```
+
+As a reminder, four plots will be created in a 2x2 grid. You may need enlarge the Plot window in order to see the four plots clearly.
+
+The plots are similar to the plots you saw in the simple linear regression lesson, except that the residuals and the fitted values are found by taking into account the multiple predictors in the model. You evaluate the plots in a similar manner as you did in simple linear regression. 
+
+For more information on how to evaluate the multiple linear regression assumptions, check out the following website: <a href="https://www.statisticssolutions.com/assumptions-of-multiple-linear-regression/">Assumptions of Multiple Linear Regression</a>.
+
+::: {.bluebox}
+**DIAGNOSTIC PLOTS**
+
+<b>Purpose:</b> To evaluate the fit of the regression model to the data using plots (e.g., residual plot, QQ plot).
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on diagnostic plots, see: 
+
+* <a href="http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials/">Linear Regression Assumptions and Diagnostics in R: Essentials [STHDA].</a>
+* <a href="https://www.andrew.cmu.edu/user/achoulde/94842/homework/regression_diagnostics.html">Regression diagnostic plots [CMU].</a>
+
+:::
+
+## CHALLENGE QUESTIONS {#ch14}
+
+You are going to investigate the effect of the [combined] intervention group (`trtgroup`; X1) and age started smoking (`AGESTART`; X2) on the number of cigarettes smoked per day at 2nd annual visit (`AV2CIGS`; Y). 
+
+To start, you will need to create a new variable: a categorical variable for the intervention status that has only two categories; one denoting an intervention group (e.g., SI-P or SI-A) and one denoting the control group. 
+
+##### Question 7
+Create a new variable in the data set that takes the randomized intervention group (`alphagroup`) and recodes the categories into `"control"` for the usual care (UC) group and `"intervention"` for the smoking intervention plus Atrovent (SI-A) group and `"intervention"` for the smoking intervention plus Placebo (SI-P) group. Name this new variable `trtgroup`. 
+
+##### Question 8
+Create a scatterplot of the three variables (`AV2CIGS` as Y, `AGESTART` as X, and `trtgroup` as the grouping indicator). 
+
+##### Question 9
+Carry out a multiple linear regression for this scenario and obtain regression coefficients and their inferential statistics (*p*-values and confidence intervals).
+
+::: {.graybox}
+
+See \@ref(answers-chal-14) for answers
+
+:::
+
+

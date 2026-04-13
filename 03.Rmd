@@ -1,0 +1,186 @@
+# Confidence Intervals for a Proportion in R
+
+## Goal of Software Lesson 3
+::: {.graybox}
+The goal of this software lesson is to learn how to
+
+* find $z^{*}$ values from a Standard Normal distribution for a confidence interval for a proportion, and
+* compute confidence intervals for a proportion.
+
+:::
+
+Let's use the Lung Health Study (LHS) data set again. 
+
+Recall that the data set and a description of data can be found on Canvas, titled *lhs.csv* and *lhsdoc.docx*, respectively.
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+lhs<-read.csv(file = file.choose(), header = TRUE)
+```
+
+## Confidence interval for a proportion
+
+Confidence intervals (CIs) are a way to make a inference, via interval estimates, about population parameters by using the sample statistics computed from our data. 
+
+One can compute CIs for any summary measure (e.g., mean, proportion, difference in means, odds ratio, relative risk, slope). In this section, you will learn how to compute a CI for a proportion. There are two ways to do this: manually, by using the CI formula (via the Wald method), or using a built-in function in R (`prop.test()`). 
+
+The LHS variable that will be the focus in this section is the variable for those who smoke a pipe at 1 year after starting treatment, `f060pipe`. The question that you will be trying to answer is: 
+
+<center>
+<i>What is an estimate of the population proportion for those who smoke a pipe at 1 year after starting treatment?</i>
+</center>
+<br>
+
+**Option #1: Calculating manually**
+
+Recall that the formula for computing CIs for a proportion using the Wald method is
+<center>
+$\hat{p}+/-z^{*}\sqrt{\frac{\hat{p}*(1-\hat{p})}{n}}$.
+</center>
+
+When calculating this CI manually in R and from a data set, you need to save each of the following values in objects:
+
+- the number of those with the event in the variable (e.g., `k`),  
+
+- the total number of non-missing values in the variable (e.g., `n`),
+
+- the sample proportion (e.g., `p.hat`), 
+
+- the standard error of the proportion (e.g., `SE`), and
+
+- the degree of confidence value from the appropriate theoretical distribution (e.g., `z.star`).
+<br>
+
+- Step 1: To count the number of participants who had the event of interest, you first need to name the object that will contain the number who had the event (e.g., `k`), use the assignment operator (`<-`), and then use the `length()` function in combination to the `which()` function, specifying the variable and the value of the variable that should be counted:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+k<-length(which(lhs$f060pipe== 1))
+
+#viewing the object you just created
+k 
+```
+
+The `length()` function counts the number of values in the object, and the `which()` function finds the observations in the variable that match the criteria (e.g., which observations in the `f060pipe` variable have a value equal to 1, `lhs$f060pipe==1`).
+
+- Step 2: To count the total number of non-missing values in the variable, you first need to name the object that will contain the total sample size (e.g., `n`), use the assignment operator (`<-`), and then use the `length()` function in combination to the `na.omit()` function, specifying the value of the variable that should be counted:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+n<-length(na.omit(lhs$f060pipe))
+
+n
+```
+
+The `na.omit()` function removes the rows in the variable that are missing, so you would only be left with a variable with non-missing rows.
+
+- Step 3: To calculate the sample proportion, you first need to name the object that will contain the sample proportion (e.g., `p.hat`), use the assignment operator (`<-`), and then use the objects from Steps 1 and 2, dividing `k` by `n`:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+p.hat<-k/n
+
+p.hat
+```
+
+- Step 4: To calculate the standard error, you first need to name the object that will contain the standard error (e.g., `SE`), use the assignment operator (`<-`), and then use the SE formula and the objects from Steps 2 and 3:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+####Calculating the standard error for p-hat (saved in SE)
+SE<-sqrt(p.hat*(1-p.hat)/n)
+
+SE
+```
+
+The `sqrt()` function takes the square root of a value.
+
+- Step 5: To find the $z^{*}$ value from a Standard Normal distribution for a $95\%$ CI, you first need to name the object that will contain the $z^{*}$ value (e.g., `z.star`), use the assignment operator (`<-`), and then use the `qnorm()` function, specifying the value of 0.975:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+z.star<-qnorm(0.975)
+```
+
+The percentile value of $97.5\%$ was used in the above example because you want the middle $95\%$ of the distribution, so that leaves $5\%$ in both tails, or $2.5\%$ in each of the tails. Because the `qnorm()` function gives us the value where $X\%$ lies below that value, you are looking for the $z^{*}$ value such that $97.5\%$ (i.e., $95\% + 2.5\%$) falls below it.  
+
+::: {.redbox}
+**R TIP**
+
+If you want to find $z^{*}$ values from a Standard Normal distribution for a $99\%$ or $90\%$ CI, use a similar code as above, specifying the appropriate values in the function:
+<br>
+
+<bdi style = "font-family: 'Courier New'"> qnorm(0.995) \#$z^{*}$ for $99\%$ CI</bdi>
+<br>
+
+<bdi style = "font-family: 'Courier New'"> qnorm(0.95) \#$z^{*}$ for $90\%$ CI</bdi>
+
+:::
+<br>
+
+- Step 6: To calculate the $95\%$ CI for a proportion, use the CI mathematical formula and the objects from Steps 3, 4, and 5:
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+p.hat + c(-1,1)*z.star*SE
+```
+
+Because the `c(-1, 1)` was added to the equation, the output will give you two numbers: one for the lower value of the CI and one for the upper value of the CI. 
+
+**Option #2: Built-in function**
+
+An alternative way of computing a CI for a proportion is to use the built-in function in R: `prop.test()`.
+
+- To compute a $95\%$ CI for a proportion using R's built-in function, use the `prop.test()` function, specifying the number of those with the event in the variable (e.g., `k`), the total number of non-missing values in the variable (e.g., `n`), and the confidence level (e.g., `conf.level=0.95`):
+
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+prop.test(k, n, conf.level=0.95)
+```
+
+The `prop.test()` function supplies both a hypothesis test for a proportion as well as the CI for a proportion. 
+
+If you did not have data and only had summary information for calculating the CI for a proportion, you can just add those numbers to the function rather than saving them to an object. For example, you could have just been given the summary information from the `f060pipe` variable: 59 LHS participants who smoked a pipe at year 1 after starting treatment and 5597 participants with non-missing values in that variable. 
+
+Try it out!
+```{r, eval=FALSE, echo=TRUE, comment = ""}
+prop.test(59, 5597, conf.level=0.95)
+```
+
+::: {.bluebox}
+**CONFIDENCE INTERVAL FOR A PROPORTION**
+
+<b>Purpose:</b> To estimate the population proportion using sample data via an interval estimate.
+<br>
+<div style="border-bottom: 1px dashed black"></div>
+<br>
+
+For additional R resources on calculating a confidence interval for a proportion, see: 
+
+* <a href="https://www.theanalysisfactor.com/r-tutorial-count/">Counting Elements in a Data Set [The Analysis Factor].</a>
+* <a href="http://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion">Interval Estimate of Population Proportion [R Tutorial].</a>
+* <a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual11.html#headingtaglink_4">Confidence Interval for a Proportion [BU].</a>
+
+:::
+
+<br>
+
+## GUIDED QUESTIONS {#g31}
+
+##### Question 1
+What proportion of the LHS participants smoked a pipe at year 1 (after starting treatment)?
+
+##### Question 2
+What is the $z^{*}$ value for a $95\%$ confidence interval for a proportion? 
+
+##### Question 3
+What is the $95\%$ confidence interval for the population proportion who smoke at year 1 (after starting treatment)?
+
+::: {.graybox}
+
+See \@ref(answers-3) for answers
+
+:::
+
+## CHALLENGES {#ch3}
+
+##### Question 4
+Compute a $95\%$ confidence interval for the population proportion for those who the use of nicotine gum at first annual visit after starting treatment (`AV1GUM`).
+
+::: {.graybox}
+
+See \@ref(answers-chal-3) for answers
+
+:::

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Software Lesson 2 Normal Binomial in R | 6450 Answer Keys - R</title>
+  <meta name="description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Software Lesson 2 Normal Binomial in R | 6450 Answer Keys - R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="github-repo" content="hannah-graff-umn/6450BookdownR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Software Lesson 2 Normal Binomial in R | 6450 Answer Keys - R" />
+  
+  <meta name="twitter:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  
+
+
+
+<meta name="date" content="2026-04-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="importing-summarizing-data-in-r.html"/>
+<link rel="next" href="confidence-intervals-for-a-proportion-in-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pubh 6450 Answer Keys - R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Importing &amp; Summarizing Data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1"><i class="fa fa-check"></i><b>1.1</b> Goal of Software Lesson 1</a></li>
+<li class="chapter" data-level="1.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#dataset"><i class="fa fa-check"></i><b>1.2</b> Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#importing-data"><i class="fa fa-check"></i><b>1.3</b> Importing data</a></li>
+<li class="chapter" data-level="1.4" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#examine-the-data"><i class="fa fa-check"></i><b>1.4</b> Examine the data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-the-dataset"><i class="fa fa-check"></i><b>1.4.1</b> View the dataset</a></li>
+<li class="chapter" data-level="1.4.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables"><i class="fa fa-check"></i><b>1.4.2</b> View data types of the variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-names-of-the-variables"><i class="fa fa-check"></i><b>1.4.3</b> View names of the variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g11"><i class="fa fa-check"></i><b>1.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.6" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarizing-the-data"><i class="fa fa-check"></i><b>1.6</b> Summarizing the data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once"><i class="fa fa-check"></i><b>1.6.1</b> Summarize all variables at once</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g12"><i class="fa fa-check"></i><b>1.7</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable"><i class="fa fa-check"></i><b>1.7.1</b> Summarize single categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g13"><i class="fa fa-check"></i><b>1.8</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable"><i class="fa fa-check"></i><b>1.8.1</b> Summarize single continuous variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g14"><i class="fa fa-check"></i><b>1.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.10" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#ch1"><i class="fa fa-check"></i><b>1.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html"><i class="fa fa-check"></i><b>2</b> Normal Binomial in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#goal-of-software-lesson-2"><i class="fa fa-check"></i><b>2.1</b> Goal of Software Lesson 2</a></li>
+<li class="chapter" data-level="2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution"><i class="fa fa-check"></i><b>2.2</b> Computing probabilities using the Normal distribution</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Computing “less than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Computing “greater than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Computing “between” probabilities in a Normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g21"><i class="fa fa-check"></i><b>2.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution"><i class="fa fa-check"></i><b>2.4</b> Computing probabilities using the Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.1</b> Computing “equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Computing “less than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.3</b> Computing “greater than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.4</b> Computing “between” probabilities in a Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g22"><i class="fa fa-check"></i><b>2.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.6" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#ch2"><i class="fa fa-check"></i><b>2.6</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html"><i class="fa fa-check"></i><b>3</b> Confidence Intervals for a Proportion in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#goal-of-software-lesson-3"><i class="fa fa-check"></i><b>3.1</b> Goal of Software Lesson 3</a></li>
+<li class="chapter" data-level="3.2" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#confidence-interval-for-a-proportion"><i class="fa fa-check"></i><b>3.2</b> Confidence interval for a proportion</a></li>
+<li class="chapter" data-level="3.3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#g31"><i class="fa fa-check"></i><b>3.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="3.4" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#ch3"><i class="fa fa-check"></i><b>3.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>4</b> Confidence Intervals for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#goal-of-software-lesson-4"><i class="fa fa-check"></i><b>4.1</b> Goal of Software Lesson 4</a></li>
+<li class="chapter" data-level="4.2" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#confidence-interval-for-a-mean"><i class="fa fa-check"></i><b>4.2</b> Confidence interval for a mean</a></li>
+<li class="chapter" data-level="4.3" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#g41"><i class="fa fa-check"></i><b>4.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="4.4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#ch4"><i class="fa fa-check"></i><b>4.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Test for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5"><i class="fa fa-check"></i><b>5.1</b> Goal of Software Lesson 5</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean"><i class="fa fa-check"></i><b>5.2</b> Hypothesis test for a mean</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g51"><i class="fa fa-check"></i><b>5.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>5.4</b> Paired <em>t</em>-test</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g52"><i class="fa fa-check"></i><b>5.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.6" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable"><i class="fa fa-check"></i><b>5.6</b> Reclassify a variable</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable"><i class="fa fa-check"></i><b>5.6.1</b> Reclassify numerical variable as categorical variable</a></li>
+<li class="chapter" data-level="5.6.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable"><i class="fa fa-check"></i><b>5.6.2</b> Recode categories in a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g53"><i class="fa fa-check"></i><b>5.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.8" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#ch5"><i class="fa fa-check"></i><b>5.8</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Inferential Methods for Comparing Means &amp; More Summarizing Numerical Data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#goal-of-software-lesson-6"><i class="fa fa-check"></i><b>6.1</b> Goal of Software Lesson 6</a></li>
+<li class="chapter" data-level="6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#two-sample-t-test"><i class="fa fa-check"></i><b>6.2</b> Two-sample <em>t</em>-test</a></li>
+<li class="chapter" data-level="6.3" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61"><i class="fa fa-check"></i><b>6.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.4" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#mann-whitney-test-aka-wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>6.4</b> Mann-Whitney test (aka Wilcoxon Rank-Sum test)</a></li>
+<li class="chapter" data-level="6.5" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62"><i class="fa fa-check"></i><b>6.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summarizing-numerical-variables-by-group"><i class="fa fa-check"></i><b>6.6</b> Summarizing numerical variables by group</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summary-measures-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.1</b> Summary measures of numerical variable by group</a></li>
+<li class="chapter" data-level="6.6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#graphical-displays-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.2</b> Graphical displays of numerical variable by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63"><i class="fa fa-check"></i><b>6.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.8" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#transforming-a-numerical-variable"><i class="fa fa-check"></i><b>6.8</b> Transforming a numerical variable</a></li>
+<li class="chapter" data-level="6.9" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64"><i class="fa fa-check"></i><b>6.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.10" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6"><i class="fa fa-check"></i><b>6.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html"><i class="fa fa-check"></i><b>7</b> Power &amp; Sample Size Estimation in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#goal-of-software-lesson-7"><i class="fa fa-check"></i><b>7.1</b> Goal of Software Lesson 7</a></li>
+<li class="chapter" data-level="7.2" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-and-sample-size-calculations"><i class="fa fa-check"></i><b>7.2</b> Power and Sample Size Calculations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#sample-size-estimation"><i class="fa fa-check"></i><b>7.2.1</b> Sample size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g71"><i class="fa fa-check"></i><b>7.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g72"><i class="fa fa-check"></i><b>7.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="7.5" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#ch7"><i class="fa fa-check"></i><b>7.5</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="project-1-in-r.html"><a href="project-1-in-r.html"><i class="fa fa-check"></i><b>8</b> Project 1 in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="project-1-in-r.html"><a href="project-1-in-r.html#goal-of-software-lesson-8"><i class="fa fa-check"></i><b>8.1</b> Goal of Software Lesson 8</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova-in-r.html"><a href="anova-in-r.html"><i class="fa fa-check"></i><b>9</b> ANOVA in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova-in-r.html"><a href="anova-in-r.html#goal-of-software-lesson-9"><i class="fa fa-check"></i><b>9.1</b> Goal of Software Lesson 9</a></li>
+<li class="chapter" data-level="9.2" data-path="anova-in-r.html"><a href="anova-in-r.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9.3" data-path="anova-in-r.html"><a href="anova-in-r.html#g91"><i class="fa fa-check"></i><b>9.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.4" data-path="anova-in-r.html"><a href="anova-in-r.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova-in-r.html"><a href="anova-in-r.html#bonferroni"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova-in-r.html"><a href="anova-in-r.html#g92"><i class="fa fa-check"></i><b>9.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-in-r.html"><a href="anova-in-r.html#ch9"><i class="fa fa-check"></i><b>9.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10"><i class="fa fa-check"></i><b>10.1</b> Goal of Software Lesson 10</a></li>
+<li class="chapter" data-level="10.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables"><i class="fa fa-check"></i><b>10.2</b> Comparing two categorical variables</a></li>
+<li class="chapter" data-level="10.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables"><i class="fa fa-check"></i><b>10.3</b> Summarizing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables"><i class="fa fa-check"></i><b>10.3.1</b> 2x2 tables</a></li>
+<li class="chapter" data-level="10.3.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group"><i class="fa fa-check"></i><b>10.3.2</b> Graphical displays of a categorical variable by group</a></li>
+<li class="chapter" data-level="10.3.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio"><i class="fa fa-check"></i><b>10.3.3</b> Risk difference, relative risk, and odds ratio</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101"><i class="fa fa-check"></i><b>10.4</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels"><i class="fa fa-check"></i><b>10.4.1</b> Modifying categorical labels</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102"><i class="fa fa-check"></i><b>10.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="10.6" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10"><i class="fa fa-check"></i><b>10.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><i class="fa fa-check"></i><b>11</b> Chi-Square Test, Fisher’s Exact Test, and McNemar’s Test in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#goal-of-software-lesson-11"><i class="fa fa-check"></i><b>11.1</b> Goal of Software Lesson 11</a></li>
+<li class="chapter" data-level="11.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#hypothesis-test-comparing-two-categorical-variables"><i class="fa fa-check"></i><b>11.2</b> Hypothesis test comparing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#chi-square-test"><i class="fa fa-check"></i><b>11.2.1</b> Chi-square test</a></li>
+<li class="chapter" data-level="11.2.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#fishers-exact-test"><i class="fa fa-check"></i><b>11.2.2</b> Fisher’s exact test</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111"><i class="fa fa-check"></i><b>11.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.4" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#mcnemars-test-for-paired-data"><i class="fa fa-check"></i><b>11.4</b> McNemar’s test for paired data</a></li>
+<li class="chapter" data-level="11.5" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112"><i class="fa fa-check"></i><b>11.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.6" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11"><i class="fa fa-check"></i><b>11.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>12</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12"><i class="fa fa-check"></i><b>12.1</b> Goal of Software Lesson 12</a></li>
+<li class="chapter" data-level="12.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables"><i class="fa fa-check"></i><b>12.2</b> Relationship between two numerical variables</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#scatterplot"><i class="fa fa-check"></i><b>12.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="12.2.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#correlation"><i class="fa fa-check"></i><b>12.2.2</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g121"><i class="fa fa-check"></i><b>12.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.3.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="12.3.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit"><i class="fa fa-check"></i><b>12.3.2</b> Draw line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g122"><i class="fa fa-check"></i><b>12.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="12.5" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set"><i class="fa fa-check"></i><b>12.5</b> Subsetting a data set</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-1"><i class="fa fa-check"></i><b>12.5.1</b> Option #1</a></li>
+<li class="chapter" data-level="12.5.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-2"><i class="fa fa-check"></i><b>12.5.2</b> Option #2</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#ch12"><i class="fa fa-check"></i><b>12.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html"><i class="fa fa-check"></i><b>13</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#goal-of-software-lesson-13"><i class="fa fa-check"></i><b>13.1</b> Goal of Software Lesson 13</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#inference-for-simple-linear-regression"><i class="fa fa-check"></i><b>13.1.1</b> Inference for Simple Linear Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#p-values-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.2</b> <em>p</em>-values for regression coefficients</a></li>
+<li class="chapter" data-level="13.1.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#confidence-intervals-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.3</b> Confidence intervals for regression coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#g131"><i class="fa fa-check"></i><b>13.2</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="13.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#model-diagnostics"><i class="fa fa-check"></i><b>13.3</b> Model diagnostics</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#diagnostic-plots"><i class="fa fa-check"></i><b>13.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#ch13"><i class="fa fa-check"></i><b>13.4</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>14</b> Multiple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#goal-of-software-lesson-14"><i class="fa fa-check"></i><b>14.1</b> Goal of Software Lesson 14</a></li>
+<li class="chapter" data-level="14.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>14.2</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.1</b> Scatterplot with a categorical variable</a></li>
+<li class="chapter" data-level="14.2.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#add-best-fit-lines-to-scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.2</b> Add best-fit lines to scatterplot with a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g141"><i class="fa fa-check"></i><b>14.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.4" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression-model"><i class="fa fa-check"></i><b>14.4</b> Multiple linear regression model</a></li>
+<li class="chapter" data-level="14.5" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g142"><i class="fa fa-check"></i><b>14.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.6" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>14.6</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="14.7" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#ch14"><i class="fa fa-check"></i><b>14.7</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-answer-key.html"><a href="r-answer-key.html"><i class="fa fa-check"></i>R Answer Key</a>
+<ul>
+<li class="chapter" data-level="14.8" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-1"><i class="fa fa-check"></i><b>14.8</b> Software Lesson 1 Guided Questions</a></li>
+<li class="chapter" data-level="14.9" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-2"><i class="fa fa-check"></i><b>14.9</b> Software Lesson 2 Guided Questions</a></li>
+<li class="chapter" data-level="14.10" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-3"><i class="fa fa-check"></i><b>14.10</b> Software Lesson 3 Guided Questions</a></li>
+<li class="chapter" data-level="14.11" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-4"><i class="fa fa-check"></i><b>14.11</b> Software Lesson 4 Guided Questions</a></li>
+<li class="chapter" data-level="14.12" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-5"><i class="fa fa-check"></i><b>14.12</b> Software Lesson 5 Guided Questions</a></li>
+<li class="chapter" data-level="14.13" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-6"><i class="fa fa-check"></i><b>14.13</b> Software Lesson 6 Guided Questions</a></li>
+<li class="chapter" data-level="14.14" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-7"><i class="fa fa-check"></i><b>14.14</b> Software Lesson 7 Guided Questions</a></li>
+<li class="chapter" data-level="14.15" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-8"><i class="fa fa-check"></i><b>14.15</b> Software Lesson 8 Guided Questions</a></li>
+<li class="chapter" data-level="14.16" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-9"><i class="fa fa-check"></i><b>14.16</b> Software Lesson 9 Guided Questions</a></li>
+<li class="chapter" data-level="14.17" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-10"><i class="fa fa-check"></i><b>14.17</b> Software Lesson 10 Guided Questions</a></li>
+<li class="chapter" data-level="14.18" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-11"><i class="fa fa-check"></i><b>14.18</b> Software Lesson 11 Guided Questions</a></li>
+<li class="chapter" data-level="14.19" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-12"><i class="fa fa-check"></i><b>14.19</b> Software Lesson 12 Guided Questions</a></li>
+<li class="chapter" data-level="14.20" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-13"><i class="fa fa-check"></i><b>14.20</b> Software Lesson 13 Guided Questions</a></li>
+<li class="chapter" data-level="14.21" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-14"><i class="fa fa-check"></i><b>14.21</b> Software Lesson 14 Guided Questions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">6450 Answer Keys - R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="normal-binomial-in-r" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Software Lesson 2</span> Normal Binomial in R<a href="normal-binomial-in-r.html#normal-binomial-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goal-of-software-lesson-2" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Goal of Software Lesson 2<a href="normal-binomial-in-r.html#goal-of-software-lesson-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="graybox">
+<p>The goal of this software lesson is to learn how to</p>
+<ul>
+<li>compute probabilities for the Normal distribution, and</li>
+<li>compute probabilities for the Binomial distribution.</li>
+</ul>
+</div>
+<p><br></p>
+<p>In this software lesson, rather than having data from a sample and computing summaries of the variables in the data set, you are going to pretend that you know the underlying true theoretical distribution of some phenomenon. From this information, you can compute the probability that some event will occur.</p>
+</div>
+<div id="computing-probabilities-using-the-normal-distribution" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Computing probabilities using the Normal distribution<a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many standardized tests are calibrated to produce a Normal distribution. One such test is called the RAND-36 test, which is a measure of health-related quality of life. One of the scores produced is a mental health score. It is assumed to be normally distributed with a mean of 50 and a standard deviation of 10.</p>
+<p>To find probabilities from a Normal distribution, you will use the function <code>pnorm()</code>. This function finds the probability of being less (or greater than) than <code>X</code> in a Normal distribution that has a mean equal to <code>a</code> and a standard deviation equal to <code>b</code>, where <code>X</code>, <code>a</code>, and <code>b</code> need to be specified.</p>
+<div id="computing-less-than-probabilities-in-a-normal-distribution" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Computing “less than” probabilities in a Normal distribution<a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose you are interested in finding the probability of having <strong>at most</strong> a RAND-36 mental health score of 33 (i.e., 33 or less). To visualize this:</p>
+<center>
+<img src="Images/01-Norm-m50-sd10-lt.png"  width = "80%" alt="The standard normal distribution with mu 0 and sigma 1. This is a bell-shaped curve with peak at 0. There is a blue line drawn at x equals -1.7 and the area to the left of this line under the curve is shaded.">
+</center>
+<ul>
+<li>To compute “less than” probabilities using the Normal distribution (value not standardized), use the <code>pnorm()</code> function, specifying the value of interest and the arguments <code>mean=</code> and <code>sd=</code>:</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="normal-binomial-in-r.html#cb16-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">33</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>Now suppose that the score of 33 had been standardized. Then its z-score would be -1.7 (i.e., z = <span class="math inline">\(\frac{33-50}{10}\)</span>). If the value of interest is standardized, then you do not need to specify the mean and standard deviation in the <code>pnorm()</code> function because its default (or preset) values for the mean and standard deviation are 0 and 1, respectively; that is, the default values are set to the Standard Normal distribution values. To visualize this:</p>
+<center>
+<img src="Images/02-Norm-m0-sd1-lt.png"  width = "80%"  alt="Normal distribution with mu 50 and sigma 10. This is a bell-shaped curve with peak at 50. There is a blue line drawn at x equals 58 and the area to the right of this line under the curve is shaded.">
+</center>
+<ul>
+<li>To compute “less than” probabilities using the Normal distribution AND standardized values, use the <code>pnorm()</code> function, specifying the standardized value of interest:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="normal-binomial-in-r.html#cb17-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.7</span>)</span></code></pre></div>
+</div>
+<div id="computing-greater-than-probabilities-in-a-normal-distribution" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Computing “greater than” probabilities in a Normal distribution<a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now suppose you are interested in finding the probability of having <strong>at least</strong> a RAND-36 mental health score of 58 (i.e., 58 or more). To visualize this:</p>
+<center>
+<img src="Images/03-Norm-m50-sd10-gt.png"  width = "80%" alt="Normal distribution with mu 50 and sigma 10. There is a blue line drawn at x equals 58 and the area to the right of this line is shaded.">
+</center>
+<p>There are two ways you can compute this value in R: <code>pnorm(..., lower.tail=FALSE)</code> or <code>1-pnorm(...)</code>.</p>
+<p><strong>Option #1</strong></p>
+<ul>
+<li>To compute “greater than” probabilities using the Normal distribution (value not standardized), use the <code>pnorm()</code> function with same arguments as above and also including <code>lower.tail=FALSE</code>:</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="normal-binomial-in-r.html#cb18-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">58</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>The <code>lower.tail=FALSE</code> argument tells R to not compute the lower tail probability, but rather inverse of that: the upper tail probability.</p>
+<p><strong>Option #2</strong></p>
+<ul>
+<li>To compute “greater than” probabilities using the Normal distribution (value not standardized), subtract the <code>pnorm()</code> function, specifying the value of interest and the arguments <code>mean=</code> and <code>sd=</code>, from 1:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="normal-binomial-in-r.html#cb19-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">58</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span></code></pre></div>
+</div>
+<div id="computing-between-probabilities-in-a-normal-distribution" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Computing “between” probabilities in a Normal distribution<a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lastly, suppose you are interested in finding the probability of a RAND-36 mental health score being between 33 and 58. Due to how the <code>pnorm()</code> function works, you need to subtract two probabilities from one another (the probability of the upper value minus the probability of the lower value). To visualize this:</p>
+<center>
+<img src="Images/03a-Norm-m50-sd10-lt58.png"  width = "40%" alt="Normal distribution with mu 50 and sigma 10. There is a blue line drawn at x equals 58 and the area to the left of this line is shaded."> <b> MINUS </b> <img src="Images/01-Norm-m50-sd10-lt.png"  width = "40%" alt="Normal distribution with mu 50 and sigma 10. There is a blue line drawn at x equals 33 and the area to the left of this line is shaded."> <b> EQUALS </b>
+<p>
+<img src="Images/03b-Norm-m50-sd10-btwn.png"  width = "80%" alt="Normal distribution with mu 50 and sigma 10. There are blue lines drawn at x equals 58 and x equals 33 with the area under the curve between the lines is shaded.">
+</p>
+</center>
+<ul>
+<li>To compute “between” probabilities using the Normal distribution (value not standardized), subtract the two <code>pnorm()</code> functions, specifying the upper value in the first function and the lower value in the second function:</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="normal-binomial-in-r.html#cb20-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">58</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">33</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="bluebox">
+<p><strong>COMPUTING PROBABILITIES USING THE NORMAL DISTRIBUTION</strong></p>
+<p><b>Purpose:</b> To compute probabilities of some event occurring when the distribution is known to be normally distributed.</p>
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on normal distribution functions, see:</p>
+<ul>
+<li><a href="https://cosmosweb.champlain.edu/people/stevens/webtech/R/Chapter-6-R.pdf">Using R: Normal Distributions [Champlain College].</a></li>
+<li><a href="https://www.youtube.com/watch?v=peEsXbdMY_4&feature=emb_logo">{Normal Distribution, Z Scores, and Normal Probabilities in R [MarinStatsLectures].</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="g21" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> GUIDED QUESTIONS<a href="normal-binomial-in-r.html#g21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-1-1" class="section level5 hasAnchor" number="2.3.0.0.1">
+<h5><span class="header-section-number">2.3.0.0.1</span> Question 1<a href="normal-binomial-in-r.html#question-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the probability of having at most a RAND-36 mental health score of 33?</p>
+</div>
+<div id="question-2-1" class="section level5 hasAnchor" number="2.3.0.0.2">
+<h5><span class="header-section-number">2.3.0.0.2</span> Question 2<a href="normal-binomial-in-r.html#question-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the probability of finding RAND-36 mental health scores between 33 and 58?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-2">14.9</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="computing-probabilities-using-the-binomial-distribution" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Computing probabilities using the Binomial distribution<a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose the RAND-36 mental health score is converted into a categorical variable-<code>Normal</code> and <code>Frail</code>-and suppose the probability of being <code>Frail</code> is 15.8%. Because the variable is binary and has a set probability for the event of interest, one could consider this distribution to be Binomial and be able to answer probability questions.</p>
+<div id="computing-equal-to-probabilities-in-a-binomial-distribution" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Computing “equal to” probabilities in a Binomial distribution<a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you obtained a random sample of 16 people, what is the probability that 6 of them will be classified as <code>Frail</code> on the RAND-36 mental health assessment? To visualize this:</p>
+<center>
+<img src="Images/04-Bin-n16-p16-et.png"  width = "80%"  alt="Binomial distribution with n 16 and p 0.158. Represented with discrete bar graphs, the distribution is bell-shaped and right-skewed, ranging from 0 to 10 with peak at 2. The bar graph at x equals 6 is highlighted.">
+</center>
+<ul>
+<li>To compute “equal to” probabilities using the Binomial distribution, use the <code>dbinom()</code> function, specifying the value of interest and the arguments <code>size=</code> (for number of observations, n) and <code>prob=</code> (for the probability of the event of interest):</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="normal-binomial-in-r.html#cb21-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">6</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">prob =</span> <span class="fl">0.158</span>)</span></code></pre></div>
+</div>
+<div id="computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Computing “less than or equal to” probabilities in a Binomial distribution<a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now suppose you want to find the probability that <em>6 or less</em> of them will be classified as <code>Frail</code> on the RAND-36 mental health assessment. To visualize this:</p>
+<center>
+<img src="Images/05-Bin-n16-p16-lt.png"  width = "80%" alt="Binomial distribution with n 16 and p 0.158.  The bar graphs for x equals 0 through 6 are highlighted.">
+</center>
+<ul>
+<li>To compute “less than or equal to” probabilities using the Binomial distribution, use the <code>pbinom()</code> function, specifying the value of interest and the arguments <code>size=</code> (for number of observations, n) and <code>prob=</code> (for the probability of the event of interest):</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="normal-binomial-in-r.html#cb22-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">6</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">prob =</span> <span class="fl">0.158</span>)</span></code></pre></div>
+<p>This function, <code>pbinom()</code>, finds the probability of X <span class="math inline">\(\le\)</span> value.</p>
+</div>
+<div id="computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Computing “greater than or equal to” probabilities in a Binomial distribution<a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now suppose you want to find the probability that <em>6 or more</em> of them will be classified as <code>Frail</code> on the RAND-36 mental health assessment. To visualize this:</p>
+<center>
+<img src="Images/06-Bin-n16-p16-gt.png"  width = "80%" alt="Binomial distribution with n 16 and p 0.158.  The bar graphs for x equals 6 through 10 are highlighted.">
+</center>
+<p>There are two ways you can compute this value in R: <code>pbinom(value-1, ..., lower.tail=FALSE)</code> or <code>1-pbinom(value-1, ...)</code>.</p>
+<p><strong>Option #1</strong></p>
+<ul>
+<li>To compute “greater than or equal to” probabilities using the Binomial distribution, use the <code>pbinom()</code> function with same arguments as above and also including <code>lower.tail=FALSE</code>:</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="normal-binomial-in-r.html#cb23-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">prob =</span> <span class="fl">0.158</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Notice that the value in the first argument is 5 and not 6. This is because when you specify <code>lower.tail=FALSE</code>, the probability that is found is X &gt; value (e.g., “probability that X is greater than (but not including) 5”).</p>
+<p><strong>Option #2</strong></p>
+<ul>
+<li>To compute “greater than or equal to” probabilities using the Binomial distribution, subtract from 1 the <code>pbinom()</code> function, specifying the value of interest and the arguments <code>size=</code> and <code>prob=</code>:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="normal-binomial-in-r.html#cb24-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">prob =</span> <span class="fl">0.158</span>)</span></code></pre></div>
+<p><br></p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>When dealing with the Binomial distribution in software, it’s hard to keep straight if the value is included or not included in the <bdi style = "font-family: 'Courier New'"> pbinom()</bdi> function . To check your answer, it may be useful to add up all of the “exact value” probabilities using <bdi style = "font-family: 'Courier New'"> dbinom()</bdi>. For example, in the “6 or more” example above, to verify that you specified the correct probability in the <bdi style = "font-family: 'Courier New'"> pbinom()</bdi> function, you can add up all of the individual values that fit that criteria (e.g., 7, 8, 9, …, 15, 16):
+<br></p>
+<p><bdi style = "font-family: 'Courier New'"> dbinom(6, size = 16, prob = 0.158) + dbinom(7, size = 16, prob = 0.158) + … + dbinom(15, size = 16, prob = 0.158) + dbinom(16, size = 16, prob = 0.158)</bdi></p>
+</div>
+</div>
+<div id="computing-between-probabilities-in-a-binomial-distribution" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Computing “between” probabilities in a Binomial distribution<a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lastly, suppose you are interested in finding the probability that between 1 and 4 (<strong>inclusive</strong>) out of the 16 will be classified as <code>Frail</code> on the RAND-36 mental health assessment. Due to how the <code>pbinom()</code> function works, you need to subtract two probabilities from one another, but figuring out the second value is a little tricky. The code will be provided to you first and then the explanation (with visualizations will follow).</p>
+<ul>
+<li>To compute “between” (<strong>inclusive</strong>) using the Binomial distribution, subtract the two <code>pbinom()</code> functions, specifying the larger value in the first function and the smaller value in the second function:</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="normal-binomial-in-r.html#cb25-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">4</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">prob =</span> <span class="fl">0.158</span>) <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">prob =</span> <span class="fl">0.158</span>)</span></code></pre></div>
+<p>Now for the piece-by-piece explanation.</p>
+<p>The first probability, <code>pbinom(4, size = 16, prob = 0.158)</code> is finding the probability of 4 or less (where X is distributed <span class="math inline">\(Binomial(16, 0.158)\)</span>), which equals <span class="math inline">\(P(X=4) + P(X=3) + P(X=2) + P(X=1) + P(X=0)\)</span>. That would look like this:</p>
+<center>
+<img src="Images/06a-Bin-n16-p16-lt4.png"  width="80%" alt="Binomial distribution with n 16 and p 0.158.  The bar graphs for x equals 0 through 4 are highlighted.">
+</center>
+<p>The second probability, <code>pbinom(0, size = 16, prob = 0.158)</code> is finding the probability of 0 or less (where X is distributed <span class="math inline">\(Binomial(16, 0.158)\)</span>), which equals <span class="math inline">\(P(X=0)\)</span>. That would look like this:</p>
+<center>
+<img src="Images/06b-Bin-n16-p16-lt0.png"  width = "80%" alt="Binomial distribution with n 16 and p 0.158.  The bar graph at x equals 0 is highlighted.">
+</center>
+<p>If you subtract the two from one another, you get <span class="math inline">\([P(X=4) + P(X=3) + P(X=2) + P(X=1) + P(X=0)] - P(X=0) = P(X=4) + P(X=3) + P(X=2) + P(X=1)\)</span>. To visualize this:</p>
+<center>
+<img src="Images/06c-Bin-n16-p16-btwn.png" width="80%" alt="Binomial distribution with n 16 and p 0.158.  The bar graphs for x equals 1 through 4 are highlighted.">
+</center>
+<div class="bluebox">
+<p><strong>COMPUTING PROBABILITIES USING THE BINOMIAL DISTRIBUTION</strong></p>
+<b>Purpose:</b> To compute probabilities of some event occurring when the distribution is known to be binomially distributed.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on binomial distribution functions, see:</p>
+<ul>
+<li><a href="https://www.stats4stem.org/r-binomial-distribution">R: Binomial Distribution [STATS4STEM].</a> <br> Note: The useful information is in the first two sections of the page (Sections I and II).</li>
+<li><a href="https://www.youtube.com/watch?v=iG995W0XefU&feature=emb_logo">Binomial Distribution in R [MarinStatsLectures].</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="g22" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> GUIDED QUESTIONS<a href="normal-binomial-in-r.html#g22" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-3-1" class="section level5 hasAnchor" number="2.5.0.0.1">
+<h5><span class="header-section-number">2.5.0.0.1</span> Question 3<a href="normal-binomial-in-r.html#question-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the probability that 6 of the 16 people will be classified as <code>Frail</code> on the RAND-36 mental health assessment?</p>
+</div>
+<div id="question-4-1" class="section level5 hasAnchor" number="2.5.0.0.2">
+<h5><span class="header-section-number">2.5.0.0.2</span> Question 4<a href="normal-binomial-in-r.html#question-4-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the probability that 6 or more of the 16 people will be classified as <code>Frail</code> on the RAND-36 mental health assessment?</p>
+</div>
+<div id="question-5-1" class="section level5 hasAnchor" number="2.5.0.0.3">
+<h5><span class="header-section-number">2.5.0.0.3</span> Question 5<a href="normal-binomial-in-r.html#question-5-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Why was the value of <code>0</code> used in the <code>pbinom()</code> function for finding the probability that between 1 and 4 of the 16 people being classified as <code>Frail</code>?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-2">14.9</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="ch2" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> CHALLENGES<a href="normal-binomial-in-r.html#ch2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-6-1" class="section level5 hasAnchor" number="2.6.0.0.1">
+<h5><span class="header-section-number">2.6.0.0.1</span> Question 6<a href="normal-binomial-in-r.html#question-6-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the probability of having at least a RAND-36 mental health score of 45? Find this in two ways: using the unstandardized value (i.e., 45) and then using its associated z-score.</p>
+</div>
+<div id="question-7-1" class="section level5 hasAnchor" number="2.6.0.0.2">
+<h5><span class="header-section-number">2.6.0.0.2</span> Question 7<a href="normal-binomial-in-r.html#question-7-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Find the probability that 2 or more of the 16 people will be classified as <code>Frail</code> on the RAND-36 mental health assessment.</p>
+</div>
+<div id="question-8-1" class="section level5 hasAnchor" number="2.6.0.0.3">
+<h5><span class="header-section-number">2.6.0.0.3</span> Question 8<a href="normal-binomial-in-r.html#question-8-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Find the probability that less than 10 of the 16 people will be classified as <code>Frail</code> on the RAND-36 mental health assessment.</p>
+</div>
+<div id="question-9-1" class="section level5 hasAnchor" number="2.6.0.0.4">
+<h5><span class="header-section-number">2.6.0.0.4</span> Question 9<a href="normal-binomial-in-r.html#question-9-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Find the probability that no more than 10 of the 16 people will be classified as <code>Frail</code> on the RAND-36 mental health assessment.</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-chal-2">14.9.0.1</a> for answers to the challenge problems</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="importing-summarizing-data-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="confidence-intervals-for-a-proportion-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

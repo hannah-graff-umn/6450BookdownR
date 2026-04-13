@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Software Lesson 5 Hypothesis Test for a Mean in R | 6450 Answer Keys - R</title>
+  <meta name="description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Software Lesson 5 Hypothesis Test for a Mean in R | 6450 Answer Keys - R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  <meta name="github-repo" content="hannah-graff-umn/6450BookdownR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Software Lesson 5 Hypothesis Test for a Mean in R | 6450 Answer Keys - R" />
+  
+  <meta name="twitter:description" content="R answer keys for U of M’s PUBH 6450 class." />
+  
+
+
+
+<meta name="date" content="2026-04-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="confidence-intervals-for-a-mean-in-r.html"/>
+<link rel="next" href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pubh 6450 Answer Keys - R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Importing &amp; Summarizing Data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#goal-of-software-lesson-1"><i class="fa fa-check"></i><b>1.1</b> Goal of Software Lesson 1</a></li>
+<li class="chapter" data-level="1.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#dataset"><i class="fa fa-check"></i><b>1.2</b> Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#importing-data"><i class="fa fa-check"></i><b>1.3</b> Importing data</a></li>
+<li class="chapter" data-level="1.4" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#examine-the-data"><i class="fa fa-check"></i><b>1.4</b> Examine the data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-the-dataset"><i class="fa fa-check"></i><b>1.4.1</b> View the dataset</a></li>
+<li class="chapter" data-level="1.4.2" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-data-types-of-the-variables"><i class="fa fa-check"></i><b>1.4.2</b> View data types of the variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#view-names-of-the-variables"><i class="fa fa-check"></i><b>1.4.3</b> View names of the variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g11"><i class="fa fa-check"></i><b>1.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.6" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarizing-the-data"><i class="fa fa-check"></i><b>1.6</b> Summarizing the data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-all-variables-at-once"><i class="fa fa-check"></i><b>1.6.1</b> Summarize all variables at once</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g12"><i class="fa fa-check"></i><b>1.7</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-categorical-variable"><i class="fa fa-check"></i><b>1.7.1</b> Summarize single categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g13"><i class="fa fa-check"></i><b>1.8</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#summarize-single-continuous-variable"><i class="fa fa-check"></i><b>1.8.1</b> Summarize single continuous variable</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#g14"><i class="fa fa-check"></i><b>1.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="1.10" data-path="importing-summarizing-data-in-r.html"><a href="importing-summarizing-data-in-r.html#ch1"><i class="fa fa-check"></i><b>1.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html"><i class="fa fa-check"></i><b>2</b> Normal Binomial in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#goal-of-software-lesson-2"><i class="fa fa-check"></i><b>2.1</b> Goal of Software Lesson 2</a></li>
+<li class="chapter" data-level="2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-normal-distribution"><i class="fa fa-check"></i><b>2.2</b> Computing probabilities using the Normal distribution</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Computing “less than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Computing “greater than” probabilities in a Normal distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-normal-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Computing “between” probabilities in a Normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g21"><i class="fa fa-check"></i><b>2.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-probabilities-using-the-binomial-distribution"><i class="fa fa-check"></i><b>2.4</b> Computing probabilities using the Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.1</b> Computing “equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-less-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Computing “less than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.3" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-greater-than-or-equal-to-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.3</b> Computing “greater than or equal to” probabilities in a Binomial distribution</a></li>
+<li class="chapter" data-level="2.4.4" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#computing-between-probabilities-in-a-binomial-distribution"><i class="fa fa-check"></i><b>2.4.4</b> Computing “between” probabilities in a Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#g22"><i class="fa fa-check"></i><b>2.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="2.6" data-path="normal-binomial-in-r.html"><a href="normal-binomial-in-r.html#ch2"><i class="fa fa-check"></i><b>2.6</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html"><i class="fa fa-check"></i><b>3</b> Confidence Intervals for a Proportion in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#goal-of-software-lesson-3"><i class="fa fa-check"></i><b>3.1</b> Goal of Software Lesson 3</a></li>
+<li class="chapter" data-level="3.2" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#confidence-interval-for-a-proportion"><i class="fa fa-check"></i><b>3.2</b> Confidence interval for a proportion</a></li>
+<li class="chapter" data-level="3.3" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#g31"><i class="fa fa-check"></i><b>3.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="3.4" data-path="confidence-intervals-for-a-proportion-in-r.html"><a href="confidence-intervals-for-a-proportion-in-r.html#ch3"><i class="fa fa-check"></i><b>3.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>4</b> Confidence Intervals for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#goal-of-software-lesson-4"><i class="fa fa-check"></i><b>4.1</b> Goal of Software Lesson 4</a></li>
+<li class="chapter" data-level="4.2" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#confidence-interval-for-a-mean"><i class="fa fa-check"></i><b>4.2</b> Confidence interval for a mean</a></li>
+<li class="chapter" data-level="4.3" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#g41"><i class="fa fa-check"></i><b>4.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="4.4" data-path="confidence-intervals-for-a-mean-in-r.html"><a href="confidence-intervals-for-a-mean-in-r.html#ch4"><i class="fa fa-check"></i><b>4.4</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Test for a Mean in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5"><i class="fa fa-check"></i><b>5.1</b> Goal of Software Lesson 5</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean"><i class="fa fa-check"></i><b>5.2</b> Hypothesis test for a mean</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g51"><i class="fa fa-check"></i><b>5.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>5.4</b> Paired <em>t</em>-test</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g52"><i class="fa fa-check"></i><b>5.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.6" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable"><i class="fa fa-check"></i><b>5.6</b> Reclassify a variable</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable"><i class="fa fa-check"></i><b>5.6.1</b> Reclassify numerical variable as categorical variable</a></li>
+<li class="chapter" data-level="5.6.2" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable"><i class="fa fa-check"></i><b>5.6.2</b> Recode categories in a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#g53"><i class="fa fa-check"></i><b>5.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="5.8" data-path="hypothesis-test-for-a-mean-in-r.html"><a href="hypothesis-test-for-a-mean-in-r.html#ch5"><i class="fa fa-check"></i><b>5.8</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Inferential Methods for Comparing Means &amp; More Summarizing Numerical Data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#goal-of-software-lesson-6"><i class="fa fa-check"></i><b>6.1</b> Goal of Software Lesson 6</a></li>
+<li class="chapter" data-level="6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#two-sample-t-test"><i class="fa fa-check"></i><b>6.2</b> Two-sample <em>t</em>-test</a></li>
+<li class="chapter" data-level="6.3" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g61"><i class="fa fa-check"></i><b>6.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.4" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#mann-whitney-test-aka-wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>6.4</b> Mann-Whitney test (aka Wilcoxon Rank-Sum test)</a></li>
+<li class="chapter" data-level="6.5" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g62"><i class="fa fa-check"></i><b>6.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.6" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summarizing-numerical-variables-by-group"><i class="fa fa-check"></i><b>6.6</b> Summarizing numerical variables by group</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#summary-measures-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.1</b> Summary measures of numerical variable by group</a></li>
+<li class="chapter" data-level="6.6.2" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#graphical-displays-of-numerical-variable-by-group"><i class="fa fa-check"></i><b>6.6.2</b> Graphical displays of numerical variable by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g63"><i class="fa fa-check"></i><b>6.7</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.8" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#transforming-a-numerical-variable"><i class="fa fa-check"></i><b>6.8</b> Transforming a numerical variable</a></li>
+<li class="chapter" data-level="6.9" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#g64"><i class="fa fa-check"></i><b>6.9</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="6.10" data-path="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html"><a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html#ch6"><i class="fa fa-check"></i><b>6.10</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html"><i class="fa fa-check"></i><b>7</b> Power &amp; Sample Size Estimation in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#goal-of-software-lesson-7"><i class="fa fa-check"></i><b>7.1</b> Goal of Software Lesson 7</a></li>
+<li class="chapter" data-level="7.2" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-and-sample-size-calculations"><i class="fa fa-check"></i><b>7.2</b> Power and Sample Size Calculations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#sample-size-estimation"><i class="fa fa-check"></i><b>7.2.1</b> Sample size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g71"><i class="fa fa-check"></i><b>7.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#power-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Power analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#g72"><i class="fa fa-check"></i><b>7.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="7.5" data-path="power-sample-size-estimation-in-r.html"><a href="power-sample-size-estimation-in-r.html#ch7"><i class="fa fa-check"></i><b>7.5</b> CHALLENGES</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="project-1-in-r.html"><a href="project-1-in-r.html"><i class="fa fa-check"></i><b>8</b> Project 1 in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="project-1-in-r.html"><a href="project-1-in-r.html#goal-of-software-lesson-8"><i class="fa fa-check"></i><b>8.1</b> Goal of Software Lesson 8</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova-in-r.html"><a href="anova-in-r.html"><i class="fa fa-check"></i><b>9</b> ANOVA in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova-in-r.html"><a href="anova-in-r.html#goal-of-software-lesson-9"><i class="fa fa-check"></i><b>9.1</b> Goal of Software Lesson 9</a></li>
+<li class="chapter" data-level="9.2" data-path="anova-in-r.html"><a href="anova-in-r.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9.3" data-path="anova-in-r.html"><a href="anova-in-r.html#g91"><i class="fa fa-check"></i><b>9.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.4" data-path="anova-in-r.html"><a href="anova-in-r.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova-in-r.html"><a href="anova-in-r.html#bonferroni"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova-in-r.html"><a href="anova-in-r.html#g92"><i class="fa fa-check"></i><b>9.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-in-r.html"><a href="anova-in-r.html#ch9"><i class="fa fa-check"></i><b>9.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Relative Risk and Odds Ratios &amp; More Summarizing Categorical Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#goal-of-software-lesson-10"><i class="fa fa-check"></i><b>10.1</b> Goal of Software Lesson 10</a></li>
+<li class="chapter" data-level="10.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#comparing-two-categorical-variables"><i class="fa fa-check"></i><b>10.2</b> Comparing two categorical variables</a></li>
+<li class="chapter" data-level="10.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#summarizing-two-categorical-variables"><i class="fa fa-check"></i><b>10.3</b> Summarizing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#x2-tables"><i class="fa fa-check"></i><b>10.3.1</b> 2x2 tables</a></li>
+<li class="chapter" data-level="10.3.2" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#graphical-displays-of-a-categorical-variable-by-group"><i class="fa fa-check"></i><b>10.3.2</b> Graphical displays of a categorical variable by group</a></li>
+<li class="chapter" data-level="10.3.3" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#risk-difference-relative-risk-and-odds-ratio"><i class="fa fa-check"></i><b>10.3.3</b> Risk difference, relative risk, and odds ratio</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g101"><i class="fa fa-check"></i><b>10.4</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#modifying-categorical-labels"><i class="fa fa-check"></i><b>10.4.1</b> Modifying categorical labels</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#g102"><i class="fa fa-check"></i><b>10.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="10.6" data-path="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html"><a href="relative-risk-and-odds-ratios-more-summarizing-categorical-data-in-r.html#ch10"><i class="fa fa-check"></i><b>10.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><i class="fa fa-check"></i><b>11</b> Chi-Square Test, Fisher’s Exact Test, and McNemar’s Test in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#goal-of-software-lesson-11"><i class="fa fa-check"></i><b>11.1</b> Goal of Software Lesson 11</a></li>
+<li class="chapter" data-level="11.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#hypothesis-test-comparing-two-categorical-variables"><i class="fa fa-check"></i><b>11.2</b> Hypothesis test comparing two categorical variables</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#chi-square-test"><i class="fa fa-check"></i><b>11.2.1</b> Chi-square test</a></li>
+<li class="chapter" data-level="11.2.2" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#fishers-exact-test"><i class="fa fa-check"></i><b>11.2.2</b> Fisher’s exact test</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g111"><i class="fa fa-check"></i><b>11.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.4" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#mcnemars-test-for-paired-data"><i class="fa fa-check"></i><b>11.4</b> McNemar’s test for paired data</a></li>
+<li class="chapter" data-level="11.5" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#g112"><i class="fa fa-check"></i><b>11.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="11.6" data-path="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html"><a href="chi-square-test-fishers-exact-test-and-mcnemars-test-in-r.html#ch11"><i class="fa fa-check"></i><b>11.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>12</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#goal-of-software-lesson-12"><i class="fa fa-check"></i><b>12.1</b> Goal of Software Lesson 12</a></li>
+<li class="chapter" data-level="12.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#relationship-between-two-numerical-variables"><i class="fa fa-check"></i><b>12.2</b> Relationship between two numerical variables</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#scatterplot"><i class="fa fa-check"></i><b>12.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="12.2.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#correlation"><i class="fa fa-check"></i><b>12.2.2</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g121"><i class="fa fa-check"></i><b>12.3</b> GUIDED QUESTIONS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.3.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="12.3.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#draw-line-of-best-fit"><i class="fa fa-check"></i><b>12.3.2</b> Draw line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#g122"><i class="fa fa-check"></i><b>12.4</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="12.5" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#subsetting-a-data-set"><i class="fa fa-check"></i><b>12.5</b> Subsetting a data set</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-1"><i class="fa fa-check"></i><b>12.5.1</b> Option #1</a></li>
+<li class="chapter" data-level="12.5.2" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#option-2"><i class="fa fa-check"></i><b>12.5.2</b> Option #2</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="correlation-and-simple-linear-regression-in-r.html"><a href="correlation-and-simple-linear-regression-in-r.html#ch12"><i class="fa fa-check"></i><b>12.6</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html"><i class="fa fa-check"></i><b>13</b> Correlation and Simple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#goal-of-software-lesson-13"><i class="fa fa-check"></i><b>13.1</b> Goal of Software Lesson 13</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#inference-for-simple-linear-regression"><i class="fa fa-check"></i><b>13.1.1</b> Inference for Simple Linear Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#p-values-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.2</b> <em>p</em>-values for regression coefficients</a></li>
+<li class="chapter" data-level="13.1.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#confidence-intervals-for-regression-coefficients"><i class="fa fa-check"></i><b>13.1.3</b> Confidence intervals for regression coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#g131"><i class="fa fa-check"></i><b>13.2</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="13.3" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#model-diagnostics"><i class="fa fa-check"></i><b>13.3</b> Model diagnostics</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#diagnostic-plots"><i class="fa fa-check"></i><b>13.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correlation-and-simple-linear-regression-in-r-1.html"><a href="correlation-and-simple-linear-regression-in-r-1.html#ch13"><i class="fa fa-check"></i><b>13.4</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html"><i class="fa fa-check"></i><b>14</b> Multiple Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#goal-of-software-lesson-14"><i class="fa fa-check"></i><b>14.1</b> Goal of Software Lesson 14</a></li>
+<li class="chapter" data-level="14.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>14.2</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.1</b> Scatterplot with a categorical variable</a></li>
+<li class="chapter" data-level="14.2.2" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#add-best-fit-lines-to-scatterplot-with-a-categorical-variable"><i class="fa fa-check"></i><b>14.2.2</b> Add best-fit lines to scatterplot with a categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g141"><i class="fa fa-check"></i><b>14.3</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.4" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#multiple-linear-regression-model"><i class="fa fa-check"></i><b>14.4</b> Multiple linear regression model</a></li>
+<li class="chapter" data-level="14.5" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#g142"><i class="fa fa-check"></i><b>14.5</b> GUIDED QUESTIONS</a></li>
+<li class="chapter" data-level="14.6" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>14.6</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="14.7" data-path="multiple-linear-regression-in-r.html"><a href="multiple-linear-regression-in-r.html#ch14"><i class="fa fa-check"></i><b>14.7</b> CHALLENGE QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-answer-key.html"><a href="r-answer-key.html"><i class="fa fa-check"></i>R Answer Key</a>
+<ul>
+<li class="chapter" data-level="14.8" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-1"><i class="fa fa-check"></i><b>14.8</b> Software Lesson 1 Guided Questions</a></li>
+<li class="chapter" data-level="14.9" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-2"><i class="fa fa-check"></i><b>14.9</b> Software Lesson 2 Guided Questions</a></li>
+<li class="chapter" data-level="14.10" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-3"><i class="fa fa-check"></i><b>14.10</b> Software Lesson 3 Guided Questions</a></li>
+<li class="chapter" data-level="14.11" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-4"><i class="fa fa-check"></i><b>14.11</b> Software Lesson 4 Guided Questions</a></li>
+<li class="chapter" data-level="14.12" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-5"><i class="fa fa-check"></i><b>14.12</b> Software Lesson 5 Guided Questions</a></li>
+<li class="chapter" data-level="14.13" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-6"><i class="fa fa-check"></i><b>14.13</b> Software Lesson 6 Guided Questions</a></li>
+<li class="chapter" data-level="14.14" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-7"><i class="fa fa-check"></i><b>14.14</b> Software Lesson 7 Guided Questions</a></li>
+<li class="chapter" data-level="14.15" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-8"><i class="fa fa-check"></i><b>14.15</b> Software Lesson 8 Guided Questions</a></li>
+<li class="chapter" data-level="14.16" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-9"><i class="fa fa-check"></i><b>14.16</b> Software Lesson 9 Guided Questions</a></li>
+<li class="chapter" data-level="14.17" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-10"><i class="fa fa-check"></i><b>14.17</b> Software Lesson 10 Guided Questions</a></li>
+<li class="chapter" data-level="14.18" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-11"><i class="fa fa-check"></i><b>14.18</b> Software Lesson 11 Guided Questions</a></li>
+<li class="chapter" data-level="14.19" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-12"><i class="fa fa-check"></i><b>14.19</b> Software Lesson 12 Guided Questions</a></li>
+<li class="chapter" data-level="14.20" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-13"><i class="fa fa-check"></i><b>14.20</b> Software Lesson 13 Guided Questions</a></li>
+<li class="chapter" data-level="14.21" data-path="r-answer-key.html"><a href="r-answer-key.html#answers-14"><i class="fa fa-check"></i><b>14.21</b> Software Lesson 14 Guided Questions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">6450 Answer Keys - R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hypothesis-test-for-a-mean-in-r" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Software Lesson 5</span> Hypothesis Test for a Mean in R<a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goal-of-software-lesson-5" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Goal of Software Lesson 5<a href="hypothesis-test-for-a-mean-in-r.html#goal-of-software-lesson-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="graybox">
+<p>The goal of this software lesson is to learn how to</p>
+<ul>
+<li>obtain test statistics and -values for carrying out a hypothesis test for a mean,</li>
+<li>obtain inferential results (e.g., CIs and <i>p</i>-values) for a mean difference when the data are paired, and</li>
+<li>reclassify a variable (continuous or categorical).</li>
+</ul>
+</div>
+<p><br>
+Let’s use the Lung Health Study (LHS) data set again.</p>
+<p>Recall that the data set and a description of data can be found on Canvas, titled <em>lhs.csv</em> and <em>lhsdoc.docx</em>, respectively.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb43-1" tabindex="-1"></a>lhs<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="at">file =</span> <span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="hypothesis-test-for-a-mean" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Hypothesis test for a mean<a href="hypothesis-test-for-a-mean-in-r.html#hypothesis-test-for-a-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In a previous software lesson, you learned how to estimate a population mean by computing a confidence interval for that parameter. In that lesson, you estimated the population mean weight change from baseline to final visit after starting treatment.</p>
+<p>Now suppose instead of <em>estimating</em> the population mean, you want to <strong>test</strong> a particular claim about the population mean. The LHS variable that will be the focus in this section is the same variable you obtained an estimate for in the previous software lesson: the variable for weight change (kg) from baseline to 5th annual visit, <code>wgtchg05</code>.</p>
+<p>The question that you will be trying to answer here is:</p>
+<center>
+<i>Was there a change in the population mean weight between baseline and the final visit after starting treatment? (i.e., <span class="math inline">\(\mu = 0\)</span>)</i>
+</center>
+<p><br></p>
+<ul>
+<li>To carry out a hypothesis test for a mean (when Central Limit Theorem holds), use the <code>t.test()</code> function, specifying the variable of interest, the confidence level (e.g., <code>conf.level=0.95</code>), the appropriate null value (e.g., <code>mu=0</code>), and the appropriate alternative hypothesis (e.g., <code>alternative="two.sided"</code>):</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb44-1" tabindex="-1"></a><span class="fu">t.test</span>(lhs<span class="sc">$</span>wgtchg05, <span class="at">conf.level=</span><span class="fl">0.95</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<p>The <code>t.test()</code> function outputs both a hypothesis test for a mean (<em>t</em>-test statistic, degrees of freedom, and <em>p</em>-value) as well as the <span class="math inline">\(C\%\)</span> confidence interval for a mean, where <span class="math inline">\(C\%\)</span> is the defined confidence level.</p>
+<p>The default/pre-set values for the arguments in the <code>t.test()</code> function are</p>
+<ul>
+<li><p><code>conf.level=0.95</code>,</p></li>
+<li><p><code>mu=0</code> (i.e., <span class="math inline">\(\mu=0\)</span>), and</p></li>
+<li><p><code>alternative="two.sided"</code>.</p></li>
+</ul>
+<p>If those are the values that you need for your test, then you can leave these arguments out of the function.</p>
+<p>Try it out!</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb45-1" tabindex="-1"></a><span class="fu">t.test</span>(lhs<span class="sc">$</span>wgtchg05)</span></code></pre></div>
+<p>However, if you have a different confidence level, null value, or alternative hypothesis direction, then you need to include those additional arguments in the function.</p>
+<p>Plausible values that might be used to modify the confidence level include <code>0.90</code> (when you want a <span class="math inline">\(90\%\)</span> CI) or <code>0.99</code> (when you want a <span class="math inline">\(99\%\)</span> CI).</p>
+<p>The null value that you input into the <code>mu=value</code> argument depends on the value specified in the null hypothesis for the scenario.</p>
+<p>Lastly, the other two options that can be used in the <code>alternative=</code> argument are <code>"less"</code> and <code>"greater"</code>, depending on how the alternative hypothesis is specified for the scenario.</p>
+<div class="bluebox">
+<p><strong>HYPOTHESIS TEST FOR A MEAN</strong></p>
+<b>Purpose:</b> To evaluate a particular claim about the population mean by using our sample data as evidence.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on carrying out a hypothesis test for a mean, see:</p>
+<ul>
+<li><a href="http://www.sthda.com/english/wiki/one-sample-t-test-in-r">One-Sample T-test in R [STHDA].</a></li>
+<li><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual12.html">t-tests for means of measurement outcomes [BU-SPH].</a></li>
+<li><a href="http://www.instantr.com/2012/12/29/performing-a-one-sample-t-test-in-r/">Performing a one-sample t-test in R [Instant R].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+<div id="g51" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> GUIDED QUESTIONS<a href="hypothesis-test-for-a-mean-in-r.html#g51" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-1-4" class="section level5 hasAnchor" number="5.3.0.0.1">
+<h5><span class="header-section-number">5.3.0.0.1</span> Question 1<a href="hypothesis-test-for-a-mean-in-r.html#question-1-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the sample mean weight change between baseline to 5th annual visit?</p>
+</div>
+<div id="question-2-4" class="section level5 hasAnchor" number="5.3.0.0.2">
+<h5><span class="header-section-number">5.3.0.0.2</span> Question 2<a href="hypothesis-test-for-a-mean-in-r.html#question-2-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the test statistic and the degrees of freedom from the <em>t</em>-test that tested whether the population mean weight change between baseline to 5th annual visit was different from 0?</p>
+</div>
+<div id="question-3-4" class="section level5 hasAnchor" number="5.3.0.0.3">
+<h5><span class="header-section-number">5.3.0.0.3</span> Question 3<a href="hypothesis-test-for-a-mean-in-r.html#question-3-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the resulting <em>p</em>-value from the <em>t</em>-test?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-5">14.12</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="paired-t-test" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Paired <em>t</em>-test<a href="hypothesis-test-for-a-mean-in-r.html#paired-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the LHS study, which was a smoking intervention study, the researchers could be interested in seeing if there was a change in salivary cotinine between the 5th (and last) annual visit (<code>COT5</code>) and baseline (<code>COT0</code>), regardless of the intervention group. This situation can be viewed as a paired data situation because there is a “pre” measurement/variable (baseline) and a “post” measurement/variable (5th visit).</p>
+<p>The following would be their research question:</p>
+<center>
+<i>Is the population mean change in salivary cotinine between baseline to 5th annual visit different from 0?</i>
+</center>
+<p><br></p>
+<p>To answer the research question, you would compute a confidence interval to estimate the population mean change and also carry out a hypothesis test for the population mean change. Both of these can be calculated by using the <code>t.test()</code> function (provided that the assumptions for the <i>t</i>-test are valid for the situation).</p>
+<p>To carry out a hypothesis test for a mean difference (paired data), there are two options available. In the first option, you would include both variables (pre and post) in the <code>t.test()</code> function but also include an additional argument telling R that the data is paired. In the second option, you would create a new variable of the difference and then use that new variable in the <code>t.test()</code> function.</p>
+<p><strong>Option #1</strong></p>
+<ul>
+<li>To carry out a hypothesis test for a mean difference (paired data), use the <code>t.test()</code> function, specifying the two variables of interest, the confidence level (e.g., <code>conf.level=0.95</code>), the appropriate null value (e.g., <code>mu=0</code>), the appropriate alternative hypothesis (e.g., <code>alternative="two.sided"</code>), and the paired nature of the variables (e.g., <code>paired=TRUE</code>):</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb46-1" tabindex="-1"></a><span class="fu">t.test</span>(lhs<span class="sc">$</span>COT5, lhs<span class="sc">$</span>COT0, <span class="at">conf.level=</span><span class="fl">0.95</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>, <span class="at">paired=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The output for the paired <em>t</em>-test will look very similar to the output when you used <code>t.test()</code> to obtain inferential results for a single mean.</p>
+<p>Also notice that all of the usual arguments that you learned previously also apply here (e.g., <code>conf.level=</code>, <code>mu=</code>, <code>alternative=</code>).</p>
+<p><strong>Option #2</strong></p>
+<ul>
+<li>To carry out a hypothesis test for a mean difference (paired data), first, create a <strong>new</strong> variable in the data set (e.g., <code>lhs$cot5diff</code>), followed by the assignment operator (<code>&lt;-</code>), and then take the difference between the two paired variables. Then, use the <code>t.test()</code> function, specifying the variable of interest, the confidence level (e.g., <code>conf.level=0.95</code>), the appropriate null value (e.g., <code>mu=0</code>), and the appropriate alternative hypothesis (e.g., <code>alternative="two.sided"</code>):</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb47-1" tabindex="-1"></a><span class="do">####Creating the change variable</span></span>
+<span id="cb47-2"><a href="hypothesis-test-for-a-mean-in-r.html#cb47-2" tabindex="-1"></a>lhs<span class="sc">$</span>cot5diff<span class="ot">&lt;-</span>lhs<span class="sc">$</span>COT5<span class="sc">-</span>lhs<span class="sc">$</span>COT0</span>
+<span id="cb47-3"><a href="hypothesis-test-for-a-mean-in-r.html#cb47-3" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="hypothesis-test-for-a-mean-in-r.html#cb47-4" tabindex="-1"></a><span class="do">####Carrying out the one-sample t-test on the change variable</span></span>
+<span id="cb47-5"><a href="hypothesis-test-for-a-mean-in-r.html#cb47-5" tabindex="-1"></a><span class="fu">t.test</span>(lhs<span class="sc">$</span>cot5diff, <span class="at">conf.level=</span><span class="fl">0.95</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<p><br></p>
+<div class="bluebox">
+<p><strong>PAIRED T-TEST</strong></p>
+<b>Purpose:</b> To make an inference (CI or hypothesis testing) about the population mean change when there is paired data (e.g., pre/post measurements on an individual).
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on carrying out a hypothesis test for a mean difference (paired data), see:</p>
+<ul>
+<li><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual11.html#headingtaglink_8">Confidence Interval for a Mean Difference, Paired Samples [BU-SPH].</a></li>
+<li><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R-Manual/R-Manual12.html#headingtaglink_5">The Paired Samples t-test [BU-SPH].</a></li>
+<li><a href="http://www.sthda.com/english/wiki/paired-samples-t-test-in-r">Paired Samples t-test in R [STHDA].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+<div id="g52" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> GUIDED QUESTIONS<a href="hypothesis-test-for-a-mean-in-r.html#g52" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-4-4" class="section level5 hasAnchor" number="5.5.0.0.1">
+<h5><span class="header-section-number">5.5.0.0.1</span> Question 4<a href="hypothesis-test-for-a-mean-in-r.html#question-4-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the mean value for the difference between the salivary cotinine level at the 5th visit and the salivary cotinine level at baseline? Which visit had the higher salivary cotinine level, on average?</p>
+</div>
+<div id="question-5-2" class="section level5 hasAnchor" number="5.5.0.0.2">
+<h5><span class="header-section-number">5.5.0.0.2</span> Question 5<a href="hypothesis-test-for-a-mean-in-r.html#question-5-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>If the significance level is 0.05 and the test is two-tailed, do the arguments of <code>conf.level=0.95</code> and <code>alternative="two.sided"</code> need to be specified in the <code>t.test()</code> function? Why or why not? [Hint: Try running the code above with and without these arguments.]</p>
+</div>
+<div id="question-6-2" class="section level5 hasAnchor" number="5.5.0.0.3">
+<h5><span class="header-section-number">5.5.0.0.3</span> Question 6<a href="hypothesis-test-for-a-mean-in-r.html#question-6-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the <span class="math inline">\(95\%\)</span> confidence interval for the population mean change in salivary cotinine between baseline to 5th annual visit?</p>
+</div>
+<div id="question-7-2" class="section level5 hasAnchor" number="5.5.0.0.4">
+<h5><span class="header-section-number">5.5.0.0.4</span> Question 7<a href="hypothesis-test-for-a-mean-in-r.html#question-7-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the test statistic and the degrees of freedom from the <em>t</em>-test that tested whether population mean change in salivary cotinine between baseline to 5th annual visit was different from 0? What is the resulting <em>p</em>-value from that test?</p>
+</div>
+<div id="question-8-2" class="section level5 hasAnchor" number="5.5.0.0.5">
+<h5><span class="header-section-number">5.5.0.0.5</span> Question 8<a href="hypothesis-test-for-a-mean-in-r.html#question-8-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Why was the <code>paired=TRUE</code> argument not specified in the following line of code: <code>t.test(lhs$cot5diff, conf.level=0.95, mu=0, alternative="two.sided")</code>?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-5">14.12</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="reclassify-a-variable" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Reclassify a variable<a href="hypothesis-test-for-a-mean-in-r.html#reclassify-a-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are situations where you might need to reclassify a numerical variable as a categorical one, or recode categories within a categorical variable.</p>
+<div id="reclassify-numerical-variable-as-categorical-variable" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Reclassify numerical variable as categorical variable<a href="hypothesis-test-for-a-mean-in-r.html#reclassify-numerical-variable-as-categorical-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s learn how to reclassify a numerical variable from the LHS data set (breathing test value at the 3rd annual visit, <code>FEVFVC3</code>) into a categorical variable. Suppose that you want to turn this variable into a binary variable: <code>normal</code> lung function and <code>abnormal</code> lung function. Based on guidelines, an individual’s lung function is considered “normal” if the ratio between FEV1 and FVC is equal to or greater than <span class="math inline">\(70\%\)</span> (i.e., <span class="math inline">\(\frac{FEV_1}{FVC} \ge 70\%\)</span> ). Conversely, an individual’s lung function is considered “abnormal” if the ratio is less than <span class="math inline">\(70\%\)</span> (i.e., <span class="math inline">\(\frac{FEV_1}{FVC} &lt; 70\%\)</span>).</p>
+<ul>
+<li>To reclassify a numerical variable into a categorical one, create a <strong>new</strong> variable in the data set (e.g., <code>lhs$lung.fxn</code>), followed by the assignment operator (<code>&lt;-</code>), and then use the <code>cut()</code> function, specifying the variable of interest to be converted, the cut-off values in the numerical variable (e.g., <code>breaks=c(0, 69.99999999, 100)</code>), and the labels for the categories (e.g. <code>labels=c("abnormal","normal")</code>):</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb48-1" tabindex="-1"></a>lhs<span class="sc">$</span>lung.fxn<span class="ot">&lt;-</span><span class="fu">cut</span>(lhs<span class="sc">$</span>FEVFVC3, </span>
+<span id="cb48-2"><a href="hypothesis-test-for-a-mean-in-r.html#cb48-2" tabindex="-1"></a>                  <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">69.99999999</span>, <span class="dv">100</span>), </span>
+<span id="cb48-3"><a href="hypothesis-test-for-a-mean-in-r.html#cb48-3" tabindex="-1"></a>                  <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;abnormal&quot;</span>,<span class="st">&quot;normal&quot;</span>))</span></code></pre></div>
+<p>The <code>breaks=</code> argument specifies the cut-offs for how you want to recode the variable. To figure out how many values should be included in the <code>breaks=</code> argument:</p>
+<ul>
+<li><p>If you are creating two categories, you would specify three break values.</p></li>
+<li><p>If you are creating three categories, you would specify four break values.</p></li>
+<li><p>etc.</p></li>
+</ul>
+<p>In the <code>FEVFVC3</code> variable, the minimum value for the ratio is 0 and the maximum is 100. Since you want 70 or greater to be labeled as “normal”, you should set the cut-off mark in the code as a number less than but very close to 70 (e.g., 69.99999999). That way, the <code>abnormal</code> group consists of ratio values between 0 and 69.99999999 and the <code>normal</code> group consists of ratio values between 70 and 100.</p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>It’s good practice to view the first few rows of the data to make sure that the software carried out the reclassification as you intended. To refresh you memory on how to view the first few rows, review Software Lesson 1.</p>
+</div>
+<p><br></p>
+</div>
+<div id="recode-categories-in-a-categorical-variable" class="section level3 hasAnchor" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> Recode categories in a categorical variable<a href="hypothesis-test-for-a-mean-in-r.html#recode-categories-in-a-categorical-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose you want to <strong>recode</strong> a categorical variable so that “Yes” is labeled as 1 and “No” is labeled as 0. (Note: The 0/1 dummy coding is typically how binary variables are denoted, but it is not always the case.) In the LHS data set, the <code>f060pipe</code> variable, which represents smoking a pipe at the 1st annual visit, is coded not as one would expect: 1=Yes and 2=No. Let’s recode this variable so that 1=Yes and 0=No. </p>
+<p><strong>Option #1: Using <code>mapvalues()</code> function</strong></p>
+<ul>
+<li>To recode categories within a categorical variable, create a <strong>new</strong> variable in the data set, followed by the assignment operator (<code>&lt;-</code>), and then use the <code>mapvalues()</code> function from the <code>{plyr}</code> package, specifying the variable of interest to be converted, what the original values were (e.g., <code>from=c(1, 2)</code>), and how to recode the values (e.g., <code>to=c(1, 0)</code>):</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-1" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb49-2"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-2" tabindex="-1"></a><span class="co"># Run the install.packages() function only once per package</span></span>
+<span id="cb49-3"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-3" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb49-4"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</span>
+<span id="cb49-5"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-5" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-6" tabindex="-1"></a><span class="do">###Access the package using the library() function</span></span>
+<span id="cb49-7"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-7" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
+<span id="cb49-8"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-8" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-9" tabindex="-1"></a><span class="do">###Recode categories using the mapvalues() function</span></span>
+<span id="cb49-10"><a href="hypothesis-test-for-a-mean-in-r.html#cb49-10" tabindex="-1"></a>lhs<span class="sc">$</span>pipe1<span class="ot">&lt;-</span><span class="fu">mapvalues</span>(lhs<span class="sc">$</span>f060pipe, <span class="at">from=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>The order of the values in the <code>from=</code> and <code>to=</code> arguments matter. The first element in <code>from=</code> corresponds to the first element in <code>to=</code>, the second element to the second element, and so on.</p>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>The <bdi style = "font-family: 'Courier New'"> c()</bdi> function has been used a few times in this software lesson. Recall that the <bdi style = "font-family: 'Courier New'"> c()</bdi> function is used when there are multiple values that have to be specified.</p>
+</div>
+<p><br></p>
+<p><strong>Option #2: Using <code>ifelse()</code> function</strong></p>
+<ul>
+<li>To recode categories within a categorical variable, create a <strong>new</strong> variable in the data set, followed by the assignment operator (<code>&lt;-</code>), and then use the <code>ifelse()</code> function, specifying the variable to be converted and the condition to check, then the new value if the condition is true, and lastly the new value if the condition is false:</li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="hypothesis-test-for-a-mean-in-r.html#cb50-1" tabindex="-1"></a><span class="do">###Recode categories as values</span></span>
+<span id="cb50-2"><a href="hypothesis-test-for-a-mean-in-r.html#cb50-2" tabindex="-1"></a>lhs<span class="sc">$</span>pipe10<span class="ot">&lt;-</span><span class="fu">ifelse</span>(lhs<span class="sc">$</span>f060pipe <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb50-3"><a href="hypothesis-test-for-a-mean-in-r.html#cb50-3" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="hypothesis-test-for-a-mean-in-r.html#cb50-4" tabindex="-1"></a><span class="do">###Recode categories as text</span></span>
+<span id="cb50-5"><a href="hypothesis-test-for-a-mean-in-r.html#cb50-5" tabindex="-1"></a>lhs<span class="sc">$</span>pipe10f<span class="ot">&lt;-</span><span class="fu">ifelse</span>(lhs<span class="sc">$</span>f060pipe <span class="sc">==</span> <span class="dv">2</span>, <span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)</span></code></pre></div>
+<div class="redbox">
+<p><strong>R TIP</strong></p>
+<p>As before, it’s good practice to check to make sure the recoding is done correctly. One way to do this when recoding categories of a categorical variable is examine a 2x2 table of the two variables: <bdi style = "font-family: 'Courier New'"> table(data$new_var, data$old_var)</bdi>.</p>
+</div>
+<p><br></p>
+<div class="bluebox">
+<p><strong>RECLASSIFY A VARIABLE</strong></p>
+<b>Purpose:</b> To turn a numerical variable into a categorical one, or recode categories within a categorical variable.
+<br>
+<div style="border-bottom: 1px dashed black">
+
+</div>
+<p><br></p>
+<p>For additional R resources on reclassifying a variable, see:</p>
+<ul>
+<li><a href="http://www.cookbook-r.com/Manipulating_data/Recoding_data/">Recoding Data [Cookbook for R].</a></li>
+</ul>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="g53" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> GUIDED QUESTIONS<a href="hypothesis-test-for-a-mean-in-r.html#g53" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-9-2" class="section level5 hasAnchor" number="5.7.0.0.1">
+<h5><span class="header-section-number">5.7.0.0.1</span> Question 9<a href="hypothesis-test-for-a-mean-in-r.html#question-9-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Why are quotes placed around the labels <code>abnormal</code> and <code>normal</code> in the <code>cut()</code> function?</p>
+</div>
+<div id="question-10-1" class="section level5 hasAnchor" number="5.7.0.0.2">
+<h5><span class="header-section-number">5.7.0.0.2</span> Question 10<a href="hypothesis-test-for-a-mean-in-r.html#question-10-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>If you were reclassifying a numerical variable into five categories, how many values would you need to specify in the <code>breaks=</code> argument?</p>
+</div>
+<div id="question-11-1" class="section level5 hasAnchor" number="5.7.0.0.3">
+<h5><span class="header-section-number">5.7.0.0.3</span> Question 11<a href="hypothesis-test-for-a-mean-in-r.html#question-11-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>What is the name of the new variable in the LHS data set when the categories of the variable <code>f060pipe</code> was recoded?</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-5">14.12</a> for answers</p>
+</div>
+</div>
+</div>
+<div id="ch5" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> CHALLENGES<a href="hypothesis-test-for-a-mean-in-r.html#ch5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-12-1" class="section level5 hasAnchor" number="5.8.0.0.1">
+<h5><span class="header-section-number">5.8.0.0.1</span> Question 12<a href="hypothesis-test-for-a-mean-in-r.html#question-12-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>There is evidence that on average, people gain weight after quitting smoking. Suppose the researchers wanted to test whether there was a increase in mean weight change one year after starting treatment (<code>wgtchg01</code>). Carry out the appropriate hypothesis test for the population mean of this variable.</p>
+</div>
+<div id="question-13-1" class="section level5 hasAnchor" number="5.8.0.0.2">
+<h5><span class="header-section-number">5.8.0.0.2</span> Question 13<a href="hypothesis-test-for-a-mean-in-r.html#question-13-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Reclassify the numerical variable for weight change (kg) from baseline to first annual visit, <code>wgtchg01</code>, as a categorical variable with three categories: <code>lost wt</code>,<code>no change</code>, and <code>gained wt</code>.</p>
+<div class="graybox">
+<p>See <a href="r-answer-key.html#answers-chal-5">14.12.0.1</a> for answers</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="confidence-intervals-for-a-mean-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inferential-methods-for-comparing-means-more-summarizing-numerical-data-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
